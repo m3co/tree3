@@ -1,0 +1,17 @@
+{
+  "name": "tree3",
+  "homepage": "https://github.com/m3co/tree3",
+  "authors": [
+    "Andres Rios <rianby64@gmail.com>"
+  ],
+  "description": "A simple tree tag",
+  "main": "tree3.js",
+  "license": "ISC",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
