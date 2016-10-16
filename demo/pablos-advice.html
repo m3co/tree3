@@ -1,0 +1,77 @@
+<!-- 2014/05/01 9:31:11 - Minimal css for clickable pure CSS/HTML collapsible tree menu  -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--[if lt IE 9]>
+    <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
+    <![endif]-->
+    <meta charset="utf-8">
+    <link href="/demo/pablos-advice-menu.css" rel="stylesheet" type="text/css" />
+  </head>
+
+
+  <body>
+
+    <ol id="menutree">
+      <li>
+
+        <label class="menu_label" for="c1">Menu Gen14 Am0a1</label>
+        <input type="checkbox" id="c1" />                             <!-- input must follow label for safari -->
+        <ol>
+          <li>
+            <label for="c2" class="menu_label">Menu Am1a1</label>
+            <input type="checkbox" id="c2" />
+            <ol>
+              <li class="page"><a href="#">Page Ap1a1</a></li>
+              <li class="page"><a href="#">Page Ap1a2</a></li>
+              <li class="page"><a href="#">Page Ap1a3</a></li>
+            </ol>
+          </li>
+          <li>
+            <label for="c3" class="menu_label">Menu Am1b1</label>
+            <input type="checkbox" id="c3" />
+            <ol>
+              <li class="page"><a href="#">Page Ap1b1</a></li>
+
+              <li>
+                <label for="c4" class="menu_label">Menu Am2b1 </label>
+                <input type="checkbox" id="c4" />
+                <ol>
+                  <li class="page"><a href="#">Page Ap2b1</a></li>
+              </ol></li>
+          </ol></li>
+      </ol></li>
+
+      <li>
+        <label class="menu_label" for="c5">Menu Bm0a1</label>
+        <input type="checkbox" id="c5" />
+        <ol>
+          <li>
+            <label for="c6" class="menu_label">Menu Bm1a1</label>
+            <input type="checkbox" id="c6" />
+            <ol>
+              <li class="page"><a href="#">Page Bp1a1</a></li>
+            </ol>
+          </li>
+          <li>
+            <label for="c7" class="menu_label">Menu Bm1b1</label>
+            <input type="checkbox" id="c7" />
+            <ol>
+              <li class="page"><a href="#">Page Bp1b1</a></li>
+              <li>
+                <label for="c8" class="menu_label">Menu Bm2b1</label>
+                <input type="checkbox" id="c8" />
+                <ol>
+                  <li class="page"><a href="#">Page Bp2b1</a></li>
+              </ol></li>
+          </ol></li>
+      </ol></li>
+
+    </ol>
+
+
+  </body>
+</html>
