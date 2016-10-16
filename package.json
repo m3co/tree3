@@ -1,0 +1,33 @@
+{
+  "name": "tree3",
+  "version": "0.0.1",
+  "description": "A simple tree tag",
+  "main": "tree3.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m3co/tree3.git"
+  },
+  "author": "Andres Rios <rianby64@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/m3co/tree3/issues"
+  },
+  "homepage": "https://github.com/m3co/tree3#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.16.0",
+    "bower": "^1.7.9",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-connect": "^5.0.0",
+    "gulp-csslint": "^1.0.0",
+    "gulp-eslint": "^3.0.1",
+    "gulp-htmlhint": "^0.3.1"
+  }
+}
