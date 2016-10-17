@@ -54,7 +54,7 @@
       </ul>
 
       <button class="mdl-list__item-secondary-action mdl-button mdl-js-button mdl-button--icon">
-        <i class="material-icons">expand_less</i>
+        <i class="material-icons">expand_more</i>
       </button>
     </li>
   </template>
@@ -80,6 +80,7 @@
       var threedots = clone.querySelector('[for="tree-menu-"]');
       threedots.setAttribute('for', `tree-menu-${i + 1}`);
       threedots.classList.add(direction);
+      threedots.querySelector('li').textContent += i + 1;
       ul.appendChild(clone);
     }
   </script>
