@@ -1,7 +1,7 @@
 /* Minimal css for clickable pure CSS collapsible tree menu */
 /* As specific as possible to prevent interference with other code */
 
-#menutree li {
+.menutree li {
   list-style: none;          /* all list item li dots invisible */
 }
 
