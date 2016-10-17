@@ -27,7 +27,7 @@
             <button class="mdl-button mdl-js-button mdl-button--icon">
               <i class="material-icons">add</i>
             </button>
-            Subitem
+            <span>Subitem</span>
           </li>
           <li class="mdl-menu__item">
             <button class="mdl-button mdl-js-button mdl-button--icon">
@@ -78,7 +78,7 @@
       var threedots = clone.querySelector('[for="tree-menu-"]');
       threedots.setAttribute('for', `tree-menu-${i + 1}`);
       threedots.classList.add(direction);
-      threedots.querySelector('li').textContent += i + 1;
+      threedots.querySelector('li > span').textContent += i + 1;
       ul.appendChild(clone);
     }
   </script>
