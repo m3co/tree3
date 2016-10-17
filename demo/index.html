@@ -23,7 +23,7 @@
         </button>
         <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"
           for="tree-menu-">
-          <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">
+          <li id="add-subitem" class="mdl-menu__item mdl-menu__item--full-bleed-divider">
             <button class="mdl-button mdl-js-button mdl-button--icon">
               <i class="material-icons">add</i>
             </button>
@@ -69,7 +69,6 @@
     addRow('mdl-menu--top-left');
     i++;
     addRow('mdl-menu--top-left');
-    i++;
 
     function addRow(direction) {
       var clone = document.importNode(tmpl.content, true);
@@ -78,7 +77,25 @@
       var threedots = clone.querySelector('[for="tree-menu-"]');
       threedots.setAttribute('for', `tree-menu-${i + 1}`);
       threedots.classList.add(direction);
-      threedots.querySelector('li > span').textContent += i + 1;
+      threedots.querySelector('li#add-subitem > span').textContent += i + 1;
+      threedots.querySelector('li#add-subitem').addEventListener('click', e => {
+
+        function search(parentNode, condition) {
+          if (parentNode == null) {
+            return null;
+          }
+          var tagName = condition.match(/< (.+):not.+/)[1].toUpperCase();
+          var id = condition.match(/:not\(#(.+)\)/)[1];
+          if (parentNode.tagName === tagName) {
+            if (parentNode.id !== id) {
+              return parentNode;
+            }
+          }
+          return search(parentNode.parentNode, condition);
+        }
+
+        var li = search(e.target, '< li:not(#add-subitem)');
+      });
       ul.appendChild(clone);
     }
   </script>
