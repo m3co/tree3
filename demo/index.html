@@ -81,21 +81,7 @@
       threedots.querySelector('li#add-subitem > span').textContent += i + 1;
       threedots.querySelector('li#add-subitem').addEventListener('click', e => {
 
-        function search(parentNode, condition) {
-          if (parentNode == null) {
-            return null;
-          }
-          var tagName = condition.match(/< (.+):not.+/)[1].toUpperCase();
-          var id = condition.match(/:not\(#(.+)\)/)[1];
-          if (parentNode.tagName === tagName) {
-            if (parentNode.id !== id) {
-              return parentNode;
-            }
-          }
-          return search(parentNode.parentNode, condition);
-        }
-
-        var li = search(e.target, '< li:not(#add-subitem)');
+        var li = e.target.closest('li:not(#add-subitem)');
         li.appendChild(document.importNode(document.querySelector('#tree-subitem').content, true));
         var ul = li.querySelector('ul.mdl-list');
         addRow('mdl-menu--bottom-left', ul);
