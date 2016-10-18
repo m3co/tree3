@@ -24,3 +24,7 @@
 .mdl-list .mdl-list .mdl-list__item:last-child {
   border-bottom: none;
 }
+
+ul.hidden {
+  display: none;
+}
