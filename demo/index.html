@@ -58,106 +58,20 @@
   </template>
 
   <template id="tree-subitem">
-    <ul class="mdl-list" style="width: 100%;">
-
-      <li class="mdl-list__item" style="flex-wrap: wrap;">
-        <span class="mdl-list__item-primary-content">
-          <button id="tree-submenu-1"
-            class="mdl-button mdl-js-button mdl-button--icon mdl-list__item-avatar">
-            <i class="material-icons">more_vert</i>
-          </button>
-          <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"
-            for="tree-submenu-1">
-            <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">
-              <button class="mdl-button mdl-js-button mdl-button--icon">
-                <i class="material-icons">add</i>
-              </button>
-              <span>Subitem</span>
-            </li>
-            <li class="mdl-menu__item">
-              <button class="mdl-button mdl-js-button mdl-button--icon">
-                <i class="material-icons">mode_edit</i>
-              </button>
-              Edit
-            </li>
-            <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">
-              <button class="mdl-button mdl-js-button mdl-button--icon">
-                <i class="material-icons">details</i>
-              </button>
-              Details
-            </li>
-            <li class="mdl-menu__item">
-              <button class="mdl-button mdl-js-button mdl-button--icon">
-                <i class="material-icons">delete</i>
-              </button>
-              Delete
-            </li>
-          </ul>
-          <span>Item </span>
-        </span>
-
-        <button class="mdl-list__item-secondary-action mdl-button mdl-js-button mdl-button--icon">
-          <i class="material-icons">expand_more</i>
-        </button>
-      </li>
-
-      <li class="mdl-list__item" style="flex-wrap: wrap;">
-        <span class="mdl-list__item-primary-content">
-          <button id="tree-submenu-2"
-            class="mdl-button mdl-js-button mdl-button--icon mdl-list__item-avatar">
-            <i class="material-icons">more_vert</i>
-          </button>
-          <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"
-            for="tree-submenu-2">
-            <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">
-              <button class="mdl-button mdl-js-button mdl-button--icon">
-                <i class="material-icons">add</i>
-              </button>
-              <span>Subitem</span>
-            </li>
-            <li class="mdl-menu__item">
-              <button class="mdl-button mdl-js-button mdl-button--icon">
-                <i class="material-icons">mode_edit</i>
-              </button>
-              Edit
-            </li>
-            <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">
-              <button class="mdl-button mdl-js-button mdl-button--icon">
-                <i class="material-icons">details</i>
-              </button>
-              Details
-            </li>
-            <li class="mdl-menu__item">
-              <button class="mdl-button mdl-js-button mdl-button--icon">
-                <i class="material-icons">delete</i>
-              </button>
-              Delete
-            </li>
-          </ul>
-          <span>Item </span>
-        </span>
-
-        <button class="mdl-list__item-secondary-action mdl-button mdl-js-button mdl-button--icon">
-          <i class="material-icons">expand_more</i>
-        </button>
-      </li>
-    </ul>
+    <ul class="mdl-list" style="width: 100%;"></ul>
   </template>
 
   <script>
     'use strict';
     var tmpl = document.querySelector('template#li-row');
     var ul = document.querySelector('ul');
-    for (var i = 0; i < 6; i++) {
-      addRow('mdl-menu--bottom-left');
+    var i, j = 0;
+    for (i = 0; i < 6; i++) {
+      addRow('mdl-menu--bottom-left', ul);
     }
-    addRow('mdl-menu--top-left');
-    i++;
-    addRow('mdl-menu--top-left');
-    i++;
-    addRow('mdl-menu--top-left');
 
-    function addRow(direction) {
+    function addRow(direction, ul) {
+      var i = j++;
       var clone = document.importNode(tmpl.content, true);
       clone.querySelector('#text').textContent += i + 1;
       clone.querySelector('#tree-menu-').id += i + 1;
@@ -182,8 +96,10 @@
         }
 
         var li = search(e.target, '< li:not(#add-subitem)');
-        var ul = document.importNode(document.querySelector('#tree-subitem').content, true);
-        li.appendChild(ul);
+        li.appendChild(document.importNode(document.querySelector('#tree-subitem').content, true));
+        var ul = li.querySelector('ul.mdl-list');
+        addRow('mdl-menu--bottom-left', ul);
+        window.componentHandler.upgradeDom();
       });
       ul.appendChild(clone);
     }
