@@ -89,16 +89,13 @@
         window.componentHandler.upgradeDom();
 
         var nestedBtn = ul.querySelector('.expand');
-
-        console.log(nestedBtn)
-
         nestedBtn.addEventListener('click', function(e) {
           expand(e);
         });
-        // icon.innerHTML = 'keyboard_arrow_up';
+
+        ul.parentNode.querySelector('.expand').textContent = 'keyboard_arrow_up';
       });
-      var icon = nestedBtn.querySelector('.materials-icon');
-      console.log(icon)
+
       ul.appendChild(clone);
     }
 
@@ -117,11 +114,12 @@
 
       if (nestedList) {
         if (nestedList.classList.contains('hidden')) {
+          console.log(icon.textContent)
           nestedList.classList.remove('hidden');
-          icon.innerHTML = 'keyboard_arrow_down';
+          icon.textContent = 'keyboard_arrow_down';
         } else {
           nestedList.classList.add('hidden');
-          icon.innerHTML = 'keyboard_arrow_up';
+          icon.textContent = 'keyboard_arrow_up';
         }
       }
 
