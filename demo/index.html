@@ -89,11 +89,16 @@
         window.componentHandler.upgradeDom();
 
         var nestedBtn = ul.querySelector('.expand');
+
+        console.log(nestedBtn)
+
         nestedBtn.addEventListener('click', function(e) {
           expand(e);
         });
+        // icon.innerHTML = 'keyboard_arrow_up';
       });
-
+      var icon = nestedBtn.querySelector('.materials-icon');
+      console.log(icon)
       ul.appendChild(clone);
     }
 
@@ -110,12 +115,14 @@
       var nestedList = parent.querySelector("ul:not(.mdl-menu)");
       var icon = e.currentTarget.querySelector('.material-icons');
 
-      if (nestedList.classList.contains('hidden')) {
-        nestedList.classList.remove('hidden');
-        icon.innerHTML = 'keyboard_arrow_down';
-      } else {
-        nestedList.classList.add('hidden');
-        icon.innerHTML = 'keyboard_arrow_up';
+      if (nestedList) {
+        if (nestedList.classList.contains('hidden')) {
+          nestedList.classList.remove('hidden');
+          icon.innerHTML = 'keyboard_arrow_down';
+        } else {
+          nestedList.classList.add('hidden');
+          icon.innerHTML = 'keyboard_arrow_up';
+        }
       }
 
     };
