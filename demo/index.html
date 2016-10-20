@@ -107,18 +107,17 @@
 
     function expand(e) {
       var parent = e.currentTarget.parentNode;
-      var nestedLists = parent.querySelectorAll('ul');
+      var nestedList = parent.querySelector("ul:not(.mdl-menu)");
       var icon = e.currentTarget.querySelector('.material-icons');
 
-      for (var j = 0; j < nestedLists.length; j++) {
-        if (nestedLists[j].classList.contains('hidden')) {
-          nestedLists[j].classList.remove('hidden');
-          icon.innerHTML = 'keyboard_arrow_down';
-        } else {
-          nestedLists[j].classList.add('hidden');
-          icon.innerHTML = 'keyboard_arrow_up';
-        }
+      if (nestedList.classList.contains('hidden')) {
+        nestedList.classList.remove('hidden');
+        icon.innerHTML = 'keyboard_arrow_down';
+      } else {
+        nestedList.classList.add('hidden');
+        icon.innerHTML = 'keyboard_arrow_up';
       }
+
     };
 
   </script>
