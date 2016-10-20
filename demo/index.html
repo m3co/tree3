@@ -53,7 +53,7 @@
       </span>
 
       <button class="expand mdl-list__item-secondary-action mdl-button mdl-js-button mdl-button--icon">
-        <i class="material-icons">expand_more</i>
+        <i class="material-icons">keyboard_arrow_down</i>
       </button>
     </li>
   </template>
@@ -89,7 +89,6 @@
         window.componentHandler.upgradeDom();
 
         var nestedBtn = ul.querySelector('.expand');
-
         nestedBtn.addEventListener('click', function(e) {
           expand(e);
         });
@@ -109,12 +108,15 @@
     function expand(e) {
       var parent = e.currentTarget.parentNode;
       var nestedLists = parent.querySelectorAll('ul');
+      var icon = e.currentTarget.querySelector('.material-icons');
 
       for (var j = 0; j < nestedLists.length; j++) {
         if (nestedLists[j].classList.contains('hidden')) {
           nestedLists[j].classList.remove('hidden');
+          icon.innerHTML = 'keyboard_arrow_down';
         } else {
           nestedLists[j].classList.add('hidden');
+          icon.innerHTML = 'keyboard_arrow_up';
         }
       }
     };
