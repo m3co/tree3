@@ -22,4 +22,3 @@ li .menu_label + input[type=checkbox]:checked + ol > li
 {
   display: block;         /* display submenu on click */
 }
-
