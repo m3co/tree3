@@ -16,7 +16,7 @@
   </body>
 
   <template id="li-row">
-    <li class="mdl-list__item" style="flex-wrap: wrap;">
+    <li class="mdl-list__item mdl-tree__item">
       <span class="mdl-list__item-primary-content">
         <button id="tree-menu-"
           class="mdl-button mdl-js-button mdl-button--icon mdl-list__item-avatar">
@@ -52,14 +52,14 @@
         <span id="text">Item </span>
       </span>
 
-      <button class="expand mdl-list__item-secondary-action mdl-button mdl-js-button mdl-button--icon">
-        <i class="material-icons">keyboard_arrow_down</i>
+      <button class="mdl-list__item-secondary-action mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">keyboard_arrow_up</i>
       </button>
     </li>
   </template>
 
   <template id="tree-subitem">
-    <ul class="mdl-list" style="width: 100%;"></ul>
+    <ul class="mdl-list mdl-tree"></ul>
   </template>
 
   <script>
@@ -88,18 +88,15 @@
         addRow('mdl-menu--bottom-left', ul);
         window.componentHandler.upgradeDom();
 
-        var nestedBtn = ul.querySelector('.expand');
-        nestedBtn.addEventListener('click', function(e) {
+        ul.querySelector('.mdl-list__item-secondary-action').addEventListener('click', function(e) {
           expand(e);
         });
-
-        ul.parentNode.querySelector('.expand').textContent = 'keyboard_arrow_up';
       });
 
       ul.appendChild(clone);
     }
 
-    var elements = document.querySelectorAll('.expand');
+    var elements = document.querySelectorAll('.mdl-list__item-secondary-action');
 
     for (var i = 0; i < elements.length; i++) {
       elements[i].addEventListener('click', function(e) {
@@ -110,16 +107,15 @@
     function expand(e) {
       var parent = e.currentTarget.parentNode;
       var nestedList = parent.querySelector("ul:not(.mdl-menu)");
-      var icon = e.currentTarget.querySelector('.material-icons');
+      var icon = e.currentTarget.querySelector('i.material-icons');
 
       if (nestedList) {
         if (nestedList.classList.contains('hidden')) {
-          console.log(icon.textContent)
           nestedList.classList.remove('hidden');
-          icon.textContent = 'keyboard_arrow_down';
+          icon.innerHTML = 'keyboard_arrow_down';
         } else {
           nestedList.classList.add('hidden');
-          icon.textContent = 'keyboard_arrow_up';
+          icon.innerHTML = 'keyboard_arrow_up';
         }
       }
 
