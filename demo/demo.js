@@ -11,8 +11,8 @@
       var ul = li.querySelector('ul.mdl-list');
       if (!ul) {
         li.appendChild(document.importNode(document.querySelector('#tree-subitem').content, true));
+        ul = li.querySelector('ul.mdl-list');
       }
-      var ul = li.querySelector('ul.mdl-list');
       addRow('mdl-menu--bottom-left', ul);
       window.componentHandler.upgradeDom();
 
