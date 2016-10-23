@@ -3,8 +3,22 @@
     var tmpl = document.querySelector('template#li-row');
     var ul = document.querySelector('ul');
     var i, j = 0;
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < 5; i++) {
       addRow('mdl-menu--bottom-left', ul);
+    }
+
+    function addSubItem(li) {
+      var ul = li.querySelector('ul.mdl-list');
+      if (!ul) {
+        li.appendChild(document.importNode(document.querySelector('#tree-subitem').content, true));
+      }
+      var ul = li.querySelector('ul.mdl-list');
+      addRow('mdl-menu--bottom-left', ul);
+      window.componentHandler.upgradeDom();
+
+      ul.querySelector('.mdl-list__item-secondary-action').addEventListener('click', function(e) {
+        expand(e);
+      });
     }
 
     function addRow(direction, ul) {
@@ -17,23 +31,17 @@
       threedots.classList.add(direction);
       threedots.querySelector('li#add-subitem > span').textContent += i + 1;
       threedots.querySelector('li#add-subitem').addEventListener('click', e => {
-
         var li = e.target.closest('li:not(#add-subitem)');
-        li.appendChild(document.importNode(document.querySelector('#tree-subitem').content, true));
-        var ul = li.querySelector('ul.mdl-list');
-        addRow('mdl-menu--bottom-left', ul);
-        window.componentHandler.upgradeDom();
-
-        ul.querySelector('.mdl-list__item-secondary-action').addEventListener('click', function(e) {
-          expand(e);
-        });
+        addSubItem(li);
       });
 
       ul.appendChild(clone);
     }
 
     var example = document.querySelector('#tree-menu-2').closest('li');
-    console.log(example);
+    addSubItem(example);
+    addSubItem(example);
+    addSubItem(example);
 
     var elements = document.querySelectorAll('.mdl-list__item-secondary-action');
 

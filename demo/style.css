@@ -1,23 +1,28 @@
 .mdl-list .mdl-list {
-  padding: 0;
+  padding-bottom: 0;
+  padding-top: 16px;
+}
+
+.mdl-list .mdl-list .mdl-list__item:first-child {
+  padding-top: 16px;
 }
 
 .mdl-list .mdl-list .mdl-list__item {
-  padding-bottom: 0;
+  border-top: thin solid #dedede;
   padding-left: 0;
   padding-right: 0;
 }
 
-.mdl-list__item {
-  border-top: 1px solid #dedede;
+.mdl-list .mdl-list .mdl-list__item:last-child {
+  padding-bottom: 0;
 }
 
-.mdl-list__item .mdl-list__item {
-  border: none;
+.mdl-list__item {
+  border-top: thin solid #dedede;
 }
 
 .mdl-list .mdl-list__item:last-child {
-  border-bottom: 1px solid #dedede;
+  border-bottom: thin solid #dedede;
 }
 
 .mdl-list .mdl-list .mdl-list__item:last-child {
