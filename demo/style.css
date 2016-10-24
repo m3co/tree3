@@ -19,8 +19,7 @@
 
 .mdl-tree .mdl-tree .mdl-tree__item {
   border-top: thin solid #dedede;
-  padding-left: 0;
-  padding-right: 0;
+  margin: 0 -16px 0 -16px;
 }
 
 .mdl-tree .mdl-tree .mdl-tree__item:last-child {
