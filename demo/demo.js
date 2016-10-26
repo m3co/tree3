@@ -25,6 +25,7 @@
       var i = j++;
       var clone = document.importNode(tmpl.content, true);
       clone.querySelector('#text').textContent += i + 1;
+      /*
       clone.querySelector('#tree-menu-').id += i + 1;
       var threedots = clone.querySelector('[for="tree-menu-"]');
       threedots.setAttribute('for', `tree-menu-${i + 1}`);
@@ -34,14 +35,17 @@
         var li = e.target.closest('li:not(#add-subitem)');
         addSubItem(li);
       });
-
+      */
       ul.appendChild(clone);
     }
 
+    /*
     var example = document.querySelector('#tree-menu-2').closest('li');
     addSubItem(example);
     addSubItem(example);
     addSubItem(example);
+    example.querySelector('.mdl-list__item-secondary-action i').innerHTML = 'keyboard_arrow_down';
+    */
 
     var elements = document.querySelectorAll('.mdl-list__item-secondary-action');
 

@@ -15,48 +15,54 @@
     </ul>
   </body>
 
+  <template id="li-context-menu">
+    <button id="tree-menu-"
+      class="mdl-button mdl-js-button mdl-button--icon">
+      <i class="material-icons">more_vert</i>
+    </button>
+    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"
+      for="tree-menu-">
+      <li id="add-subitem" class="mdl-menu__item mdl-menu__item--full-bleed-divider">
+        <button class="mdl-button mdl-js-button mdl-button--icon">
+          <i class="material-icons">add</i>
+        </button>
+        <span>Subitem</span>
+      </li>
+      <li class="mdl-menu__item">
+        <button class="mdl-button mdl-js-button mdl-button--icon">
+          <i class="material-icons">mode_edit</i>
+        </button>
+        Edit
+      </li>
+      <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">
+        <button class="mdl-button mdl-js-button mdl-button--icon">
+          <i class="material-icons">details</i>
+        </button>
+        Details
+      </li>
+      <li class="mdl-menu__item">
+        <button class="mdl-button mdl-js-button mdl-button--icon">
+          <i class="material-icons">delete</i>
+        </button>
+        Delete
+      </li>
+    </ul>
+  </template>
+
+  <template id="li-expand-collapse">
+    <button class="mdl-list__item-secondary-action mdl-button mdl-js-button mdl-button--icon">
+      <i class="material-icons">keyboard_arrow_up</i>
+    </button>
+  </template>
+
   <template id="li-row">
     <li class="mdl-list__item mdl-tree__item">
-      <span class="mdl-list__item-primary-content">
-        <button id="tree-menu-"
-          class="mdl-button mdl-js-button mdl-button--icon">
-          <i class="material-icons">more_vert</i>
-        </button>
-        <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"
-          for="tree-menu-">
-          <li id="add-subitem" class="mdl-menu__item mdl-menu__item--full-bleed-divider">
-            <button class="mdl-button mdl-js-button mdl-button--icon">
-              <i class="material-icons">add</i>
-            </button>
-            <span>Subitem</span>
-          </li>
-          <li class="mdl-menu__item">
-            <button class="mdl-button mdl-js-button mdl-button--icon">
-              <i class="material-icons">mode_edit</i>
-            </button>
-            Edit
-          </li>
-          <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">
-            <button class="mdl-button mdl-js-button mdl-button--icon">
-              <i class="material-icons">details</i>
-            </button>
-            Details
-          </li>
-          <li class="mdl-menu__item">
-            <button class="mdl-button mdl-js-button mdl-button--icon">
-              <i class="material-icons">delete</i>
-            </button>
-            Delete
-          </li>
-        </ul>
+      <div class="mdl-list__item-primary-content">
         &nbsp;
         <span id="text">Item </span>
         &nbsp;
-      </span>
+      </div>
 
-      <button class="mdl-list__item-secondary-action mdl-button mdl-js-button mdl-button--icon">
-        <i class="material-icons">keyboard_arrow_up</i>
-      </button>
     </li>
   </template>
 
