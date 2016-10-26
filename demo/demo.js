@@ -1,6 +1,8 @@
 'use strict';
 (() => {
     var tmpl = document.querySelector('template#li-row');
+    var contextmenuTmpl = document.querySelector('template#li-context-menu');
+    var expandcollapseTmpl = document.querySelector('template#li-expand-collapse');
     var ul = document.querySelector('ul');
     var i, j = 0;
     for (i = 0; i < 5; i++) {
@@ -25,7 +27,11 @@
       var i = j++;
       var clone = document.importNode(tmpl.content, true);
       clone.querySelector('#text').textContent += i + 1;
-      /*
+
+      var threeClone = document.importNode(contextmenuTmpl.content, true);
+      var primaryContent = clone.querySelector('.mdl-list__item-primary-content');
+      primaryContent.insertBefore(threeClone, primaryContent.firstChild);
+
       clone.querySelector('#tree-menu-').id += i + 1;
       var threedots = clone.querySelector('[for="tree-menu-"]');
       threedots.setAttribute('for', `tree-menu-${i + 1}`);
@@ -35,17 +41,18 @@
         var li = e.target.closest('li:not(#add-subitem)');
         addSubItem(li);
       });
-      */
+
+      var expandcollapseClone = document.importNode(expandcollapseTmpl.content, true);
+      clone.querySelector('li').appendChild(expandcollapseClone);
+
       ul.appendChild(clone);
     }
 
-    /*
     var example = document.querySelector('#tree-menu-2').closest('li');
     addSubItem(example);
     addSubItem(example);
     addSubItem(example);
     example.querySelector('.mdl-list__item-secondary-action i').innerHTML = 'keyboard_arrow_down';
-    */
 
     var elements = document.querySelectorAll('.mdl-list__item-secondary-action');
 
