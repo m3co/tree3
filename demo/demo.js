@@ -1,8 +1,8 @@
 'use strict';
 (() => {
-    var tmpl = document.querySelector('template#li-row');
-    var contextmenuTmpl = document.querySelector('template#li-context-menu');
-    var expandcollapseTmpl = document.querySelector('template#li-expand-collapse');
+    var tmpl = document.querySelector('template#mdl-tree__item');
+    var contextmenuTmpl = document.querySelector('template#mdl-tree__contextmenu');
+    var expandcollapseTmpl = document.querySelector('template#mdl-tree__item--expand-collapse');
     var ul = document.querySelector('ul');
     var i, j = 0;
     for (i = 0; i < 5; i++) {
@@ -32,13 +32,13 @@
       var primaryContent = clone.querySelector('.mdl-list__item-primary-content');
       primaryContent.insertBefore(threeClone, primaryContent.firstChild);
 
-      clone.querySelector('#tree-menu-').id += i + 1;
-      var threedots = clone.querySelector('[for="tree-menu-"]');
-      threedots.setAttribute('for', `tree-menu-${i + 1}`);
+      clone.querySelector('#mdl-tree__contextmenu-').id += i + 1;
+      var threedots = clone.querySelector('[for="mdl-tree__contextmenu-"]');
+      threedots.setAttribute('for', `mdl-tree__contextmenu-${i + 1}`);
       threedots.classList.add(direction);
-      threedots.querySelector('li#add-subitem > span').textContent += i + 1;
-      threedots.querySelector('li#add-subitem').addEventListener('click', e => {
-        var li = e.target.closest('li:not(#add-subitem)');
+      threedots.querySelector('li.mdl-tree__contextmenu--add-leaf > span').textContent += i + 1;
+      threedots.querySelector('li.mdl-tree__contextmenu--add-leaf').addEventListener('click', e => {
+        var li = e.target.closest('li:not(.mdl-tree__contextmenu--add-leaf)');
         addSubItem(li);
       });
 
@@ -48,7 +48,7 @@
       ul.appendChild(clone);
     }
 
-    var example = document.querySelector('#tree-menu-2').closest('li');
+    var example = document.querySelector('#mdl-tree__contextmenu-2').closest('li');
     addSubItem(example);
     addSubItem(example);
     addSubItem(example);
