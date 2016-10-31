@@ -2,7 +2,6 @@
   'use strict';
   const TREE = ".mdl-tree";
   const TREE_ITEM = ".mdl-tree__item";
-  var trees = document.querySelectorAll(TREE);
 
   const TEMPLATE_LEAF_HTML = `
     <li class="mdl-list__item mdl-tree__item">
@@ -14,6 +13,13 @@
     </li>
   `;
   var TEMPLATE_LEAF = createFromStringDocumentFragment(TEMPLATE_LEAF_HTML);
+
+  function appendLeaf() {
+    var clone = document.importNode(this.TEMPLATE_LEAF, true);
+    var leaf = clone.children[0];
+    this.appendChild(clone);
+    return leaf;
+  }
 
   // You should write this tree following the recomendations
   // https://github.com/google/material-design-lite/wiki/Making-your-first-JS-component
@@ -30,12 +36,14 @@
     });
 
     tree.TEMPLATE_LEAF = TEMPLATE_LEAF;
+    tree.appendLeaf = appendLeaf;
   }
 
+  // UPDATE ALL
+  var trees = document.querySelectorAll(TREE);
   for (var i = 0; i < trees.length; i++) {
     upgradeTAG(trees[i]);
   }
-
 
   /**
    * Create from string a DocumentFragment by wrapping the innerHTML

@@ -20,4 +20,13 @@
 
   }, "Tree tag contains a default leaf template");
 
+  test(() => {
+    assert_true(tree.hasOwnProperty('appendLeaf'));
+    assert_true(tree.appendLeaf instanceof Function);
+
+    var leaf = tree.appendLeaf();
+    assert_true(leaf instanceof HTMLLIElement);
+
+  }, "Function appendLeaf returns the <li> object-container");
+
 })();
