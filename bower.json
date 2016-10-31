@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "material-design-lite": "mdl#^1.2.1"
+    "material-design-lite": "mdl#^1.2.1",
+    "pseudoimport-html": "^0.1.1"
   }
 }

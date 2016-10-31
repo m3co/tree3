@@ -9,12 +9,14 @@ const connect = require('gulp-connect');
 const paths = {
   src: 'src', dst: './',
   css:   ['demo/*.css', 'demo/**/*.css',
-          'test/*.css', 'test/**/*.css'],
+          'test/*.css', 'test/**/*.css',
+          'src/*.css',   'src/**/*.css'],
   html:  ['demo/*.html', 'demo/**/*.html',
           'test/*.html', 'test/**/*.html'],
   js:    ['demo/*.js',   'demo/**/*.js',
           'test/*.js',   'test/**/*.js',
           'src/*.js',    'src/**/*.js'],
+  csssrc:['src/*.css',   'src/**/*.css'],
   jssrc: ['src/*.js',    'src/**/*.js']
 };
 
@@ -46,11 +48,17 @@ gulp.task('js-copy', _ => {
     .pipe(gulp.dest(paths.dst));
 });
 
+gulp.task('css-copy', _ => {
+  return gulp.src(paths.csssrc)
+    .pipe(gulp.dest(paths.dst));
+});
+
 gulp.task('watch', _ => {
   gulp.watch(paths.js, ['js-eslint']);
   gulp.watch(paths.css, ['css-lint']);
   gulp.watch(paths.html, ['html-hint']);
   gulp.watch(paths.jssrc, ['js-copy']);
+  gulp.watch(paths.csssrc, ['css-copy']);
 });
 
 gulp.task('connect', function() {
@@ -64,6 +72,7 @@ gulp.task('default', [
   'js-eslint',
   'css-lint',
   'html-hint',
+  'css-copy',
   'js-copy',
   'watch',
   'connect'

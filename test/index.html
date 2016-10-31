@@ -4,15 +4,12 @@
     <title>Tree3 test page</title>
     <link rel="stylesheet" href="/resources/testharness/testharness.css">
     <script src="/resources/testharness/testharness.js"></script>
-    <script src="/tree3.js"></script>
+    <script src="/bower_components/pseudoimport-html/pseudoimport-html.js" defer></script>
+    <script src="/tree3.js" defer></script>
   </head>
   <body>
+    <ul class="mdl-list mdl-tree"></ul>
   </body>
-  <script>
-    'use strict';
-    test(() => {
-
-    }, "First test");
-  </script>
+  <script src="main.js" defer></script>
 </html>
 

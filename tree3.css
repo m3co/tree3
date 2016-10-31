@@ -1,0 +1,25 @@
+.mdl-tree__item {
+  flex-wrap: wrap;
+}
+
+.mdl-tree {
+  width: 100%;
+}
+
+.mdl-tree .mdl-tree {
+  padding-bottom: 0;
+  padding-top: 16px;
+}
+
+.mdl-tree .mdl-tree .mdl-tree__item:first-child {
+  padding-top: 16px;
+}
+
+.mdl-tree .mdl-tree .mdl-tree__item {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.mdl-tree .mdl-tree .mdl-tree__item:last-child {
+  padding-bottom: 0;
+}
