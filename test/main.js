@@ -11,7 +11,13 @@
       tree.leafs = [];
     }, "Throws when changing leafs to an arbitrarty value");
 
-    // this is for future definitions... it may change
-  }, "Tree tag has a defined interface");
+  }, "Tree tag has only a getter for leafs");
+
+  test(() => {
+
+    assert_true(tree.hasOwnProperty('TEMPLATE_LEAF'));
+    assert_true(tree.TEMPLATE_LEAF instanceof DocumentFragment);
+
+  }, "Tree tag contains a default leaf template");
 
 })();

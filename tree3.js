@@ -7,6 +7,9 @@
   var TREE_ITEM = ".mdl-tree__item";
   var trees = document.querySelectorAll(TREE);
 
+  var TEMPLATE_LEAF_HTML = "\n    <li class=\"mdl-list__item mdl-tree__item\">\n      <div class=\"mdl-list__item-primary-content\">\n        &nbsp;\n        <span class=\"mdl-tree__item-text\"></span>\n        &nbsp;\n      </div>\n    </li>\n  ";
+  var TEMPLATE_LEAF = createFromStringDocumentFragment(TEMPLATE_LEAF_HTML);
+
   // You should write this tree following the recomendations
   // https://github.com/google/material-design-lite/wiki/Making-your-first-JS-component
 
@@ -20,9 +23,28 @@
         throw new Error("Tree does not allow to change leaf's value. Use append or similar");
       }
     });
+
+    tree.TEMPLATE_LEAF = TEMPLATE_LEAF;
   }
 
   for (var i = 0; i < trees.length; i++) {
     upgradeTAG(trees[i]);
+  }
+
+  /**
+   * Create from string a DocumentFragment by wrapping the innerHTML
+   * to an auxiliar HTMLElement.
+   * @param {string} innerHTML - The content to clone into the template
+   * @return {DocumentFragment} The created template
+   */
+  function createFromStringDocumentFragment(innerHTML) {
+    var template = document.createDocumentFragment();
+    var wrapper = document.createElement('div');
+    wrapper.innerHTML = innerHTML;
+    while (wrapper.childNodes.length > 0) {
+      template.appendChild(wrapper.firstChild);
+    }
+    wrapper = undefined;
+    return template;
   }
 })();
