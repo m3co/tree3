@@ -12,7 +12,7 @@
     function addSubItem(li) {
       var ul = li.querySelector('ul.mdl-list');
       if (!ul) {
-        li.appendChild(document.importNode(document.querySelector('#tree-subitem').content, true));
+        li.appendChild(document.importNode(document.querySelector('template#mdl-tree__subitem').content, true));
         ul = li.querySelector('ul.mdl-list');
       }
       addRow('mdl-menu--bottom-left', ul);
@@ -26,7 +26,7 @@
     function addRow(direction, ul) {
       var i = j++;
       var clone = document.importNode(tmpl.content, true);
-      clone.querySelector('#text').textContent += i + 1;
+      clone.querySelector('.mdl-tree__item-text').textContent += i + 1;
 
       var threeClone = document.importNode(contextmenuTmpl.content, true);
       var primaryContent = clone.querySelector('.mdl-list__item-primary-content');
