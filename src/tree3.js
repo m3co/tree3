@@ -18,6 +18,18 @@
     var clone = document.importNode(this.TEMPLATE_LEAF, true);
     var leaf = clone.children[0];
     this.appendChild(clone);
+
+    // this is the same code as (1)
+    Object.defineProperty(leaf, 'leafs', {
+      get() {
+        // this is a hard-coded selector
+        return this.querySelectorAll('li');
+      },
+      set(value) {
+        throw new Error("Tree does not allow to change leaf's value. Use append or similar");
+      }
+    });
+
     return leaf;
   }
 
@@ -25,6 +37,8 @@
   // https://github.com/google/material-design-lite/wiki/Making-your-first-JS-component
 
   function upgradeTAG(tree) {
+
+    // this is the same code as (1)
     Object.defineProperty(tree, 'leafs', {
       get() {
         // this is a hard-coded selector

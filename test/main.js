@@ -9,7 +9,7 @@
     assert_true(tree.leafs instanceof NodeList);
     assert_throws(null, () => {
       tree.leafs = [];
-    }, "Throws when changing leafs to an arbitrarty value");
+    }, "Tree.leafs throws when changing leafs to an arbitrarty value");
 
   }, "Tree tag has only a getter for leafs");
 
@@ -29,6 +29,16 @@
 
     assert_equals(tree.leafs.length, 1);
 
+    test(() => {
+      assert_true(leaf.hasOwnProperty('leafs'));
+      assert_true(leaf.leafs instanceof NodeList);
+      assert_throws(null, () => {
+        leaf.leafs = [];
+      }, "Leaf.leafs throws when changin leafs to an arbitrary value");
+
+    }, "Leaf has only a getter for leafs");
+
   }, "Function appendLeaf returns the <li> object-container");
+
 
 })();
