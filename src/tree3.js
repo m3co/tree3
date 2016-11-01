@@ -20,9 +20,25 @@
   var TEMPLATE_TREE = createFromStringDocumentFragment(TEMPLATE_TREE_HTML);
 
   function appendLeaf() {
-    // this - refers to tree
+    var clone;
 
-    var clone = document.importNode(this.TEMPLATE_LEAF, true);
+    if (this instanceof HTMLLIElement) {
+      var tree = this.querySelector(TREE);
+      if (!tree) {
+        tree = this.closest(TREE);
+        clone = document.importNode(tree.TEMPLATE_TREE, true);
+        tree = clone.children[0];
+        this.appendChild(tree);
+
+        tree.TEMPLATE_LEAF = TEMPLATE_LEAF;
+        tree.TEMPLATE_TREE = TEMPLATE_TREE;
+        tree.appendLeaf = appendLeaf;
+      }
+
+      return tree.appendLeaf();
+    }
+
+    clone = document.importNode(this.TEMPLATE_LEAF, true);
     var leaf = clone.children[0];
     this.appendChild(clone);
 
@@ -68,6 +84,7 @@
     });
 
     tree.TEMPLATE_LEAF = TEMPLATE_LEAF;
+    tree.TEMPLATE_TREE = TEMPLATE_TREE;
     tree.appendLeaf = appendLeaf;
   }
 
