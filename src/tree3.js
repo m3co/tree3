@@ -25,10 +25,10 @@
   // https://github.com/google/material-design-lite/wiki/Making-your-first-JS-component
 
   function upgradeTAG(tree) {
-    var leafs = [];
     Object.defineProperty(tree, 'leafs', {
       get() {
-        return leafs;
+        // this is a hard-coded selector
+        return this.querySelectorAll('li');
       },
       set(value) {
         throw new Error("Tree does not allow to change leaf's value. Use append or similar");

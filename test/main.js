@@ -6,7 +6,7 @@
   test(() => {
 
     assert_true(tree.hasOwnProperty('leafs'));
-    assert_true(tree.leafs instanceof Array);
+    assert_true(tree.leafs instanceof NodeList);
     assert_throws(null, () => {
       tree.leafs = [];
     }, "Throws when changing leafs to an arbitrarty value");
@@ -26,6 +26,8 @@
 
     var leaf = tree.appendLeaf();
     assert_true(leaf instanceof HTMLLIElement);
+
+    assert_equals(tree.leafs.length, 1);
 
   }, "Function appendLeaf returns the <li> object-container");
 
