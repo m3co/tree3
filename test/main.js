@@ -38,6 +38,18 @@
 
     }, "Leaf has only a getter for leafs");
 
+    test(() => {
+      assert_true(leaf.hasOwnProperty('textContent'));
+
+      var expected = "Text";
+      assert_equals(leaf.textContent, '');
+      leaf.textContent = expected;
+
+      var actual = leaf.querySelector('.mdl-tree__item-text').textContent;
+      assert_equals(actual, expected);
+
+    }, "Leaf has the property leaf.textContent");
+
   }, "Function appendLeaf returns the <li> object-container");
 
 

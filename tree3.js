@@ -10,6 +10,8 @@
   var TEMPLATE_LEAF = createFromStringDocumentFragment(TEMPLATE_LEAF_HTML);
 
   function appendLeaf() {
+    // this - refers to tree
+
     var clone = document.importNode(this.TEMPLATE_LEAF, true);
     var leaf = clone.children[0];
     this.appendChild(clone);
@@ -22,6 +24,15 @@
       },
       set: function set(value) {
         throw new Error("Tree does not allow to change leaf's value. Use append or similar");
+      }
+    });
+
+    Object.defineProperty(leaf, 'textContent', {
+      get: function get() {
+        return this.querySelector('.mdl-tree__item-text').textContent;
+      },
+      set: function set(value) {
+        this.querySelector('.mdl-tree__item-text').textContent = value;
       }
     });
 
