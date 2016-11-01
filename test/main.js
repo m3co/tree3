@@ -50,7 +50,19 @@
 
     }, "Leaf has the property leaf.textContent");
 
-  }, "Function appendLeaf returns the <li> object-container");
+    test(() => {
+
+      assert_true(leaf.hasOwnProperty('appendLeaf'));
+      assert_true(leaf.appendLeaf instanceof Function);
+
+      var subleaf = leaf.appendLeaf();
+      assert_true(subleaf instanceof HTMLLIElement);
+
+      assert_equals(leaf.leafs.length, 1);
+
+    }, "Leaf's function appendLeaf returns the <li> object-container");
+
+  }, "Tree's function appendLeaf returns the <li> object-container");
 
 
 })();

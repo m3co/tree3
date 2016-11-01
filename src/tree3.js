@@ -14,6 +14,11 @@
   `;
   var TEMPLATE_LEAF = createFromStringDocumentFragment(TEMPLATE_LEAF_HTML);
 
+  const TEMPLATE_TREE_HTML = `
+    <ul class="mdl-list mdl-tree"></ul>
+  `;
+  var TEMPLATE_TREE = createFromStringDocumentFragment(TEMPLATE_TREE_HTML);
+
   function appendLeaf() {
     // this - refers to tree
 
@@ -40,6 +45,8 @@
         this.querySelector('.mdl-tree__item-text').textContent = value;
       }
     });
+
+    leaf.appendLeaf = appendLeaf;
 
     return leaf;
   }

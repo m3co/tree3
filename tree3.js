@@ -9,6 +9,9 @@
   var TEMPLATE_LEAF_HTML = "\n    <li class=\"mdl-list__item mdl-tree__item\">\n      <div class=\"mdl-list__item-primary-content\">\n        &nbsp;\n        <span class=\"mdl-tree__item-text\"></span>\n        &nbsp;\n      </div>\n    </li>\n  ";
   var TEMPLATE_LEAF = createFromStringDocumentFragment(TEMPLATE_LEAF_HTML);
 
+  var TEMPLATE_TREE_HTML = "\n    <ul class=\"mdl-list mdl-tree\"></ul>\n  ";
+  var TEMPLATE_TREE = createFromStringDocumentFragment(TEMPLATE_TREE_HTML);
+
   function appendLeaf() {
     // this - refers to tree
 
@@ -35,6 +38,8 @@
         this.querySelector('.mdl-tree__item-text').textContent = value;
       }
     });
+
+    leaf.appendLeaf = appendLeaf;
 
     return leaf;
   }
