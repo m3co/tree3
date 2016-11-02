@@ -19,6 +19,10 @@
   `;
   var TEMPLATE_TREE = createFromStringDocumentFragment(TEMPLATE_TREE_HTML);
 
+  /**
+   * Append a leaf to the initial(root) tree or to any child leaf
+   * @return {HTMLElement} - The created element
+   */
   function appendLeaf() {
     var clone;
 
@@ -41,17 +45,7 @@
     clone = document.importNode(this.TEMPLATE_LEAF, true);
     var leaf = clone.children[0];
     this.appendChild(clone);
-
-    // this is the same code as (1)
-    Object.defineProperty(leaf, 'leafs', {
-      get() {
-        // this is a hard-coded selector
-        return this.querySelectorAll('li');
-      },
-      set(value) {
-        throw new Error("Tree does not allow to change leaf's value. Use append or similar");
-      }
-    });
+    addProperty__leafs(leaf);
 
     Object.defineProperty(leaf, 'textContent', {
       get() {
@@ -70,10 +64,8 @@
   // You should write this tree following the recomendations
   // https://github.com/google/material-design-lite/wiki/Making-your-first-JS-component
 
-  function upgradeTAG(tree) {
-
-    // this is the same code as (1)
-    Object.defineProperty(tree, 'leafs', {
+  function addProperty__leafs(o) {
+    Object.defineProperty(o, 'leafs', {
       get() {
         // this is a hard-coded selector
         return this.querySelectorAll('li');
@@ -82,7 +74,10 @@
         throw new Error("Tree does not allow to change leaf's value. Use append or similar");
       }
     });
+  }
 
+  function initTree(tree) {
+    addProperty__leafs(tree);
     tree.TEMPLATE_LEAF = TEMPLATE_LEAF;
     tree.TEMPLATE_TREE = TEMPLATE_TREE;
     tree.appendLeaf = appendLeaf;
@@ -91,7 +86,7 @@
   // UPDATE ALL
   var trees = document.querySelectorAll(TREE);
   for (var i = 0; i < trees.length; i++) {
-    upgradeTAG(trees[i]);
+    initTree(trees[i]);
   }
 
   /**
