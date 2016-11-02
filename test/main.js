@@ -64,6 +64,11 @@
 
     }, "Leaf's function appendLeaf returns the <li> object-container");
 
+    test(() => {
+      assert_equals(tree.leafs.length, 1);
+      assert_equals(tree.leafs[0].leafs.length, 1);
+    }, "Tree's leafs selector returns tree's children");
+
   }, "Tree's function appendLeaf returns the <li> object-container");
 
 
