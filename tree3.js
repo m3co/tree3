@@ -19,6 +19,7 @@
   function appendLeaf() {
     var clone;
 
+    // if this is "leaf" then...
     if (this instanceof HTMLLIElement) {
       var tree = this.querySelector(TREE);
       if (!tree) {
@@ -27,29 +28,19 @@
         tree = clone.children[0];
         this.appendChild(tree);
 
-        tree.TEMPLATE_LEAF = TEMPLATE_LEAF;
-        tree.TEMPLATE_TREE = TEMPLATE_TREE;
-        tree.appendLeaf = appendLeaf;
+        initTree(tree);
       }
 
+      // append to the leaf's tree the sub-leaf =>
+      // append to the leaf a subleaf
       return tree.appendLeaf();
     }
 
+    // if this is "tree" then...
     clone = document.importNode(this.TEMPLATE_LEAF, true);
     var leaf = clone.children[0];
-    this.appendChild(clone);
-    addProperty__leafs(leaf);
-
-    Object.defineProperty(leaf, 'textContent', {
-      get: function get() {
-        return this.querySelector('.mdl-tree__item-text').textContent;
-      },
-      set: function set(value) {
-        this.querySelector('.mdl-tree__item-text').textContent = value;
-      }
-    });
-
-    leaf.appendLeaf = appendLeaf;
+    this.appendChild(clone); // append to the tree the leaf
+    initLeaf(leaf);
 
     return leaf;
   }
@@ -74,6 +65,21 @@
     tree.TEMPLATE_LEAF = TEMPLATE_LEAF;
     tree.TEMPLATE_TREE = TEMPLATE_TREE;
     tree.appendLeaf = appendLeaf;
+  }
+
+  function initLeaf(leaf) {
+    addProperty__leafs(leaf);
+
+    Object.defineProperty(leaf, 'textContent', {
+      get: function get() {
+        return this.querySelector('.mdl-tree__item-text').textContent;
+      },
+      set: function set(value) {
+        this.querySelector('.mdl-tree__item-text').textContent = value;
+      }
+    });
+
+    leaf.appendLeaf = appendLeaf;
   }
 
   // UPDATE ALL
