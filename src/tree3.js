@@ -40,6 +40,14 @@
   var TEMPLATE_LEAF_CONTEXTMENU = createFromStringDocumentFragment(
       TEMPLATE_LEAF_CONTEXTMENU_HTML);
 
+  const TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML = `
+    <button class="mdl-list__item-secondary-action mdl-button mdl-js-button mdl-button--icon">
+      <i class="material-icons">keyboard_arrow_up</i>
+    </button>
+  `;
+  var TEMPLATE_LEAF_EXPANDCOLLAPSE = createFromStringDocumentFragment(
+      TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML);
+
   var index_contextmenu = 0;
   /**
    * Append a leaf to the initial(root) tree or to any child leaf
@@ -105,6 +113,7 @@
     tree.TEMPLATE_LEAF = TEMPLATE_LEAF;
     tree.TEMPLATE_TREE = TEMPLATE_TREE;
     tree.TEMPLATE_LEAF_CONTEXTMENU = TEMPLATE_LEAF_CONTEXTMENU;
+    tree.TEMPLATE_LEAF_EXPANDCOLLAPSE = TEMPLATE_LEAF_EXPANDCOLLAPSE;
     tree.appendLeaf = appendLeaf;
   }
 

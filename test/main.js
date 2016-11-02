@@ -14,6 +14,7 @@
   test(() => {
     assert_true(tree.TEMPLATE_LEAF instanceof DocumentFragment);
     assert_true(tree.TEMPLATE_LEAF_CONTEXTMENU instanceof DocumentFragment);
+    assert_true(tree.TEMPLATE_LEAF_EXPANDCOLLAPSE instanceof DocumentFragment);
     assert_true(tree.TEMPLATE_TREE instanceof DocumentFragment);
   }, "Tree tag contains a set of default templates");
 
