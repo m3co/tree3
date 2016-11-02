@@ -19,6 +19,28 @@
   `;
   var TEMPLATE_TREE = createFromStringDocumentFragment(TEMPLATE_TREE_HTML);
 
+  const TEMPLATE_LEAF_CONTEXTMENU_HTML = `
+    <button id="mdl-tree__contextmenu-"
+      class="mdl-button mdl-js-button mdl-button--icon">
+      <i class="material-icons">more_vert</i>
+    </button>
+    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"
+      for="mdl-tree__contextmenu-">
+      <li class="mdl-menu__item
+                 mdl-menu__item--full-bleed-divider
+                 mdl-tree__contextmenu--item
+                 mdl-tree__contextmenu--add-leaf">
+        <button class="mdl-button mdl-js-button mdl-button--icon">
+          <i class="material-icons">add</i>
+        </button>
+        <span>Subitem</span>
+      </li>
+    </ul>
+  `;
+  var TEMPLATE_LEAF_CONTEXTMENU = createFromStringDocumentFragment(
+      TEMPLATE_LEAF_CONTEXTMENU_HTML);
+
+  var index_contextmenu = 0;
   /**
    * Append a leaf to the initial(root) tree or to any child leaf
    * @return {HTMLElement} - The created element
@@ -46,6 +68,17 @@
     // if this is "tree" then...
     clone = document.importNode(this.TEMPLATE_LEAF, true);
     var leaf = clone.children[0];
+
+    var contextmenu = document.importNode(this.TEMPLATE_LEAF_CONTEXTMENU, true);
+
+    var button = contextmenu.querySelector('#mdl-tree__contextmenu-');
+    var menu = contextmenu.querySelector('[for="mdl-tree__contextmenu-"]');
+    button.id += index_contextmenu++;
+    menu.setAttribute('for', button.id);
+
+    var c = leaf.querySelector('.mdl-list__item-primary-content');
+    c.insertBefore(contextmenu, c.firstChild);
+
     this.appendChild(clone); // append to the tree the leaf
     initLeaf(leaf);
 
@@ -59,7 +92,7 @@
     Object.defineProperty(o, 'leafs', {
       get() {
         // this is a hard-coded selector
-        return this.querySelectorAll('li');
+        return this.querySelectorAll('li:not(.mdl-tree__contextmenu--item)');
       },
       set(value) {
         throw new Error("Tree does not allow to change leaf's value. Use append or similar");
@@ -71,6 +104,7 @@
     addProperty__leafs(tree);
     tree.TEMPLATE_LEAF = TEMPLATE_LEAF;
     tree.TEMPLATE_TREE = TEMPLATE_TREE;
+    tree.TEMPLATE_LEAF_CONTEXTMENU = TEMPLATE_LEAF_CONTEXTMENU;
     tree.appendLeaf = appendLeaf;
   }
 

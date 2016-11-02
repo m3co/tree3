@@ -4,8 +4,6 @@
   var tree = document.querySelector(TAG_SELECTOR);
 
   test(() => {
-
-    assert_true(tree.hasOwnProperty('leafs'));
     assert_true(tree.leafs instanceof NodeList);
     assert_throws(null, () => {
       tree.leafs = [];
@@ -14,14 +12,12 @@
   }, "Tree tag has only a getter for leafs");
 
   test(() => {
-
-    assert_true(tree.hasOwnProperty('TEMPLATE_LEAF'));
     assert_true(tree.TEMPLATE_LEAF instanceof DocumentFragment);
-
-  }, "Tree tag contains a default leaf template");
+    assert_true(tree.TEMPLATE_LEAF_CONTEXTMENU instanceof DocumentFragment);
+    assert_true(tree.TEMPLATE_TREE instanceof DocumentFragment);
+  }, "Tree tag contains a set of default templates");
 
   test(() => {
-    assert_true(tree.hasOwnProperty('appendLeaf'));
     assert_true(tree.appendLeaf instanceof Function);
 
     var leaf = tree.appendLeaf();
@@ -29,8 +25,11 @@
 
     assert_equals(tree.leafs.length, 1);
 
+    assert_true(leaf.querySelector('#mdl-tree__contextmenu-0') instanceof HTMLElement);
+    assert_true(leaf.querySelector('[for="mdl-tree__contextmenu-0"]') instanceof HTMLElement);
+
     test(() => {
-      assert_true(leaf.hasOwnProperty('leafs'));
+
       assert_true(leaf.leafs instanceof NodeList);
       assert_throws(null, () => {
         leaf.leafs = [];
@@ -39,7 +38,7 @@
     }, "Leaf has only a getter for leafs");
 
     test(() => {
-      assert_true(leaf.hasOwnProperty('textContent'));
+      assert_equals(typeof(leaf.textContent), "string");
 
       var expected = "Text";
       assert_equals(leaf.textContent, '');
@@ -51,14 +50,16 @@
     }, "Leaf has the property leaf.textContent");
 
     test(() => {
-
-      assert_true(leaf.hasOwnProperty('appendLeaf'));
       assert_true(leaf.appendLeaf instanceof Function);
 
       var subleaf = leaf.appendLeaf();
       assert_true(subleaf instanceof HTMLLIElement);
 
       assert_equals(leaf.leafs.length, 1);
+      assert_true(subleaf.querySelector('#mdl-tree__contextmenu-1') instanceof HTMLElement);
+      assert_true(subleaf.querySelector('[for="mdl-tree__contextmenu-1"]') instanceof HTMLElement);
+
+      subleaf.textContent = "Subtext";
 
     }, "Leaf's function appendLeaf returns the <li> object-container");
 
