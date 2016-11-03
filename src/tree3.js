@@ -99,8 +99,25 @@
   function addProperty__leafs(o) {
     Object.defineProperty(o, 'leafs', {
       get() {
-        // this is a hard-coded selector
-        return this.querySelectorAll('li:not(.mdl-tree__contextmenu--item)');
+        var parent;
+        // once again... you're doing very strange assumptions
+        if (this instanceof HTMLUListElement) {
+          parent = this;
+        } else if (this instanceof HTMLLIElement) {
+          parent = this.querySelector('.mdl-tree');
+          if (!parent) {
+            return [];
+          }
+        }
+        var x = parent.querySelectorAll('.mdl-tree__item');
+        var y = [];
+        // and this is because CSS can't access to parent elements
+        for (var i = 0; i < x.length; i++) {
+          if (x[i].parentNode == parent) {
+            y.push(x[i]);
+          }
+        }
+        return y;
       },
       set(value) {
         throw new Error("Tree does not allow to change leaf's value. Use append or similar");

@@ -4,7 +4,7 @@
   var tree = document.querySelector(TAG_SELECTOR);
 
   test(() => {
-    assert_true(tree.leafs instanceof NodeList);
+    assert_true(tree.leafs instanceof Array);
     assert_throws(null, () => {
       tree.leafs = [];
     }, "Tree.leafs throws when changing leafs to an arbitrarty value");
@@ -31,7 +31,7 @@
 
     test(() => {
 
-      assert_true(leaf.leafs instanceof NodeList);
+      assert_true(leaf.leafs instanceof Array);
       assert_throws(null, () => {
         leaf.leafs = [];
       }, "Leaf.leafs throws when changin leafs to an arbitrary value");
