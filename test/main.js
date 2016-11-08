@@ -69,6 +69,13 @@
       assert_equals(tree.leafs[0].leafs.length, 1);
     }, "Tree's leafs selector returns tree's children");
 
+    test(() => {
+      var btn = tree.leafs[0];
+      var btn2 = btn.leafs[0];
+      assert_false(btn2.querySelector('.mdl-tree__item-expand-collapse') instanceof HTMLElement);
+      assert_true(btn.querySelector('.mdl-tree__item-expand-collapse') instanceof HTMLElement);
+    }, "Leaf has expand/collapse button");
+
   }, "Tree's function appendLeaf returns the <li> object-container");
 
 

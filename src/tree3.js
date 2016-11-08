@@ -41,7 +41,7 @@
       TEMPLATE_LEAF_CONTEXTMENU_HTML);
 
   const TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML = `
-    <button class="mdl-list__item-secondary-action mdl-button mdl-js-button mdl-button--icon">
+    <button class="mdl-list__item-secondary-action mdl-button mdl-js-button mdl-button--icon mdl-tree__item-expand-collapse">
       <i class="material-icons">keyboard_arrow_up</i>
     </button>
   `;

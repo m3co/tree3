@@ -15,7 +15,7 @@
   var TEMPLATE_LEAF_CONTEXTMENU_HTML = "\n    <button id=\"mdl-tree__contextmenu-\"\n      class=\"mdl-button mdl-js-button mdl-button--icon\">\n      <i class=\"material-icons\">more_vert</i>\n    </button>\n    <ul class=\"mdl-menu mdl-js-menu mdl-js-ripple-effect\"\n      for=\"mdl-tree__contextmenu-\">\n      <li class=\"mdl-menu__item\n                 mdl-menu__item--full-bleed-divider\n                 mdl-tree__contextmenu--item\n                 mdl-tree__contextmenu--add-leaf\">\n        <button class=\"mdl-button mdl-js-button mdl-button--icon\">\n          <i class=\"material-icons\">add</i>\n        </button>\n        <span>Subitem</span>\n      </li>\n    </ul>\n  ";
   var TEMPLATE_LEAF_CONTEXTMENU = createFromStringDocumentFragment(TEMPLATE_LEAF_CONTEXTMENU_HTML);
 
-  var TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML = "\n    <button class=\"mdl-list__item-secondary-action mdl-button mdl-js-button mdl-button--icon\">\n      <i class=\"material-icons\">keyboard_arrow_up</i>\n    </button>\n  ";
+  var TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML = "\n    <button class=\"mdl-list__item-secondary-action mdl-button mdl-js-button mdl-button--icon mdl-tree__item-expand-collapse\">\n      <i class=\"material-icons\">keyboard_arrow_up</i>\n    </button>\n  ";
   var TEMPLATE_LEAF_EXPANDCOLLAPSE = createFromStringDocumentFragment(TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML);
 
   var index_contextmenu = 0;
