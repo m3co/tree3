@@ -82,16 +82,31 @@
     async_test("Leaf's expand/collapse button expands/collapses when click").step(function() {
       var leaf = tree.leafs[0];
       var btn = leaf.querySelector('.mdl-tree__item-expand-collapse');
-      btn.addEventListener('click', this.step_func((e) => {
-        var tree = leaf.querySelector('.mdl-tree');
+      var subtree = leaf.querySelector('.mdl-tree');
+      var listener1 = this.step_func((e) => {
         assert_false(btn.classList.contains('mdl-tree__item--expanded'));
 
         assert_true(btn.classList.contains('mdl-tree__item--collapsed'));
         assert_equals(btn.querySelector('i').innerHTML, 'keyboard_arrow_up');
-        assert_true(tree.hidden);
-        this.done();
-      }));
+        assert_true(subtree.hidden);
 
+        btn.removeEventListener('click', listener1);
+        btn.addEventListener('click', listener2);
+        btn.dispatchEvent(new MouseEvent('click'));
+      });
+
+      var listener2 = this.step_func((e) => {
+        assert_false(btn.classList.contains('mdl-tree__item--collapsed'));
+
+        assert_true(btn.classList.contains('mdl-tree__item--expanded'));
+        assert_equals(btn.querySelector('i').innerHTML, 'keyboard_arrow_down');
+        assert_false(subtree.hidden);
+
+        btn.removeEventListener('click', listener2);
+        this.done();
+      });
+
+      btn.addEventListener('click', listener1);
       btn.dispatchEvent(new MouseEvent('click'));
     });
 
