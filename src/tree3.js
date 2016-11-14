@@ -80,11 +80,9 @@
           throw new Error('please, check why nextSibling is null');
         }
         var btn = clone.querySelector('.mdl-tree__item-expand-collapse');
-        if (btn.classList.contains('mdl-tree__item--expanded')) {
-          btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_down";
-        } else if (btn.classList.contains('mdl-tree__item--collapsed')) {
-          btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_up";
-        }
+
+        // by default, the expand/collapse button is expanded
+        // and click will switch expanded to collapsed and so on
         btn.addEventListener('click', (e) => {
           if (btn.classList.contains('mdl-tree__item--expanded')) {
             btn.classList.remove('mdl-tree__item--expanded');
@@ -98,6 +96,7 @@
             tree.hidden = false;
           }
         });
+
         this.insertBefore(clone, c);
       }
       return tree.appendLeaf();
