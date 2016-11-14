@@ -45,7 +45,7 @@
                    mdl-button mdl-js-button mdl-button--icon
                    mdl-tree__item-expand-collapse
                    mdl-tree__item--expanded">
-      <i class="material-icons">keyboard_arrow_up</i>
+      <i class="material-icons">keyboard_arrow_down</i>
     </button>
   `;
   var TEMPLATE_LEAF_EXPANDCOLLAPSE = createFromStringDocumentFragment(
@@ -82,6 +82,8 @@
         var btn = clone.querySelector('.mdl-tree__item-expand-collapse');
         if (btn.classList.contains('mdl-tree__item--expanded')) {
           btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_down";
+        } else if (btn.classList.contains('mdl-tree__item--collapsed')) {
+          btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_up";
         }
         this.insertBefore(clone, c);
       }

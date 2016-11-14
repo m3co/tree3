@@ -76,7 +76,24 @@
 
       assert_true(btn instanceof HTMLElement);
       assert_true(btn.classList.contains('mdl-tree__item--expanded'));
+      assert_equals(btn.querySelector('i').innerHTML, 'keyboard_arrow_down');
     }, "Leaf has expand/collapse button");
+
+    async_test("Leaf's expand/collapse button expands/collapses when click").step(function() {
+      var leaf = tree.leafs[0];
+      var btn = leaf.querySelector('.mdl-tree__item-expand-collapse');
+      btn.addEventListener('click', this.step_func((e) => {
+        var tree = leaf.querySelector('.mdl-tree');
+        assert_false(btn.classList.contains('mdl-tree__item--expanded'));
+
+        assert_true(btn.classList.contains('mdl-tree__item--collapsed'));
+        assert_equals(btn.querySelector('i').innerHTML, 'keyboard_arrow_up');
+        assert_true(tree.hidden);
+        this.done();
+      }));
+
+      btn.dispatchEvent(new MouseEvent('click'));
+    });
 
   }, "Tree's function appendLeaf returns the <li> object-container");
 
