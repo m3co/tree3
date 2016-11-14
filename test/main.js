@@ -70,10 +70,12 @@
     }, "Tree's leafs selector returns tree's children");
 
     test(() => {
-      var btn = tree.leafs[0];
-      var btn2 = btn.leafs[0];
-      assert_false(btn2.querySelector('.mdl-tree__item-expand-collapse') instanceof HTMLElement);
-      assert_true(btn.querySelector('.mdl-tree__item-expand-collapse') instanceof HTMLElement);
+      var btn = tree.leafs[0].querySelector('.mdl-tree__item-expand-collapse');
+      var btn2 = btn.leafs[0].querySelector('.mdl-tree__item-expand-collapse');
+      assert_false(btn2 instanceof HTMLElement);
+
+      assert_true(btn instanceof HTMLElement);
+      assert_true(btn.classList.contains('mdl-tree__item--expanded'));
     }, "Leaf has expand/collapse button");
 
   }, "Tree's function appendLeaf returns the <li> object-container");
