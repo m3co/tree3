@@ -85,6 +85,19 @@
         } else if (btn.classList.contains('mdl-tree__item--collapsed')) {
           btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_up";
         }
+        btn.addEventListener('click', (e) => {
+          if (btn.classList.contains('mdl-tree__item--expanded')) {
+            btn.classList.remove('mdl-tree__item--expanded');
+            btn.classList.add('mdl-tree__item--collapsed');
+            btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_up";
+            tree.hidden = true;
+          } else if (btn.classList.contains('mdl-tree__item--collapsed')) {
+            btn.classList.remove('mdl-tree__item--collapsed');
+            btn.classList.add('mdl-tree__item--expanded');
+            btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_down";
+            tree.hidden = false;
+          }
+        });
         this.insertBefore(clone, c);
       }
       return tree.appendLeaf();
