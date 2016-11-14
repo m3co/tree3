@@ -41,7 +41,10 @@
       TEMPLATE_LEAF_CONTEXTMENU_HTML);
 
   const TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML = `
-    <button class="mdl-list__item-secondary-action mdl-button mdl-js-button mdl-button--icon mdl-tree__item-expand-collapse">
+    <button class="mdl-list__item-secondary-action
+                   mdl-button mdl-js-button mdl-button--icon
+                   mdl-tree__item-expand-collapse
+                   mdl-tree__item--expanded">
       <i class="material-icons">keyboard_arrow_up</i>
     </button>
   `;
@@ -70,6 +73,18 @@
 
       // append to the leaf's tree the sub-leaf =>
       // append to the leaf a subleaf
+      if (!this.querySelector('.mdl-tree__item-expand-collapse')) {
+        clone = document.importNode(tree.TEMPLATE_LEAF_EXPANDCOLLAPSE, true);
+        var c = this.querySelector('.mdl-list__item-primary-content').nextSibling;
+        if (!c) {
+          throw new Error('please, check why nextSibling is null');
+        }
+        var btn = clone.querySelector('.mdl-tree__item-expand-collapse');
+        if (btn.classList.contains('mdl-tree__item--expanded')) {
+          btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_down";
+        }
+        this.insertBefore(clone, c);
+      }
       return tree.appendLeaf();
     }
 

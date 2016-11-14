@@ -15,7 +15,7 @@
   var TEMPLATE_LEAF_CONTEXTMENU_HTML = "\n    <button id=\"mdl-tree__contextmenu-\"\n      class=\"mdl-button mdl-js-button mdl-button--icon\">\n      <i class=\"material-icons\">more_vert</i>\n    </button>\n    <ul class=\"mdl-menu mdl-js-menu mdl-js-ripple-effect\"\n      for=\"mdl-tree__contextmenu-\">\n      <li class=\"mdl-menu__item\n                 mdl-menu__item--full-bleed-divider\n                 mdl-tree__contextmenu--item\n                 mdl-tree__contextmenu--add-leaf\">\n        <button class=\"mdl-button mdl-js-button mdl-button--icon\">\n          <i class=\"material-icons\">add</i>\n        </button>\n        <span>Subitem</span>\n      </li>\n    </ul>\n  ";
   var TEMPLATE_LEAF_CONTEXTMENU = createFromStringDocumentFragment(TEMPLATE_LEAF_CONTEXTMENU_HTML);
 
-  var TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML = "\n    <button class=\"mdl-list__item-secondary-action mdl-button mdl-js-button mdl-button--icon mdl-tree__item-expand-collapse\">\n      <i class=\"material-icons\">keyboard_arrow_up</i>\n    </button>\n  ";
+  var TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML = "\n    <button class=\"mdl-list__item-secondary-action\n                   mdl-button mdl-js-button mdl-button--icon\n                   mdl-tree__item-expand-collapse\n                   mdl-tree__item--expanded\">\n      <i class=\"material-icons\">keyboard_arrow_up</i>\n    </button>\n  ";
   var TEMPLATE_LEAF_EXPANDCOLLAPSE = createFromStringDocumentFragment(TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML);
 
   var index_contextmenu = 0;
@@ -40,6 +40,18 @@
 
       // append to the leaf's tree the sub-leaf =>
       // append to the leaf a subleaf
+      if (!this.querySelector('.mdl-tree__item-expand-collapse')) {
+        clone = document.importNode(tree.TEMPLATE_LEAF_EXPANDCOLLAPSE, true);
+        var c = this.querySelector('.mdl-list__item-primary-content').nextSibling;
+        if (!c) {
+          throw new Error('please, check why nextSibling is null');
+        }
+        var btn = clone.querySelector('.mdl-tree__item-expand-collapse');
+        if (btn.classList.contains('mdl-tree__item--expanded')) {
+          btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_down";
+        }
+        this.insertBefore(clone, c);
+      }
       return tree.appendLeaf();
     }
 
