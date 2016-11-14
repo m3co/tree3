@@ -71,7 +71,7 @@
 
     test(() => {
       var btn = tree.leafs[0].querySelector('.mdl-tree__item-expand-collapse');
-      var btn2 = btn.leafs[0].querySelector('.mdl-tree__item-expand-collapse');
+      var btn2 = tree.leafs[0].leafs[0].querySelector('.mdl-tree__item-expand-collapse');
       assert_false(btn2 instanceof HTMLElement);
 
       assert_true(btn instanceof HTMLElement);
