@@ -59,6 +59,20 @@
   function appendLeaf() {
     var clone;
 
+    var expandCollapse = (btn, tree) => {
+      if (btn.classList.contains('mdl-tree__item--expanded')) {
+        btn.classList.remove('mdl-tree__item--expanded');
+        btn.classList.add('mdl-tree__item--collapsed');
+        btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_up";
+        tree.hidden = true;
+      } else if (btn.classList.contains('mdl-tree__item--collapsed')) {
+        btn.classList.remove('mdl-tree__item--collapsed');
+        btn.classList.add('mdl-tree__item--expanded');
+        btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_down";
+        tree.hidden = false;
+      }
+    };
+
     // if this is "leaf" then...
     if (this instanceof HTMLLIElement) {
       var tree = this.querySelector(TREE);
@@ -83,19 +97,7 @@
 
         // by default, the expand/collapse button is expanded
         // and click will switch expanded to collapsed and so on
-        btn.addEventListener('click', (e) => {
-          if (btn.classList.contains('mdl-tree__item--expanded')) {
-            btn.classList.remove('mdl-tree__item--expanded');
-            btn.classList.add('mdl-tree__item--collapsed');
-            btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_up";
-            tree.hidden = true;
-          } else if (btn.classList.contains('mdl-tree__item--collapsed')) {
-            btn.classList.remove('mdl-tree__item--collapsed');
-            btn.classList.add('mdl-tree__item--expanded');
-            btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_down";
-            tree.hidden = false;
-          }
-        });
+        btn.addEventListener('click', expandCollapse.bind(null, btn, tree));
 
         this.insertBefore(clone, c);
       }
@@ -117,7 +119,12 @@
     var btnAdd = contextmenu.querySelector('.mdl-tree__contextmenu--add-leaf');
 
     btnAdd.addEventListener('click', (e) => {
-      e.target.closest(TREE_ITEM).appendLeaf();
+      var tree = e.target.closest(TREE_ITEM);
+      tree.appendLeaf();
+      var btn = tree.querySelector('.mdl-tree__item-expand-collapse');
+      if (btn.classList.contains('mdl-tree__item--collapsed')) {
+        expandCollapse(btn, tree.querySelector(TREE));
+      }
     });
 
     c.insertBefore(contextmenu, c.firstChild);
