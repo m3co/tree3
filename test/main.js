@@ -110,6 +110,20 @@
       btn.dispatchEvent(new MouseEvent('click'));
     });
 
+    async_test("Add a subitem by clicking on '+ subitem'").step(function() {
+      var leaf = tree.leafs[0];
+      var btn = leaf.querySelector('.mdl-tree__contextmenu--add-leaf');
+      var beforeAdd = leaf.leafs.length;
+
+      var addLeaf = this.step_func((e) => {
+        assert_equals(beforeAdd + 1, leaf.leafs.length);
+        this.done();
+      });
+
+      btn.addEventListener('click', addLeaf);
+      btn.dispatchEvent(new MouseEvent('click'));
+    });
+
   }, "Tree's function appendLeaf returns the <li> object-container");
 
 
