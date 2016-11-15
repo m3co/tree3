@@ -1,4 +1,5 @@
 .mdl-tree__item {
+  border-top: thin solid #dedede;
   flex-wrap: wrap;
 }
 
@@ -16,10 +17,19 @@
 }
 
 .mdl-tree .mdl-tree .mdl-tree__item {
-  padding-left: 0;
-  padding-right: 0;
+  border-top: thin solid #dedede;
+  margin: 0 -16px 0 -16px;
 }
 
 .mdl-tree .mdl-tree .mdl-tree__item:last-child {
   padding-bottom: 0;
 }
+
+.mdl-tree .mdl-tree__item:last-child {
+  border-bottom: thin solid #dedede;
+}
+
+.mdl-tree .mdl-tree .mdl-tree__item:last-child {
+  border-bottom: none;
+}
+
