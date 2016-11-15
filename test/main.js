@@ -103,6 +103,7 @@
         assert_false(subtree.hidden);
 
         btn.removeEventListener('click', listener2);
+        btn.dispatchEvent(new MouseEvent('click'));
         this.done();
       });
 
@@ -112,16 +113,20 @@
 
     async_test("Add a subitem by clicking on '+ subitem'").step(function() {
       var leaf = tree.leafs[0];
-      var btn = leaf.querySelector('.mdl-tree__contextmenu--add-leaf');
+      var btnAdd = leaf.querySelector('.mdl-tree__contextmenu--add-leaf');
+      var btnEC = leaf.querySelector('.mdl-tree__item-expand-collapse');
       var beforeAdd = leaf.leafs.length;
 
       var addLeaf = this.step_func((e) => {
         assert_equals(beforeAdd + 1, leaf.leafs.length);
+        assert_false(leaf.querySelector('.mdl-tree').hidden);
+        assert_false(btnEC.classList.contains('mdl-tree__item--collapsed'));
+        assert_true(btnEC.classList.contains('mdl-tree__item--expanded'));
         this.done();
       });
 
-      btn.addEventListener('click', addLeaf);
-      btn.dispatchEvent(new MouseEvent('click'));
+      btnAdd.addEventListener('click', addLeaf);
+      btnAdd.dispatchEvent(new MouseEvent('click'));
     });
 
   }, "Tree's function appendLeaf returns the <li> object-container");
