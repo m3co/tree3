@@ -81,6 +81,12 @@
     menu.setAttribute('for', button.id);
 
     var c = leaf.querySelector('.mdl-list__item-primary-content');
+    var btnAdd = contextmenu.querySelector('.mdl-tree__contextmenu--add-leaf');
+
+    btnAdd.addEventListener('click', function (e) {
+      e.target.closest(TREE_ITEM).appendLeaf();
+    });
+
     c.insertBefore(contextmenu, c.firstChild);
 
     this.appendChild(clone); // append to the tree the leaf
