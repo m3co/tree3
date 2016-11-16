@@ -74,6 +74,7 @@
     // if this is "tree" then...
     clone = document.importNode(this.TEMPLATE_LEAF, true);
     var leaf = clone.children[0];
+    leaf.querySelector('.mdl-tree__item-text .mdl-textfield').hidden = false;
 
     var contextmenu = document.importNode(this.TEMPLATE_LEAF_CONTEXTMENU, true);
 

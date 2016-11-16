@@ -138,6 +138,13 @@
       btnAdd.dispatchEvent(new MouseEvent('click'));
     });
 
+    test(() => {
+
+      var leaf = tree.leaf[0].leaf[1];
+      assert_false(leaf.querySelector('.mdl-textfield').hidden);
+
+    }, "Leaf has an input if label is empty");
+
   }, "Tree's function appendLeaf returns the <li> object-container");
 
 
