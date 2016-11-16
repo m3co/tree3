@@ -9,7 +9,7 @@
         &nbsp;
         <span class="mdl-tree__item-text" hidden>
         </span>
-        <div class="mdl-tree__item-label mdl-textfield mdl-js-textfield">
+        <div class="mdl-tree__item-input mdl-textfield mdl-js-textfield">
           <input class="mdl-textfield__input" type="text" placeholder="Label...">
         </div>
         &nbsp;
@@ -111,8 +111,8 @@
     // if this is "tree" then...
     clone = document.importNode(this.TEMPLATE_LEAF, true);
     var leaf = clone.children[0];
-    var input = leaf.querySelector('.mdl-tree__item-label input');
-    input.addEventListener('change', (e) => {
+    leaf.querySelector('.mdl-tree__item-input input')
+        .addEventListener('change', (e) => {
       leaf.textContent = e.target.value.toString();
     });
 
@@ -205,10 +205,10 @@
         this.querySelector('.mdl-tree__item-text').textContent = value.toString();
         if (value.toString().length > 0) {
           this.querySelector('.mdl-tree__item-text').hidden = false;
-          this.querySelector('.mdl-tree__item-label').hidden = true;
+          this.querySelector('.mdl-tree__item-input').hidden = true;
         } else {
           this.querySelector('.mdl-tree__item-text').hidden = true;
-          this.querySelector('.mdl-tree__item-label').hidden = false;
+          this.querySelector('.mdl-tree__item-input').hidden = false;
         }
       }
     });
