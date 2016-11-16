@@ -31,6 +31,15 @@
 
     test(() => {
 
+      assert_true(leaf.leaf instanceof Array);
+      assert_throws(null, () => {
+        leaf.leaf = [];
+      }, "Leaf.leafs throws when changin leafs to an arbitrary value");
+
+    }, "Leaf has only a getter for leaf");
+
+    test(() => {
+
       assert_true(leaf.leafs instanceof Array);
       assert_throws(null, () => {
         leaf.leafs = [];

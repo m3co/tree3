@@ -169,6 +169,15 @@
         throw new Error("Tree does not allow to change leaf's value. Use append or similar");
       }
     });
+
+    Object.defineProperty(o, 'leaf', {
+      get() {
+        return o.leafs;
+      },
+      set(value) {
+        o.leafs = value;
+      }
+    });
   }
 
   function initTree(tree) {
