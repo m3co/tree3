@@ -151,14 +151,17 @@
       var input = leaf.querySelector('.mdl-tree__item-input .mdl-textfield__input');
       input.value = "My Text";
 
-      input.addEventListener('change', this.step_func((e) => {
+      var listener1 = this.step_func((e) => {
+        input.removeEventListener('change', listener1);
+
         assert_true(leaf.querySelector('.mdl-tree__item-input').hidden);
         assert_false(leaf.querySelector('.mdl-tree__item-text').hidden);
         assert_equals("My Text", leaf.textContent);
 
         this.done();
-      }));
+      });
 
+      input.addEventListener('change', listener1);
       input.dispatchEvent(new Event('change'));
     });
 
