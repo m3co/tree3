@@ -37,3 +37,7 @@
 .mdl-tree__item-text .mdl-textfield__input {
   border-bottom: none;
 }
+
+.mdl-tree__item-text .mdl-textfield,.mdl-js-textfield {
+  padding: 0;
+}
