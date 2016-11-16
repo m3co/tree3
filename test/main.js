@@ -141,9 +141,26 @@
     test(() => {
 
       var leaf = tree.leaf[0].leaf[1];
-      assert_false(leaf.querySelector('.mdl-textfield').hidden);
+      assert_false(leaf.querySelector('.mdl-tree__item-label').hidden);
 
     }, "Leaf has an input if label is empty");
+
+    async_test("Change label if input.onEnter with some text").step(function() {
+
+      var leaf = tree.leaf[0].leaf[1];
+      var input = leaf.querySelector('.mdl-tree__item-label .mdl-textfield__input');
+      input.value = "My Text";
+
+      input.addEventListener('change', this.step_func((e) => {
+        assert_true(leaf.querySelector('.mdl-tree__item-label').hidden);
+        assert_false(leaf.querySelector('.mdl-tree__item-text').hidden);
+        assert_equals("My Text", leaf.textContent);
+
+        this.done();
+      }));
+
+      input.dispatchEvent(new Event('change'));
+    });
 
   }, "Tree's function appendLeaf returns the <li> object-container");
 

@@ -7,11 +7,11 @@
     <li class="mdl-list__item mdl-tree__item">
       <div class="mdl-list__item-primary-content">
         &nbsp;
-        <span class="mdl-tree__item-text">
-          <div class="mdl-textfield mdl-js-textfield" hidden>
-            <input class="mdl-textfield__input" type="text" placeholder="Label...">
-          </div>
+        <span class="mdl-tree__item-text" hidden>
         </span>
+        <div class="mdl-tree__item-label mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="text" placeholder="Label...">
+        </div>
         &nbsp;
       </div>
     </li>
@@ -111,7 +111,10 @@
     // if this is "tree" then...
     clone = document.importNode(this.TEMPLATE_LEAF, true);
     var leaf = clone.children[0];
-    leaf.querySelector('.mdl-tree__item-text .mdl-textfield').hidden = false;
+    var input = leaf.querySelector('.mdl-tree__item-label input');
+    input.addEventListener('change', (e) => {
+      leaf.textContent = e.target.value.toString();
+    });
 
     var contextmenu = document.importNode(this.TEMPLATE_LEAF_CONTEXTMENU, true);
 
@@ -198,7 +201,14 @@
         return this.querySelector('.mdl-tree__item-text').textContent.replace(/\n/g, '').trim();
       },
       set(value) {
-        this.querySelector('.mdl-tree__item-text').textContent = value;
+        this.querySelector('.mdl-tree__item-text').textContent = value.toString();
+        if (value.toString().length > 0) {
+          this.querySelector('.mdl-tree__item-text').hidden = false;
+          this.querySelector('.mdl-tree__item-label').hidden = true;
+        } else {
+          this.querySelector('.mdl-tree__item-text').hidden = true;
+          this.querySelector('.mdl-tree__item-label').hidden = false;
+        }
       }
     });
 

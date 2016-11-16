@@ -37,7 +37,7 @@
   width: 100%;
 }
 
-.mdl-tree__item-text .mdl-textfield__input {
+.mdl-tree__item-label .mdl-textfield__input {
   border-bottom: none;
 }
 
