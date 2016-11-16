@@ -33,3 +33,7 @@
   border-bottom: none;
 }
 
+.mdl-tree__item-text .mdl-textfield__input {
+  border-bottom: none;
+}
+

@@ -62,6 +62,14 @@
       });
     }
 
+    var last = document.querySelector('#mdl-tree__contextmenu-5').parentNode;
+    var c = last.querySelector('.mdl-tree__item-text');
+    c.innerHTML = `
+    <div class="mdl-textfield mdl-js-textfield">
+      <input class="mdl-textfield__input" type="text" placeholder="Label...">
+    </div>`;
+
+
     function expand(e) {
       var parent = e.currentTarget.parentNode;
       var nestedList = parent.querySelector("ul:not(.mdl-menu)");

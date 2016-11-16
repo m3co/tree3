@@ -6,7 +6,7 @@
   var TREE = ".mdl-tree";
   var TREE_ITEM = ".mdl-tree__item";
 
-  var TEMPLATE_LEAF_HTML = "\n    <li class=\"mdl-list__item mdl-tree__item\">\n      <div class=\"mdl-list__item-primary-content\">\n        &nbsp;\n        <span class=\"mdl-tree__item-text\"></span>\n        &nbsp;\n      </div>\n    </li>\n  ";
+  var TEMPLATE_LEAF_HTML = "\n    <li class=\"mdl-list__item mdl-tree__item\">\n      <div class=\"mdl-list__item-primary-content\">\n        &nbsp;\n        <span class=\"mdl-tree__item-text\">\n          <div class=\"mdl-textfield mdl-js-textfield\" hidden>\n            <input class=\"mdl-textfield__input\" type=\"text\" placeholder=\"Label...\">\n          </div>\n        </span>\n        &nbsp;\n      </div>\n    </li>\n  ";
   var TEMPLATE_LEAF = createFromStringDocumentFragment(TEMPLATE_LEAF_HTML);
 
   var TEMPLATE_TREE_HTML = "\n    <ul class=\"mdl-list mdl-tree\"></ul>\n  ";
@@ -148,7 +148,7 @@
 
     Object.defineProperty(leaf, 'textContent', {
       get: function get() {
-        return this.querySelector('.mdl-tree__item-text').textContent;
+        return this.querySelector('.mdl-tree__item-text').textContent.replace(/\n/g, '').trim();
       },
       set: function set(value) {
         this.querySelector('.mdl-tree__item-text').textContent = value;

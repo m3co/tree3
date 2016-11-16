@@ -7,7 +7,11 @@
     <li class="mdl-list__item mdl-tree__item">
       <div class="mdl-list__item-primary-content">
         &nbsp;
-        <span class="mdl-tree__item-text"></span>
+        <span class="mdl-tree__item-text">
+          <div class="mdl-textfield mdl-js-textfield" hidden>
+            <input class="mdl-textfield__input" type="text" placeholder="Label...">
+          </div>
+        </span>
         &nbsp;
       </div>
     </li>
@@ -181,7 +185,7 @@
 
     Object.defineProperty(leaf, 'textContent', {
       get() {
-        return this.querySelector('.mdl-tree__item-text').textContent;
+        return this.querySelector('.mdl-tree__item-text').textContent.replace(/\n/g, '').trim();
       },
       set(value) {
         this.querySelector('.mdl-tree__item-text').textContent = value;
