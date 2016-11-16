@@ -140,6 +140,7 @@
     this.appendChild(clone); // append to the tree the leaf
     initLeaf(leaf);
 
+    window.componentHandler.upgradeDom();
     return leaf;
   }
 
