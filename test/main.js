@@ -165,6 +165,36 @@
       input.dispatchEvent(new Event('change'));
     });
 
+    async_test("Change label if span.onDblclick").step(function() {
+
+      var leaf = tree.leaf[0].leaf[1];
+      var input = leaf.querySelector('.mdl-tree__item-input .mdl-textfield__input');
+      var span = leaf.querySelector('.mdl-tree__item-text');
+
+      var listener1 = this.step_func((e) => {
+        span.removeEventListener('dblclick', listener1);
+
+        assert_false(leaf.querySelector('.mdl-tree__item-input').hidden);
+        assert_true(leaf.querySelector('.mdl-tree__item-text').hidden);
+        input.value = "My changed Text";
+        input.dispatchEvent(new Event('change'));
+      });
+
+      var listener2 = this.step_func((e) => {
+        input.removeEventListener('change', listener2);
+
+        assert_true(leaf.querySelector('.mdl-tree__item-input').hidden);
+        assert_false(leaf.querySelector('.mdl-tree__item-text').hidden);
+        assert_equals("My changed Text", leaf.textContent);
+
+        this.done();
+      });
+
+      span.addEventListener('dblclick', listener1);
+      input.addEventListener('change', listener2);
+
+      span.dispatchEvent(new MouseEvent('dblclick'));
+    });
   }, "Tree's function appendLeaf returns the <li> object-container");
 
 

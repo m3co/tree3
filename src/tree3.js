@@ -115,6 +115,18 @@
         .addEventListener('change', (e) => {
       leaf.textContent = e.target.value.toString();
     });
+    leaf.querySelector('.mdl-tree__item-text')
+        .addEventListener('dblclick', (e) => {
+      var inputContainer = leaf.querySelector('.mdl-tree__item-input');
+      var input = inputContainer.querySelector('input');
+      input.value = leaf.textContent;
+      inputContainer.hidden = false;
+      leaf.querySelector('.mdl-tree__item-text').hidden = true;
+      window.setTimeout(() => {
+        input.focus();
+        input.setSelectionRange(input.value.length, input.value.length);
+      }, 0);
+    });
 
     var contextmenu = document.importNode(this.TEMPLATE_LEAF_CONTEXTMENU, true);
 
