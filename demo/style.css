@@ -34,10 +34,15 @@
   border-bottom: none;
 }
 
+.mdl-tree__item-text {
+  width: 100%;
+}
+
 .mdl-tree__item-text .mdl-textfield__input {
   border-bottom: none;
 }
 
 .mdl-tree__item-text .mdl-textfield,.mdl-js-textfield {
   padding: 0;
+  width: 100%;
 }
