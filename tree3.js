@@ -32,6 +32,11 @@
         btn.classList.add('mdl-tree__item--collapsed');
         btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_up";
         tree.hidden = true;
+
+        // fire collapse event
+        btn.dispatchEvent(new CustomEvent('collapse', {
+          bubbles: true
+        }));
       } else if (btn.classList.contains('mdl-tree__item--collapsed')) {
         btn.classList.remove('mdl-tree__item--collapsed');
         btn.classList.add('mdl-tree__item--expanded');
@@ -158,6 +163,10 @@
     });
   }
 
+  /**
+   * Initializes the tree, adding some stuff to the HTMLElement
+   * @param {HTMLElement} tree - The tree to update
+   */
   function initTree(tree) {
     addProperty__leafs(tree);
     tree.TEMPLATE_LEAF = TEMPLATE_LEAF;

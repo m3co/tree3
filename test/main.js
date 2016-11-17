@@ -196,14 +196,23 @@
       span.dispatchEvent(new MouseEvent('dblclick'));
     });
 
-    async_test("Expand action launches onBeforeexpand, onExpand").step(function() {
+    async_test("Expand action launches onExpand").step(function() {
 
       this.done();
     });
 
-    async_test("Collapse action launches onBeforecollapse, onCollapse").step(function() {
+    async_test("Collapse action launches onCollapse").step(function() {
+      var leaf = tree.leaf[0];
+      var btn = leaf.querySelector('.mdl-tree__item-expand-collapse');
 
-      this.done();
+      var listener1 = (e) => {
+        leaf.removeEventListener('collapse', listener1);
+        this.done();
+      };
+      leaf.addEventListener('collapse', listener1);
+      assert_true(btn.classList.contains('mdl-tree__item--expanded'));
+
+      btn.dispatchEvent(new MouseEvent('click'));
     });
 
     async_test("appendLeaf() launches onAddleaf").step(function() {
