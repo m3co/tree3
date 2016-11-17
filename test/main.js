@@ -242,8 +242,18 @@
     });
 
     async_test("Change text action launches onchangetext").step(function() {
+      var leaf = tree.leaf[0].leaf[2];
 
-      this.done();
+      var listener = this.step_func((e) => {
+        leaf.removeEventListener('changetext', listener);
+        assert_equals(input.value, "This is a text");
+        this.done();
+      });
+      leaf.addEventListener('changetext', listener);
+      var input = leaf.querySelector('.mdl-textfield__input');
+
+      input.value = "This is a text";
+      input.dispatchEvent(new Event('change'));
     });
 
   }, "Tree's function appendLeaf returns the <li> object-container");

@@ -124,6 +124,12 @@
     leaf.querySelector('.mdl-tree__item-input input')
         .addEventListener('change', (e) => {
       leaf.textContent = e.target.value.toString();
+      leaf.dispatchEvent(new CustomEvent('changetext', {
+        detail: {
+          leaf: leaf
+        },
+        bubbles: true
+      }));
     });
     leaf.querySelector('.mdl-tree__item-text')
         .addEventListener('dblclick', (e) => {
