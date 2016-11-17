@@ -195,6 +195,27 @@
 
       span.dispatchEvent(new MouseEvent('dblclick'));
     });
+
+    async_test("Expand action launches onBeforeexpand, onExpand").step(function() {
+
+      this.done();
+    });
+
+    async_test("Collapse action launches onBeforecollapse, onCollapse").step(function() {
+
+      this.done();
+    });
+
+    async_test("appendLeaf() launches onAddleaf").step(function() {
+
+      this.done();
+    });
+
+    async_test("Change text action launches onchangetext").step(function() {
+
+      this.done();
+    });
+
   }, "Tree's function appendLeaf returns the <li> object-container");
 
 
