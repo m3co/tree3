@@ -163,6 +163,12 @@
     initLeaf(leaf);
 
     window.componentHandler.upgradeDom();
+    this.dispatchEvent(new CustomEvent('addleaf', {
+      detail: {
+        leaf: leaf
+      },
+      bubbles: true
+    }));
     return leaf;
   }
 

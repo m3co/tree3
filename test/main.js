@@ -229,8 +229,16 @@
     });
 
     async_test("appendLeaf() launches onAddleaf").step(function() {
+      var leaf = tree.leaf[0];
 
-      this.done();
+      var listener = this.step_func((e) => {
+        leaf.removeEventListener('addleaf', listener);
+        assert_equals(e.detail.leaf, leaf.leaf[2]);
+        this.done();
+      });
+      leaf.addEventListener('addleaf', listener);
+
+      leaf.appendLeaf();
     });
 
     async_test("Change text action launches onchangetext").step(function() {
