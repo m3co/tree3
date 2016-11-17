@@ -196,21 +196,30 @@
       span.dispatchEvent(new MouseEvent('dblclick'));
     });
 
-    async_test("Expand action launches onExpand").step(function() {
-
-      this.done();
-    });
-
     async_test("Collapse action launches onCollapse").step(function() {
       var leaf = tree.leaf[0];
       var btn = leaf.querySelector('.mdl-tree__item-expand-collapse');
 
-      var listener1 = (e) => {
+      var listener1 = this.step_func((e) => {
         leaf.removeEventListener('collapse', listener1);
         this.done();
-      };
+      });
       leaf.addEventListener('collapse', listener1);
       assert_true(btn.classList.contains('mdl-tree__item--expanded'));
+
+      btn.dispatchEvent(new MouseEvent('click'));
+    });
+
+    async_test("Expand action launches onExpand").step(function() {
+      var leaf = tree.leaf[0];
+      var btn = leaf.querySelector('.mdl-tree__item-expand-collapse');
+
+      var listener1 = this.step_func((e) => {
+        leaf.removeEventListener('expand', listener1);
+        this.done();
+      });
+      leaf.addEventListener('expand', listener1);
+      assert_true(btn.classList.contains('mdl-tree__item--collapsed'));
 
       btn.dispatchEvent(new MouseEvent('click'));
     });

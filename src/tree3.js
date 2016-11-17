@@ -79,6 +79,11 @@
         btn.classList.add('mdl-tree__item--expanded');
         btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_down";
         tree.hidden = false;
+
+        // fire expand event
+        btn.dispatchEvent(new CustomEvent('expand', {
+          bubbles: true
+        }));
       }
     };
 
