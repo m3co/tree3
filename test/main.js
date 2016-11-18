@@ -5,6 +5,7 @@
 
   test(() => {
     assert_true(tree.leafs instanceof Array);
+    assert_equals(tree.leafs.length, 0);
     assert_throws(null, () => {
       tree.leafs = [];
     }, "Tree.leafs throws when changing leafs to an arbitrarty value");
@@ -17,6 +18,11 @@
     assert_true(tree.TEMPLATE_LEAF_EXPANDCOLLAPSE instanceof DocumentFragment);
     assert_true(tree.TEMPLATE_TREE instanceof DocumentFragment);
   }, "Tree tag contains a set of default templates");
+
+  test(() => {
+    var splash = tree.querySelector('.mdl-tree__splash');
+    assert_true(splash instanceof HTMLElement);
+  }, "Tree has an splash screen if it's empty");
 
   test(() => {
     assert_true(tree.appendLeaf instanceof Function);

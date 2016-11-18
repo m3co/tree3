@@ -3,6 +3,18 @@
   const TREE = ".mdl-tree";
   const TREE_ITEM = ".mdl-tree__item";
 
+  const TEMPLATE_LEAF_SPLASH_HTML = `
+    <li class="mdl-list__item mdl-tree__item">
+      <div class="mdl-list__item-primary-content">
+        <button class="mdl-button mdl-js-button mdl-button--icon mdl-tree__splash">
+          <i class="material-icons">add</i>
+        </button>
+      </div>
+    </li>
+  `;
+  var TEMPLATE_LEAF_SPLASH = createFromStringDocumentFragment(
+      TEMPLATE_LEAF_SPLASH_HTML);
+
   const TEMPLATE_LEAF_HTML = `
     <li class="mdl-list__item mdl-tree__item">
       <div class="mdl-list__item-primary-content">
@@ -96,7 +108,7 @@
         tree = clone.querySelector('.mdl-tree');
         this.appendChild(tree);
 
-        initTree(tree);
+        initTree(tree, this);
       }
 
       // append to the leaf's tree the sub-leaf =>
@@ -199,7 +211,10 @@
         // and this is because CSS can't access to parent elements
         for (var i = 0; i < x.length; i++) {
           if (x[i].parentNode == parent) {
-            y.push(x[i]);
+            // and this is because you don't know deeply CSS!
+            if (!x[i].querySelector('.mdl-tree__splash')) {
+              y.push(x[i]);
+            }
           }
         }
         return y;
@@ -223,13 +238,17 @@
    * Initializes the tree, adding some stuff to the HTMLElement
    * @param {HTMLElement} tree - The tree to update
    */
-  function initTree(tree) {
+  function initTree(tree, parent) {
     addProperty__leafs(tree);
     tree.TEMPLATE_LEAF = TEMPLATE_LEAF;
     tree.TEMPLATE_TREE = TEMPLATE_TREE;
     tree.TEMPLATE_LEAF_CONTEXTMENU = TEMPLATE_LEAF_CONTEXTMENU;
     tree.TEMPLATE_LEAF_EXPANDCOLLAPSE = TEMPLATE_LEAF_EXPANDCOLLAPSE;
     tree.appendLeaf = appendLeaf;
+
+    if (!parent) {
+      tree.append(TEMPLATE_LEAF_SPLASH);
+    }
   }
 
   function initLeaf(leaf) {

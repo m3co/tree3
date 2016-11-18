@@ -6,6 +6,9 @@
   var TREE = ".mdl-tree";
   var TREE_ITEM = ".mdl-tree__item";
 
+  var TEMPLATE_LEAF_SPLASH_HTML = "\n    <li class=\"mdl-list__item mdl-tree__item\">\n      <div class=\"mdl-list__item-primary-content\">\n        <button class=\"mdl-button mdl-js-button mdl-button--icon mdl-tree__splash\">\n          <i class=\"material-icons\">add</i>\n        </button>\n      </div>\n    </li>\n  ";
+  var TEMPLATE_LEAF_SPLASH = createFromStringDocumentFragment(TEMPLATE_LEAF_SPLASH_HTML);
+
   var TEMPLATE_LEAF_HTML = "\n    <li class=\"mdl-list__item mdl-tree__item\">\n      <div class=\"mdl-list__item-primary-content\">\n        &nbsp;\n        <span class=\"mdl-tree__item-text\" hidden>\n        </span>\n        <div class=\"mdl-tree__item-input mdl-textfield mdl-js-textfield\">\n          <input class=\"mdl-textfield__input\" type=\"text\" placeholder=\"Label...\">\n        </div>\n        &nbsp;\n      </div>\n    </li>\n  ";
   var TEMPLATE_LEAF = createFromStringDocumentFragment(TEMPLATE_LEAF_HTML);
 
@@ -59,7 +62,7 @@
         tree = clone.querySelector('.mdl-tree');
         this.appendChild(tree);
 
-        initTree(tree);
+        initTree(tree, this);
       }
 
       // append to the leaf's tree the sub-leaf =>
@@ -160,7 +163,10 @@
         // and this is because CSS can't access to parent elements
         for (var i = 0; i < x.length; i++) {
           if (x[i].parentNode == parent) {
-            y.push(x[i]);
+            // and this is because you don't know deeply CSS!
+            if (!x[i].querySelector('.mdl-tree__splash')) {
+              y.push(x[i]);
+            }
           }
         }
         return y;
@@ -184,13 +190,17 @@
    * Initializes the tree, adding some stuff to the HTMLElement
    * @param {HTMLElement} tree - The tree to update
    */
-  function initTree(tree) {
+  function initTree(tree, parent) {
     addProperty__leafs(tree);
     tree.TEMPLATE_LEAF = TEMPLATE_LEAF;
     tree.TEMPLATE_TREE = TEMPLATE_TREE;
     tree.TEMPLATE_LEAF_CONTEXTMENU = TEMPLATE_LEAF_CONTEXTMENU;
     tree.TEMPLATE_LEAF_EXPANDCOLLAPSE = TEMPLATE_LEAF_EXPANDCOLLAPSE;
     tree.appendLeaf = appendLeaf;
+
+    if (!parent) {
+      tree.append(TEMPLATE_LEAF_SPLASH);
+    }
   }
 
   function initLeaf(leaf) {
