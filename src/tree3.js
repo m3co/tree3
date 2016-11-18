@@ -4,11 +4,17 @@
   const TREE_ITEM = `${TREE}__item`;
   const LEAF_SPLASH = `${TREE}__splash`;
   const LEAF_CONTEXTMENU = `${TREE}__contextmenu`;
+  const LEAF_CONTEXTMENU_ADD = `${LEAF_CONTEXTMENU}--add-leaf`;
+  const LEAF_INPUT = `${TREE_ITEM}-input`;
+  const LEAF_TEXT = `${TREE_ITEM}-text`;
+  const LEAF_EXPAND_COLLAPSE = `${TREE_ITEM}-expand-collapse`;
+  const LEAF_EXPANDED = `${TREE_ITEM}--expanded`;
+  const LEAF_COLLAPSED = `${TREE_ITEM}--collapsed`;
 
   const TEMPLATE_LEAF_SPLASH_HTML = `
     <li class="mdl-list__item ${TREE_ITEM.slice(1)}">
       <div class="mdl-list__item-primary-content">
-        <button class="mdl-button mdl-js-button mdl-button--icon ${TREE.slice(1)}__splash">
+        <button class="mdl-button mdl-js-button mdl-button--icon ${LEAF_SPLASH.slice(1)}">
           <i class="material-icons">add</i>
         </button>
       </div>
@@ -21,9 +27,9 @@
     <li class="mdl-list__item ${TREE_ITEM.slice(1)}">
       <div class="mdl-list__item-primary-content">
         &nbsp;
-        <span class="${TREE_ITEM.slice(1)}-text" hidden>
+        <span class="${LEAF_TEXT.slice(1)}" hidden>
         </span>
-        <div class="${TREE_ITEM.slice(1)}-input mdl-textfield mdl-js-textfield">
+        <div class="${LEAF_INPUT.slice(1)} mdl-textfield mdl-js-textfield">
           <input class="mdl-textfield__input" type="text" placeholder="Label...">
         </div>
         &nbsp;
@@ -46,8 +52,7 @@
       for="${LEAF_CONTEXTMENU.slice(1)}-">
       <li class="mdl-menu__item
                  mdl-menu__item--full-bleed-divider
-                 ${LEAF_CONTEXTMENU.slice(1)}--item
-                 ${LEAF_CONTEXTMENU.slice(1)}--add-leaf">
+                 ${LEAF_CONTEXTMENU_ADD.slice(1)}">
         <button class="mdl-button mdl-js-button mdl-button--icon">
           <i class="material-icons">add</i>
         </button>
@@ -61,8 +66,8 @@
   const TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML = `
     <button class="mdl-list__item-secondary-action
                    mdl-button mdl-js-button mdl-button--icon
-                   ${TREE_ITEM.slice(1)}-expand-collapse
-                   ${TREE_ITEM.slice(1)}--expanded">
+                   ${LEAF_EXPAND_COLLAPSE.slice(1)}
+                   ${LEAF_EXPANDED.slice(1)}">
       <i class="material-icons">keyboard_arrow_down</i>
     </button>
   `;
@@ -78,9 +83,9 @@
     var clone;
 
     var expandCollapse = (btn, tree) => {
-      if (btn.classList.contains(`${TREE_ITEM.slice(1)}--expanded`)) {
-        btn.classList.remove(`${TREE_ITEM.slice(1)}--expanded`);
-        btn.classList.add(`${TREE_ITEM.slice(1)}--collapsed`);
+      if (btn.classList.contains(LEAF_EXPANDED.slice(1))) {
+        btn.classList.remove(LEAF_EXPANDED.slice(1));
+        btn.classList.add(LEAF_COLLAPSED.slice(1));
         btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_up";
         tree.hidden = true;
 
@@ -88,9 +93,9 @@
         btn.dispatchEvent(new CustomEvent('collapse', {
           bubbles: true
         }));
-      } else if (btn.classList.contains(`${TREE_ITEM.slice(1)}--collapsed`)) {
-        btn.classList.remove(`${TREE_ITEM.slice(1)}--collapsed`);
-        btn.classList.add(`${TREE_ITEM.slice(1)}--expanded`);
+      } else if (btn.classList.contains(LEAF_COLLAPSED.slice(1))) {
+        btn.classList.remove(LEAF_COLLAPSED.slice(1));
+        btn.classList.add(LEAF_EXPANDED.slice(1));
         btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_down";
         tree.hidden = false;
 
@@ -115,13 +120,13 @@
 
       // append to the leaf's tree the sub-leaf =>
       // append to the leaf a subleaf
-      if (!this.querySelector(`${TREE_ITEM}-expand-collapse`)) {
+      if (!this.querySelector(LEAF_EXPAND_COLLAPSE)) {
         clone = document.importNode(tree.TEMPLATE_LEAF_EXPANDCOLLAPSE, true);
         var c = this.querySelector('.mdl-list__item-primary-content').nextSibling;
         if (!c) {
           throw new Error('please, check why nextSibling is null');
         }
-        var btn = clone.querySelector(`${TREE_ITEM}-expand-collapse`);
+        var btn = clone.querySelector(LEAF_EXPAND_COLLAPSE);
 
         // by default, the expand/collapse button is expanded
         // and click will switch expanded to collapsed and so on
@@ -135,7 +140,7 @@
     // if this is "tree" then...
     clone = document.importNode(this.TEMPLATE_LEAF, true);
     var leaf = clone.querySelector(TREE_ITEM);
-    leaf.querySelector(`${TREE_ITEM}-input input`)
+    leaf.querySelector(`${LEAF_INPUT} input`)
         .addEventListener('change', (e) => {
       leaf.textContent = e.target.value.toString();
       leaf.dispatchEvent(new CustomEvent('changetext', {
@@ -145,13 +150,13 @@
         bubbles: true
       }));
     });
-    leaf.querySelector(`${TREE_ITEM}-text`)
+    leaf.querySelector(LEAF_TEXT)
         .addEventListener('dblclick', (e) => {
-      var inputContainer = leaf.querySelector(`${TREE_ITEM}-input`);
+      var inputContainer = leaf.querySelector(LEAF_INPUT);
       var input = inputContainer.querySelector('input');
       input.value = leaf.textContent;
       inputContainer.hidden = false;
-      leaf.querySelector(`${TREE_ITEM}-text`).hidden = true;
+      leaf.querySelector(LEAF_TEXT).hidden = true;
       window.setTimeout(() => {
         input.focus();
         input.setSelectionRange(input.value.length, input.value.length);
@@ -166,13 +171,13 @@
     menu.setAttribute('for', button.id);
 
     var c = leaf.querySelector('.mdl-list__item-primary-content');
-    var btnAdd = contextmenu.querySelector(`${LEAF_CONTEXTMENU}--add-leaf`);
+    var btnAdd = contextmenu.querySelector(LEAF_CONTEXTMENU_ADD);
 
     btnAdd.addEventListener('click', (e) => {
       var tree = e.target.closest(TREE_ITEM);
       tree.appendLeaf();
-      var btn = tree.querySelector(`${TREE_ITEM}-expand-collapse`);
-      if (btn.classList.contains(`${TREE_ITEM.slice(1)}--collapsed`)) {
+      var btn = tree.querySelector(LEAF_EXPAND_COLLAPSE);
+      if (btn.classList.contains(LEAF_COLLAPSED.slice(1))) {
         expandCollapse(btn, tree.querySelector(TREE));
       }
     });
@@ -203,7 +208,7 @@
         if (this instanceof HTMLUListElement) {
           parent = this;
         } else if (this instanceof HTMLLIElement) {
-          parent = this.querySelector(`${TREE}`);
+          parent = this.querySelector(TREE);
           if (!parent) {
             return [];
           }
@@ -263,16 +268,16 @@
 
     Object.defineProperty(leaf, 'textContent', {
       get() {
-        return this.querySelector(`${TREE_ITEM}-text`).textContent.replace(/\n/g, '').trim();
+        return this.querySelector(LEAF_TEXT).textContent.replace(/\n/g, '').trim();
       },
       set(value) {
-        this.querySelector(`${TREE_ITEM}-text`).textContent = value.toString();
+        this.querySelector(LEAF_TEXT).textContent = value.toString();
         if (value.toString().length > 0) {
-          this.querySelector(`${TREE_ITEM}-text`).hidden = false;
-          this.querySelector(`${TREE_ITEM}-input`).hidden = true;
+          this.querySelector(LEAF_TEXT).hidden = false;
+          this.querySelector(LEAF_INPUT).hidden = true;
         } else {
-          this.querySelector(`${TREE_ITEM}-text`).hidden = true;
-          this.querySelector(`${TREE_ITEM}-input`).hidden = false;
+          this.querySelector(LEAF_TEXT).hidden = true;
+          this.querySelector(LEAF_INPUT).hidden = false;
         }
       }
     });
