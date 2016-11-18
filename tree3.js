@@ -1,25 +1,25 @@
-"use strict";
+'use strict';
 
 ;(function () {
   'use strict';
 
   var TREE = ".mdl-tree";
-  var TREE_ITEM = ".mdl-tree__item";
-  var LEAF_SPLASH = ".mdl-tree__splash";
+  var TREE_ITEM = TREE + '__item';
+  var LEAF_SPLASH = TREE + '__splash';
 
-  var TEMPLATE_LEAF_SPLASH_HTML = "\n    <li class=\"mdl-list__item mdl-tree__item\">\n      <div class=\"mdl-list__item-primary-content\">\n        <button class=\"mdl-button mdl-js-button mdl-button--icon mdl-tree__splash\">\n          <i class=\"material-icons\">add</i>\n        </button>\n      </div>\n    </li>\n  ";
+  var TEMPLATE_LEAF_SPLASH_HTML = '\n    <li class="mdl-list__item ' + TREE_ITEM.slice(1) + '">\n      <div class="mdl-list__item-primary-content">\n        <button class="mdl-button mdl-js-button mdl-button--icon ' + TREE.slice(1) + '__splash">\n          <i class="material-icons">add</i>\n        </button>\n      </div>\n    </li>\n  ';
   var TEMPLATE_LEAF_SPLASH = createFromStringDocumentFragment(TEMPLATE_LEAF_SPLASH_HTML);
 
-  var TEMPLATE_LEAF_HTML = "\n    <li class=\"mdl-list__item mdl-tree__item\">\n      <div class=\"mdl-list__item-primary-content\">\n        &nbsp;\n        <span class=\"mdl-tree__item-text\" hidden>\n        </span>\n        <div class=\"mdl-tree__item-input mdl-textfield mdl-js-textfield\">\n          <input class=\"mdl-textfield__input\" type=\"text\" placeholder=\"Label...\">\n        </div>\n        &nbsp;\n      </div>\n    </li>\n  ";
+  var TEMPLATE_LEAF_HTML = '\n    <li class="mdl-list__item ' + TREE_ITEM.slice(1) + '">\n      <div class="mdl-list__item-primary-content">\n        &nbsp;\n        <span class="' + TREE_ITEM.slice(1) + '-text" hidden>\n        </span>\n        <div class="' + TREE_ITEM.slice(1) + '-input mdl-textfield mdl-js-textfield">\n          <input class="mdl-textfield__input" type="text" placeholder="Label...">\n        </div>\n        &nbsp;\n      </div>\n    </li>\n  ';
   var TEMPLATE_LEAF = createFromStringDocumentFragment(TEMPLATE_LEAF_HTML);
 
-  var TEMPLATE_TREE_HTML = "\n    <ul class=\"mdl-list mdl-tree\"></ul>\n  ";
+  var TEMPLATE_TREE_HTML = '\n    <ul class="mdl-list ' + TREE.slice(1) + '"></ul>\n  ';
   var TEMPLATE_TREE = createFromStringDocumentFragment(TEMPLATE_TREE_HTML);
 
-  var TEMPLATE_LEAF_CONTEXTMENU_HTML = "\n    <button id=\"mdl-tree__contextmenu-\"\n      class=\"mdl-button mdl-js-button mdl-button--icon\">\n      <i class=\"material-icons\">more_vert</i>\n    </button>\n    <ul class=\"mdl-menu mdl-js-menu mdl-js-ripple-effect\"\n      for=\"mdl-tree__contextmenu-\">\n      <li class=\"mdl-menu__item\n                 mdl-menu__item--full-bleed-divider\n                 mdl-tree__contextmenu--item\n                 mdl-tree__contextmenu--add-leaf\">\n        <button class=\"mdl-button mdl-js-button mdl-button--icon\">\n          <i class=\"material-icons\">add</i>\n        </button>\n        <span>Subitem</span>\n      </li>\n    </ul>\n  ";
+  var TEMPLATE_LEAF_CONTEXTMENU_HTML = '\n    <button id="' + TREE.slice(1) + '__contextmenu-"\n      class="mdl-button mdl-js-button mdl-button--icon">\n      <i class="material-icons">more_vert</i>\n    </button>\n    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"\n      for="' + TREE.slice(1) + '__contextmenu-">\n      <li class="mdl-menu__item\n                 mdl-menu__item--full-bleed-divider\n                 ' + TREE.slice(1) + '__contextmenu--item\n                 ' + TREE.slice(1) + '__contextmenu--add-leaf">\n        <button class="mdl-button mdl-js-button mdl-button--icon">\n          <i class="material-icons">add</i>\n        </button>\n        <span>Subitem</span>\n      </li>\n    </ul>\n  ';
   var TEMPLATE_LEAF_CONTEXTMENU = createFromStringDocumentFragment(TEMPLATE_LEAF_CONTEXTMENU_HTML);
 
-  var TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML = "\n    <button class=\"mdl-list__item-secondary-action\n                   mdl-button mdl-js-button mdl-button--icon\n                   mdl-tree__item-expand-collapse\n                   mdl-tree__item--expanded\">\n      <i class=\"material-icons\">keyboard_arrow_down</i>\n    </button>\n  ";
+  var TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML = '\n    <button class="mdl-list__item-secondary-action\n                   mdl-button mdl-js-button mdl-button--icon\n                   ' + TREE_ITEM.slice(1) + '-expand-collapse\n                   ' + TREE_ITEM.slice(1) + '--expanded">\n      <i class="material-icons">keyboard_arrow_down</i>\n    </button>\n  ';
   var TEMPLATE_LEAF_EXPANDCOLLAPSE = createFromStringDocumentFragment(TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML);
 
   var index_contextmenu = 0;
@@ -31,9 +31,9 @@
     var clone;
 
     var expandCollapse = function expandCollapse(btn, tree) {
-      if (btn.classList.contains('mdl-tree__item--expanded')) {
-        btn.classList.remove('mdl-tree__item--expanded');
-        btn.classList.add('mdl-tree__item--collapsed');
+      if (btn.classList.contains(TREE_ITEM.slice(1) + '--expanded')) {
+        btn.classList.remove(TREE_ITEM.slice(1) + '--expanded');
+        btn.classList.add(TREE_ITEM.slice(1) + '--collapsed');
         btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_up";
         tree.hidden = true;
 
@@ -41,9 +41,9 @@
         btn.dispatchEvent(new CustomEvent('collapse', {
           bubbles: true
         }));
-      } else if (btn.classList.contains('mdl-tree__item--collapsed')) {
-        btn.classList.remove('mdl-tree__item--collapsed');
-        btn.classList.add('mdl-tree__item--expanded');
+      } else if (btn.classList.contains(TREE_ITEM.slice(1) + '--collapsed')) {
+        btn.classList.remove(TREE_ITEM.slice(1) + '--collapsed');
+        btn.classList.add(TREE_ITEM.slice(1) + '--expanded');
         btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_down";
         tree.hidden = false;
 
@@ -60,7 +60,7 @@
       if (!tree) {
         tree = this.closest(TREE);
         clone = document.importNode(tree.TEMPLATE_TREE, true);
-        tree = clone.querySelector('.mdl-tree');
+        tree = clone.querySelector(TREE);
         this.appendChild(tree);
 
         initTree(tree, this);
@@ -68,13 +68,13 @@
 
       // append to the leaf's tree the sub-leaf =>
       // append to the leaf a subleaf
-      if (!this.querySelector('.mdl-tree__item-expand-collapse')) {
+      if (!this.querySelector(TREE_ITEM + '-expand-collapse')) {
         clone = document.importNode(tree.TEMPLATE_LEAF_EXPANDCOLLAPSE, true);
         var c = this.querySelector('.mdl-list__item-primary-content').nextSibling;
         if (!c) {
           throw new Error('please, check why nextSibling is null');
         }
-        var btn = clone.querySelector('.mdl-tree__item-expand-collapse');
+        var btn = clone.querySelector(TREE_ITEM + '-expand-collapse');
 
         // by default, the expand/collapse button is expanded
         // and click will switch expanded to collapsed and so on
@@ -87,8 +87,8 @@
 
     // if this is "tree" then...
     clone = document.importNode(this.TEMPLATE_LEAF, true);
-    var leaf = clone.querySelector('.mdl-tree__item');
-    leaf.querySelector('.mdl-tree__item-input input').addEventListener('change', function (e) {
+    var leaf = clone.querySelector(TREE_ITEM);
+    leaf.querySelector(TREE_ITEM + '-input input').addEventListener('change', function (e) {
       leaf.textContent = e.target.value.toString();
       leaf.dispatchEvent(new CustomEvent('changetext', {
         detail: {
@@ -97,12 +97,12 @@
         bubbles: true
       }));
     });
-    leaf.querySelector('.mdl-tree__item-text').addEventListener('dblclick', function (e) {
-      var inputContainer = leaf.querySelector('.mdl-tree__item-input');
+    leaf.querySelector(TREE_ITEM + '-text').addEventListener('dblclick', function (e) {
+      var inputContainer = leaf.querySelector(TREE_ITEM + '-input');
       var input = inputContainer.querySelector('input');
       input.value = leaf.textContent;
       inputContainer.hidden = false;
-      leaf.querySelector('.mdl-tree__item-text').hidden = true;
+      leaf.querySelector(TREE_ITEM + '-text').hidden = true;
       window.setTimeout(function () {
         input.focus();
         input.setSelectionRange(input.value.length, input.value.length);
@@ -111,19 +111,19 @@
 
     var contextmenu = document.importNode(this.TEMPLATE_LEAF_CONTEXTMENU, true);
 
-    var button = contextmenu.querySelector('#mdl-tree__contextmenu-');
-    var menu = contextmenu.querySelector('[for="mdl-tree__contextmenu-"]');
+    var button = contextmenu.querySelector('#' + TREE.slice(1) + '__contextmenu-');
+    var menu = contextmenu.querySelector('[for="' + TREE.slice(1) + '__contextmenu-"]');
     button.id += index_contextmenu++;
     menu.setAttribute('for', button.id);
 
     var c = leaf.querySelector('.mdl-list__item-primary-content');
-    var btnAdd = contextmenu.querySelector('.mdl-tree__contextmenu--add-leaf');
+    var btnAdd = contextmenu.querySelector(TREE + '__contextmenu--add-leaf');
 
     btnAdd.addEventListener('click', function (e) {
       var tree = e.target.closest(TREE_ITEM);
       tree.appendLeaf();
-      var btn = tree.querySelector('.mdl-tree__item-expand-collapse');
-      if (btn.classList.contains('mdl-tree__item--collapsed')) {
+      var btn = tree.querySelector(TREE_ITEM + '-expand-collapse');
+      if (btn.classList.contains(TREE_ITEM.slice(1) + '--collapsed')) {
         expandCollapse(btn, tree.querySelector(TREE));
       }
     });
@@ -154,12 +154,12 @@
         if (this instanceof HTMLUListElement) {
           parent = this;
         } else if (this instanceof HTMLLIElement) {
-          parent = this.querySelector('.mdl-tree');
+          parent = this.querySelector('' + TREE);
           if (!parent) {
             return [];
           }
         }
-        var x = parent.querySelectorAll('.mdl-tree__item');
+        var x = parent.querySelectorAll(TREE_ITEM);
         var y = [];
         // and this is because CSS can't access to parent elements
         for (var i = 0; i < x.length; i++) {
@@ -202,7 +202,7 @@
     if (!parent) {
       var btn = TEMPLATE_LEAF_SPLASH.querySelector(LEAF_SPLASH);
       btn.addEventListener('click', function (e) {
-        tree.querySelector(LEAF_SPLASH).closest('.mdl-tree__item').remove();
+        tree.querySelector(LEAF_SPLASH).closest(TREE_ITEM).remove();
         tree.appendLeaf();
       });
       tree.append(TEMPLATE_LEAF_SPLASH);
@@ -214,16 +214,16 @@
 
     Object.defineProperty(leaf, 'textContent', {
       get: function get() {
-        return this.querySelector('.mdl-tree__item-text').textContent.replace(/\n/g, '').trim();
+        return this.querySelector(TREE_ITEM + '-text').textContent.replace(/\n/g, '').trim();
       },
       set: function set(value) {
-        this.querySelector('.mdl-tree__item-text').textContent = value.toString();
+        this.querySelector(TREE_ITEM + '-text').textContent = value.toString();
         if (value.toString().length > 0) {
-          this.querySelector('.mdl-tree__item-text').hidden = false;
-          this.querySelector('.mdl-tree__item-input').hidden = true;
+          this.querySelector(TREE_ITEM + '-text').hidden = false;
+          this.querySelector(TREE_ITEM + '-input').hidden = true;
         } else {
-          this.querySelector('.mdl-tree__item-text').hidden = true;
-          this.querySelector('.mdl-tree__item-input').hidden = false;
+          this.querySelector(TREE_ITEM + '-text').hidden = true;
+          this.querySelector(TREE_ITEM + '-input').hidden = false;
         }
       }
     });

@@ -1,13 +1,13 @@
 ;(() => {
   'use strict';
   const TREE = ".mdl-tree";
-  const TREE_ITEM = ".mdl-tree__item";
-  const LEAF_SPLASH = ".mdl-tree__splash";
+  const TREE_ITEM = `${TREE}__item`;
+  const LEAF_SPLASH = `${TREE}__splash`;
 
   const TEMPLATE_LEAF_SPLASH_HTML = `
-    <li class="mdl-list__item mdl-tree__item">
+    <li class="mdl-list__item ${TREE_ITEM.slice(1)}">
       <div class="mdl-list__item-primary-content">
-        <button class="mdl-button mdl-js-button mdl-button--icon mdl-tree__splash">
+        <button class="mdl-button mdl-js-button mdl-button--icon ${TREE.slice(1)}__splash">
           <i class="material-icons">add</i>
         </button>
       </div>
@@ -17,12 +17,12 @@
       TEMPLATE_LEAF_SPLASH_HTML);
 
   const TEMPLATE_LEAF_HTML = `
-    <li class="mdl-list__item mdl-tree__item">
+    <li class="mdl-list__item ${TREE_ITEM.slice(1)}">
       <div class="mdl-list__item-primary-content">
         &nbsp;
-        <span class="mdl-tree__item-text" hidden>
+        <span class="${TREE_ITEM.slice(1)}-text" hidden>
         </span>
-        <div class="mdl-tree__item-input mdl-textfield mdl-js-textfield">
+        <div class="${TREE_ITEM.slice(1)}-input mdl-textfield mdl-js-textfield">
           <input class="mdl-textfield__input" type="text" placeholder="Label...">
         </div>
         &nbsp;
@@ -32,21 +32,21 @@
   var TEMPLATE_LEAF = createFromStringDocumentFragment(TEMPLATE_LEAF_HTML);
 
   const TEMPLATE_TREE_HTML = `
-    <ul class="mdl-list mdl-tree"></ul>
+    <ul class="mdl-list ${TREE.slice(1)}"></ul>
   `;
   var TEMPLATE_TREE = createFromStringDocumentFragment(TEMPLATE_TREE_HTML);
 
   const TEMPLATE_LEAF_CONTEXTMENU_HTML = `
-    <button id="mdl-tree__contextmenu-"
+    <button id="${TREE.slice(1)}__contextmenu-"
       class="mdl-button mdl-js-button mdl-button--icon">
       <i class="material-icons">more_vert</i>
     </button>
     <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"
-      for="mdl-tree__contextmenu-">
+      for="${TREE.slice(1)}__contextmenu-">
       <li class="mdl-menu__item
                  mdl-menu__item--full-bleed-divider
-                 mdl-tree__contextmenu--item
-                 mdl-tree__contextmenu--add-leaf">
+                 ${TREE.slice(1)}__contextmenu--item
+                 ${TREE.slice(1)}__contextmenu--add-leaf">
         <button class="mdl-button mdl-js-button mdl-button--icon">
           <i class="material-icons">add</i>
         </button>
@@ -60,8 +60,8 @@
   const TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML = `
     <button class="mdl-list__item-secondary-action
                    mdl-button mdl-js-button mdl-button--icon
-                   mdl-tree__item-expand-collapse
-                   mdl-tree__item--expanded">
+                   ${TREE_ITEM.slice(1)}-expand-collapse
+                   ${TREE_ITEM.slice(1)}--expanded">
       <i class="material-icons">keyboard_arrow_down</i>
     </button>
   `;
@@ -77,9 +77,9 @@
     var clone;
 
     var expandCollapse = (btn, tree) => {
-      if (btn.classList.contains('mdl-tree__item--expanded')) {
-        btn.classList.remove('mdl-tree__item--expanded');
-        btn.classList.add('mdl-tree__item--collapsed');
+      if (btn.classList.contains(`${TREE_ITEM.slice(1)}--expanded`)) {
+        btn.classList.remove(`${TREE_ITEM.slice(1)}--expanded`);
+        btn.classList.add(`${TREE_ITEM.slice(1)}--collapsed`);
         btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_up";
         tree.hidden = true;
 
@@ -87,9 +87,9 @@
         btn.dispatchEvent(new CustomEvent('collapse', {
           bubbles: true
         }));
-      } else if (btn.classList.contains('mdl-tree__item--collapsed')) {
-        btn.classList.remove('mdl-tree__item--collapsed');
-        btn.classList.add('mdl-tree__item--expanded');
+      } else if (btn.classList.contains(`${TREE_ITEM.slice(1)}--collapsed`)) {
+        btn.classList.remove(`${TREE_ITEM.slice(1)}--collapsed`);
+        btn.classList.add(`${TREE_ITEM.slice(1)}--expanded`);
         btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_down";
         tree.hidden = false;
 
@@ -106,7 +106,7 @@
       if (!tree) {
         tree = this.closest(TREE);
         clone = document.importNode(tree.TEMPLATE_TREE, true);
-        tree = clone.querySelector('.mdl-tree');
+        tree = clone.querySelector(TREE);
         this.appendChild(tree);
 
         initTree(tree, this);
@@ -114,13 +114,13 @@
 
       // append to the leaf's tree the sub-leaf =>
       // append to the leaf a subleaf
-      if (!this.querySelector('.mdl-tree__item-expand-collapse')) {
+      if (!this.querySelector(`${TREE_ITEM}-expand-collapse`)) {
         clone = document.importNode(tree.TEMPLATE_LEAF_EXPANDCOLLAPSE, true);
         var c = this.querySelector('.mdl-list__item-primary-content').nextSibling;
         if (!c) {
           throw new Error('please, check why nextSibling is null');
         }
-        var btn = clone.querySelector('.mdl-tree__item-expand-collapse');
+        var btn = clone.querySelector(`${TREE_ITEM}-expand-collapse`);
 
         // by default, the expand/collapse button is expanded
         // and click will switch expanded to collapsed and so on
@@ -133,8 +133,8 @@
 
     // if this is "tree" then...
     clone = document.importNode(this.TEMPLATE_LEAF, true);
-    var leaf = clone.querySelector('.mdl-tree__item');
-    leaf.querySelector('.mdl-tree__item-input input')
+    var leaf = clone.querySelector(TREE_ITEM);
+    leaf.querySelector(`${TREE_ITEM}-input input`)
         .addEventListener('change', (e) => {
       leaf.textContent = e.target.value.toString();
       leaf.dispatchEvent(new CustomEvent('changetext', {
@@ -144,13 +144,13 @@
         bubbles: true
       }));
     });
-    leaf.querySelector('.mdl-tree__item-text')
+    leaf.querySelector(`${TREE_ITEM}-text`)
         .addEventListener('dblclick', (e) => {
-      var inputContainer = leaf.querySelector('.mdl-tree__item-input');
+      var inputContainer = leaf.querySelector(`${TREE_ITEM}-input`);
       var input = inputContainer.querySelector('input');
       input.value = leaf.textContent;
       inputContainer.hidden = false;
-      leaf.querySelector('.mdl-tree__item-text').hidden = true;
+      leaf.querySelector(`${TREE_ITEM}-text`).hidden = true;
       window.setTimeout(() => {
         input.focus();
         input.setSelectionRange(input.value.length, input.value.length);
@@ -159,19 +159,19 @@
 
     var contextmenu = document.importNode(this.TEMPLATE_LEAF_CONTEXTMENU, true);
 
-    var button = contextmenu.querySelector('#mdl-tree__contextmenu-');
-    var menu = contextmenu.querySelector('[for="mdl-tree__contextmenu-"]');
+    var button = contextmenu.querySelector(`#${TREE.slice(1)}__contextmenu-`);
+    var menu = contextmenu.querySelector(`[for="${TREE.slice(1)}__contextmenu-"]`);
     button.id += index_contextmenu++;
     menu.setAttribute('for', button.id);
 
     var c = leaf.querySelector('.mdl-list__item-primary-content');
-    var btnAdd = contextmenu.querySelector('.mdl-tree__contextmenu--add-leaf');
+    var btnAdd = contextmenu.querySelector(`${TREE}__contextmenu--add-leaf`);
 
     btnAdd.addEventListener('click', (e) => {
       var tree = e.target.closest(TREE_ITEM);
       tree.appendLeaf();
-      var btn = tree.querySelector('.mdl-tree__item-expand-collapse');
-      if (btn.classList.contains('mdl-tree__item--collapsed')) {
+      var btn = tree.querySelector(`${TREE_ITEM}-expand-collapse`);
+      if (btn.classList.contains(`${TREE_ITEM.slice(1)}--collapsed`)) {
         expandCollapse(btn, tree.querySelector(TREE));
       }
     });
@@ -202,12 +202,12 @@
         if (this instanceof HTMLUListElement) {
           parent = this;
         } else if (this instanceof HTMLLIElement) {
-          parent = this.querySelector('.mdl-tree');
+          parent = this.querySelector(`${TREE}`);
           if (!parent) {
             return [];
           }
         }
-        var x = parent.querySelectorAll('.mdl-tree__item');
+        var x = parent.querySelectorAll(TREE_ITEM);
         var y = [];
         // and this is because CSS can't access to parent elements
         for (var i = 0; i < x.length; i++) {
@@ -250,7 +250,7 @@
     if (!parent) {
       var btn = TEMPLATE_LEAF_SPLASH.querySelector(LEAF_SPLASH);
       btn.addEventListener('click', (e) => {
-        tree.querySelector(LEAF_SPLASH).closest('.mdl-tree__item').remove();
+        tree.querySelector(LEAF_SPLASH).closest(TREE_ITEM).remove();
         tree.appendLeaf();
       });
       tree.append(TEMPLATE_LEAF_SPLASH);
@@ -262,16 +262,16 @@
 
     Object.defineProperty(leaf, 'textContent', {
       get() {
-        return this.querySelector('.mdl-tree__item-text').textContent.replace(/\n/g, '').trim();
+        return this.querySelector(`${TREE_ITEM}-text`).textContent.replace(/\n/g, '').trim();
       },
       set(value) {
-        this.querySelector('.mdl-tree__item-text').textContent = value.toString();
+        this.querySelector(`${TREE_ITEM}-text`).textContent = value.toString();
         if (value.toString().length > 0) {
-          this.querySelector('.mdl-tree__item-text').hidden = false;
-          this.querySelector('.mdl-tree__item-input').hidden = true;
+          this.querySelector(`${TREE_ITEM}-text`).hidden = false;
+          this.querySelector(`${TREE_ITEM}-input`).hidden = true;
         } else {
-          this.querySelector('.mdl-tree__item-text').hidden = true;
-          this.querySelector('.mdl-tree__item-input').hidden = false;
+          this.querySelector(`${TREE_ITEM}-text`).hidden = true;
+          this.querySelector(`${TREE_ITEM}-input`).hidden = false;
         }
       }
     });
