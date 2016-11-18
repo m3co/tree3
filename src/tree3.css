@@ -49,3 +49,7 @@
 .mdl-tree__splash {
   left: 50%;
 }
+
+.mdl-tree__contextmenu--item .mdl-button:hover {
+  background-color: transparent;
+}
