@@ -93,7 +93,7 @@
       if (!tree) {
         tree = this.closest(TREE);
         clone = document.importNode(tree.TEMPLATE_TREE, true);
-        tree = clone.children[0];
+        tree = clone.querySelector('.mdl-tree');
         this.appendChild(tree);
 
         initTree(tree);
@@ -120,7 +120,7 @@
 
     // if this is "tree" then...
     clone = document.importNode(this.TEMPLATE_LEAF, true);
-    var leaf = clone.children[0];
+    var leaf = clone.querySelector('.mdl-tree__item');
     leaf.querySelector('.mdl-tree__item-input input')
         .addEventListener('change', (e) => {
       leaf.textContent = e.target.value.toString();
