@@ -24,6 +24,25 @@
     assert_true(splash instanceof HTMLElement);
   }, "Tree has an splash screen if it's empty");
 
+  async_test("Splash screen dissapears if click over +").step(function() {
+    var splash = tree.querySelector('.mdl-tree__splash');
+
+    var listener = this.step_func((e) => {
+      splash.removeEventListener('click', listener);
+
+      assert_true(tree.leaf[0] instanceof HTMLElement);
+      assert_true(tree.leaf[0].querySelector('.mdl-tree__item-text').hidden);
+      assert_false(tree.leaf[0].querySelector('.mdl-tree__item-input').hidden);
+      assert_false(tree.querySelector('.mdl-tree__splash') instanceof HTMLElement);
+
+      tree.leaf[0].remove();
+      this.done();
+    });
+
+    splash.addEventListener('click', listener);
+    splash.dispatchEvent(new MouseEvent('click'));
+  });
+
   test(() => {
     assert_true(tree.appendLeaf instanceof Function);
 
@@ -32,8 +51,8 @@
 
     assert_equals(tree.leafs.length, 1);
 
-    assert_true(leaf.querySelector('#mdl-tree__contextmenu-0') instanceof HTMLElement);
-    assert_true(leaf.querySelector('[for="mdl-tree__contextmenu-0"]') instanceof HTMLElement);
+    assert_true(leaf.querySelector('#mdl-tree__contextmenu-1') instanceof HTMLElement);
+    assert_true(leaf.querySelector('[for="mdl-tree__contextmenu-1"]') instanceof HTMLElement);
 
     test(() => {
 
@@ -72,8 +91,8 @@
       assert_true(subleaf instanceof HTMLLIElement);
 
       assert_equals(leaf.leafs.length, 1);
-      assert_true(subleaf.querySelector('#mdl-tree__contextmenu-1') instanceof HTMLElement);
-      assert_true(subleaf.querySelector('[for="mdl-tree__contextmenu-1"]') instanceof HTMLElement);
+      assert_true(subleaf.querySelector('#mdl-tree__contextmenu-2') instanceof HTMLElement);
+      assert_true(subleaf.querySelector('[for="mdl-tree__contextmenu-2"]') instanceof HTMLElement);
 
       subleaf.textContent = "Subtext";
 

@@ -5,6 +5,7 @@
 
   var TREE = ".mdl-tree";
   var TREE_ITEM = ".mdl-tree__item";
+  var LEAF_SPLASH = ".mdl-tree__splash";
 
   var TEMPLATE_LEAF_SPLASH_HTML = "\n    <li class=\"mdl-list__item mdl-tree__item\">\n      <div class=\"mdl-list__item-primary-content\">\n        <button class=\"mdl-button mdl-js-button mdl-button--icon mdl-tree__splash\">\n          <i class=\"material-icons\">add</i>\n        </button>\n      </div>\n    </li>\n  ";
   var TEMPLATE_LEAF_SPLASH = createFromStringDocumentFragment(TEMPLATE_LEAF_SPLASH_HTML);
@@ -164,7 +165,7 @@
         for (var i = 0; i < x.length; i++) {
           if (x[i].parentNode == parent) {
             // and this is because you don't know deeply CSS!
-            if (!x[i].querySelector('.mdl-tree__splash')) {
+            if (!x[i].querySelector(LEAF_SPLASH)) {
               y.push(x[i]);
             }
           }
@@ -199,6 +200,11 @@
     tree.appendLeaf = appendLeaf;
 
     if (!parent) {
+      var btn = TEMPLATE_LEAF_SPLASH.querySelector(LEAF_SPLASH);
+      btn.addEventListener('click', function (e) {
+        tree.querySelector(LEAF_SPLASH).closest('.mdl-tree__item').remove();
+        tree.appendLeaf();
+      });
       tree.append(TEMPLATE_LEAF_SPLASH);
     }
   }
