@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "material-design-lite": "mdl#^1.2.1",
-    "customevent-polyfill": "^1.0.0"
+    "customevent-polyfill": "^1.0.0",
+    "element-matches": "closest#^2.0.1"
   }
 }
