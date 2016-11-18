@@ -6,6 +6,7 @@
   var TREE = ".mdl-tree";
   var TREE_ITEM = TREE + '__item';
   var LEAF_SPLASH = TREE + '__splash';
+  var LEAF_CONTEXTMENU = TREE + '__contextmenu';
 
   var TEMPLATE_LEAF_SPLASH_HTML = '\n    <li class="mdl-list__item ' + TREE_ITEM.slice(1) + '">\n      <div class="mdl-list__item-primary-content">\n        <button class="mdl-button mdl-js-button mdl-button--icon ' + TREE.slice(1) + '__splash">\n          <i class="material-icons">add</i>\n        </button>\n      </div>\n    </li>\n  ';
   var TEMPLATE_LEAF_SPLASH = createFromStringDocumentFragment(TEMPLATE_LEAF_SPLASH_HTML);
@@ -16,7 +17,7 @@
   var TEMPLATE_TREE_HTML = '\n    <ul class="mdl-list ' + TREE.slice(1) + '"></ul>\n  ';
   var TEMPLATE_TREE = createFromStringDocumentFragment(TEMPLATE_TREE_HTML);
 
-  var TEMPLATE_LEAF_CONTEXTMENU_HTML = '\n    <button id="' + TREE.slice(1) + '__contextmenu-"\n      class="mdl-button mdl-js-button mdl-button--icon">\n      <i class="material-icons">more_vert</i>\n    </button>\n    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"\n      for="' + TREE.slice(1) + '__contextmenu-">\n      <li class="mdl-menu__item\n                 mdl-menu__item--full-bleed-divider\n                 ' + TREE.slice(1) + '__contextmenu--item\n                 ' + TREE.slice(1) + '__contextmenu--add-leaf">\n        <button class="mdl-button mdl-js-button mdl-button--icon">\n          <i class="material-icons">add</i>\n        </button>\n        <span>Subitem</span>\n      </li>\n    </ul>\n  ';
+  var TEMPLATE_LEAF_CONTEXTMENU_HTML = '\n    <button id="' + LEAF_CONTEXTMENU.slice(1) + '-"\n      class="mdl-button mdl-js-button mdl-button--icon">\n      <i class="material-icons">more_vert</i>\n    </button>\n    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"\n      for="' + LEAF_CONTEXTMENU.slice(1) + '-">\n      <li class="mdl-menu__item\n                 mdl-menu__item--full-bleed-divider\n                 ' + LEAF_CONTEXTMENU.slice(1) + '--item\n                 ' + LEAF_CONTEXTMENU.slice(1) + '--add-leaf">\n        <button class="mdl-button mdl-js-button mdl-button--icon">\n          <i class="material-icons">add</i>\n        </button>\n        <span>Subitem</span>\n      </li>\n    </ul>\n  ';
   var TEMPLATE_LEAF_CONTEXTMENU = createFromStringDocumentFragment(TEMPLATE_LEAF_CONTEXTMENU_HTML);
 
   var TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML = '\n    <button class="mdl-list__item-secondary-action\n                   mdl-button mdl-js-button mdl-button--icon\n                   ' + TREE_ITEM.slice(1) + '-expand-collapse\n                   ' + TREE_ITEM.slice(1) + '--expanded">\n      <i class="material-icons">keyboard_arrow_down</i>\n    </button>\n  ';
@@ -111,13 +112,13 @@
 
     var contextmenu = document.importNode(this.TEMPLATE_LEAF_CONTEXTMENU, true);
 
-    var button = contextmenu.querySelector('#' + TREE.slice(1) + '__contextmenu-');
-    var menu = contextmenu.querySelector('[for="' + TREE.slice(1) + '__contextmenu-"]');
+    var button = contextmenu.querySelector('#' + LEAF_CONTEXTMENU.slice(1) + '-');
+    var menu = contextmenu.querySelector('[for="' + LEAF_CONTEXTMENU.slice(1) + '-"]');
     button.id += index_contextmenu++;
     menu.setAttribute('for', button.id);
 
     var c = leaf.querySelector('.mdl-list__item-primary-content');
-    var btnAdd = contextmenu.querySelector(TREE + '__contextmenu--add-leaf');
+    var btnAdd = contextmenu.querySelector(LEAF_CONTEXTMENU + '--add-leaf');
 
     btnAdd.addEventListener('click', function (e) {
       var tree = e.target.closest(TREE_ITEM);

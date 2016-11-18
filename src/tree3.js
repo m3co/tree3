@@ -3,6 +3,7 @@
   const TREE = ".mdl-tree";
   const TREE_ITEM = `${TREE}__item`;
   const LEAF_SPLASH = `${TREE}__splash`;
+  const LEAF_CONTEXTMENU = `${TREE}__contextmenu`;
 
   const TEMPLATE_LEAF_SPLASH_HTML = `
     <li class="mdl-list__item ${TREE_ITEM.slice(1)}">
@@ -37,16 +38,16 @@
   var TEMPLATE_TREE = createFromStringDocumentFragment(TEMPLATE_TREE_HTML);
 
   const TEMPLATE_LEAF_CONTEXTMENU_HTML = `
-    <button id="${TREE.slice(1)}__contextmenu-"
+    <button id="${LEAF_CONTEXTMENU.slice(1)}-"
       class="mdl-button mdl-js-button mdl-button--icon">
       <i class="material-icons">more_vert</i>
     </button>
     <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"
-      for="${TREE.slice(1)}__contextmenu-">
+      for="${LEAF_CONTEXTMENU.slice(1)}-">
       <li class="mdl-menu__item
                  mdl-menu__item--full-bleed-divider
-                 ${TREE.slice(1)}__contextmenu--item
-                 ${TREE.slice(1)}__contextmenu--add-leaf">
+                 ${LEAF_CONTEXTMENU.slice(1)}--item
+                 ${LEAF_CONTEXTMENU.slice(1)}--add-leaf">
         <button class="mdl-button mdl-js-button mdl-button--icon">
           <i class="material-icons">add</i>
         </button>
@@ -159,13 +160,13 @@
 
     var contextmenu = document.importNode(this.TEMPLATE_LEAF_CONTEXTMENU, true);
 
-    var button = contextmenu.querySelector(`#${TREE.slice(1)}__contextmenu-`);
-    var menu = contextmenu.querySelector(`[for="${TREE.slice(1)}__contextmenu-"]`);
+    var button = contextmenu.querySelector(`#${LEAF_CONTEXTMENU.slice(1)}-`);
+    var menu = contextmenu.querySelector(`[for="${LEAF_CONTEXTMENU.slice(1)}-"]`);
     button.id += index_contextmenu++;
     menu.setAttribute('for', button.id);
 
     var c = leaf.querySelector('.mdl-list__item-primary-content');
-    var btnAdd = contextmenu.querySelector(`${TREE}__contextmenu--add-leaf`);
+    var btnAdd = contextmenu.querySelector(`${LEAF_CONTEXTMENU}--add-leaf`);
 
     btnAdd.addEventListener('click', (e) => {
       var tree = e.target.closest(TREE_ITEM);
