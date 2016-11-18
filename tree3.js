@@ -235,7 +235,9 @@
       }
     });
 
-    leaf.appendLeaf = appendLeaf;
+    Object.defineProperty(leaf, "appendLeaf", {
+      value: appendLeaf
+    });
   }
 
   // UPDATE ALL
