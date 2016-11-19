@@ -138,7 +138,14 @@
     });
 
     btnRemove.addEventListener('click', function (e) {
-      e.target.closest(TREE_ITEM).remove();
+      var leaf = e.target.closest(TREE_ITEM);
+      leaf.dispatchEvent(new CustomEvent('removeleaf', {
+        detail: {
+          leaf: leaf
+        },
+        bubbles: true
+      }));
+      leaf.remove();
     });
 
     c.insertBefore(contextmenu, c.firstChild);

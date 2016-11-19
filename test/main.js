@@ -152,6 +152,7 @@
       var beforeAdd = leaf.leafs.length;
 
       var addLeaf = this.step_func((e) => {
+        btnAdd.removeEventListener('click', addLeaf);
         assert_equals(beforeAdd + 1, leaf.leafs.length);
         assert_false(leaf.querySelector('.mdl-tree').hidden);
         assert_false(btnEC.classList.contains('mdl-tree__item--collapsed'));
@@ -289,12 +290,30 @@
       var btnRemove = leafLast.querySelector('.mdl-tree__contextmenu--remove-leaf');
 
       var removeLeaf = this.step_func((e) => {
+        btnRemove.removeEventListener('click', removeLeaf);
         assert_equals(leaf.leafs.length, leafLength - 1);
         this.done();
       });
 
       btnRemove.addEventListener('click', removeLeaf);
       btnRemove.dispatchEvent(new MouseEvent('click'));
+    });
+
+    async_test("Remove a subitem launches onRemoveleaf").step(function() {
+      var leaf = tree.leaf[0];
+
+      var leafLength = leaf.leaf.length;
+      var lastLeaf = leaf.leaf[leafLength - 1];
+
+      var listener = this.step_func((e) => {
+        leaf.removeEventListener('removeleaf', listener);
+        assert_equals(lastLeaf, e.detail.leaf);
+        this.done();
+      });
+      leaf.addEventListener('removeleaf', listener);
+
+      lastLeaf.querySelector('.mdl-tree__contextmenu--remove-leaf')
+              .dispatchEvent(new MouseEvent('click'));
     });
 
   }, "Tree's function appendLeaf returns the <li> object-container");
