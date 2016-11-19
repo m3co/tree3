@@ -24,10 +24,10 @@
     assert_true(splash instanceof HTMLElement);
   }, "Tree has an splash screen if it's empty");
 
-  async_test("Splash screen dissapears if click over +").step(function() {
+  async_test((t) => {
     var splash = tree.querySelector('.mdl-tree__splash');
 
-    var listener = this.step_func((e) => {
+    var listener = t.step_func((e) => {
       splash.removeEventListener('click', listener);
 
       assert_true(tree.leaf[0] instanceof HTMLElement);
@@ -36,12 +36,12 @@
       assert_false(tree.querySelector('.mdl-tree__splash') instanceof HTMLElement);
 
       tree.leaf[0].remove();
-      this.done();
+      t.done();
     });
 
     splash.addEventListener('click', listener);
     splash.dispatchEvent(new MouseEvent('click'));
-  });
+  }, "Splash screen dissapears if click over +");
 
   test(() => {
     assert_true(tree.appendLeaf instanceof Function);
@@ -113,11 +113,11 @@
       assert_equals(btn.querySelector('i').innerHTML, 'keyboard_arrow_down');
     }, "Leaf has expand/collapse button");
 
-    async_test("Leaf's expand/collapse button expands/collapses when click").step(function() {
+    async_test((t) => {
       var leaf = tree.leafs[0];
       var btn = leaf.querySelector('.mdl-tree__item-expand-collapse');
       var subtree = leaf.querySelector('.mdl-tree');
-      var listener1 = this.step_func((e) => {
+      var listener1 = t.step_func((e) => {
         assert_false(btn.classList.contains('mdl-tree__item--expanded'));
 
         assert_true(btn.classList.contains('mdl-tree__item--collapsed'));
@@ -129,7 +129,7 @@
         btn.dispatchEvent(new MouseEvent('click'));
       });
 
-      var listener2 = this.step_func((e) => {
+      var listener2 = t.step_func((e) => {
         assert_false(btn.classList.contains('mdl-tree__item--collapsed'));
 
         assert_true(btn.classList.contains('mdl-tree__item--expanded'));
@@ -138,31 +138,31 @@
 
         btn.removeEventListener('click', listener2);
         btn.dispatchEvent(new MouseEvent('click'));
-        this.done();
+        t.done();
       });
 
       btn.addEventListener('click', listener1);
       btn.dispatchEvent(new MouseEvent('click'));
-    });
+    }, "Leaf's expand/collapse button expands/collapses when click");
 
-    async_test("Add a subitem by clicking on '+ add'").step(function() {
+    async_test((t) => {
       var leaf = tree.leafs[0];
       var btnAdd = leaf.querySelector('.mdl-tree__contextmenu--add-leaf');
       var btnEC = leaf.querySelector('.mdl-tree__item-expand-collapse');
       var beforeAdd = leaf.leafs.length;
 
-      var addLeaf = this.step_func((e) => {
+      var addLeaf = t.step_func((e) => {
         btnAdd.removeEventListener('click', addLeaf);
         assert_equals(beforeAdd + 1, leaf.leafs.length);
         assert_false(leaf.querySelector('.mdl-tree').hidden);
         assert_false(btnEC.classList.contains('mdl-tree__item--collapsed'));
         assert_true(btnEC.classList.contains('mdl-tree__item--expanded'));
-        this.done();
+        t.done();
       });
 
       btnAdd.addEventListener('click', addLeaf);
       btnAdd.dispatchEvent(new MouseEvent('click'));
-    });
+    }, "Add a subitem by clicking on '+ add'");
 
     test(() => {
 
@@ -171,33 +171,33 @@
 
     }, "Leaf has an input if label is empty");
 
-    async_test("Change label if input.onEnter with some text").step(function() {
+    async_test((t) => {
 
       var leaf = tree.leaf[0].leaf[1];
       var input = leaf.querySelector('.mdl-tree__item-input .mdl-textfield__input');
       input.value = "My Text";
 
-      var listener1 = this.step_func((e) => {
+      var listener1 = t.step_func((e) => {
         input.removeEventListener('change', listener1);
 
         assert_true(leaf.querySelector('.mdl-tree__item-input').hidden);
         assert_false(leaf.querySelector('.mdl-tree__item-text').hidden);
         assert_equals("My Text", leaf.textContent);
 
-        this.done();
+        t.done();
       });
 
       input.addEventListener('change', listener1);
       input.dispatchEvent(new Event('change'));
-    });
+    }, "Change label if input.onEnter with some text");
 
-    async_test("Change label if span.onDblclick").step(function() {
+    async_test((t) => {
 
       var leaf = tree.leaf[0].leaf[1];
       var input = leaf.querySelector('.mdl-tree__item-input .mdl-textfield__input');
       var span = leaf.querySelector('.mdl-tree__item-text');
 
-      var listener1 = this.step_func((e) => {
+      var listener1 = t.step_func((e) => {
         span.removeEventListener('dblclick', listener1);
 
         assert_false(leaf.querySelector('.mdl-tree__item-input').hidden);
@@ -206,115 +206,115 @@
         input.dispatchEvent(new Event('change'));
       });
 
-      var listener2 = this.step_func((e) => {
+      var listener2 = t.step_func((e) => {
         input.removeEventListener('change', listener2);
 
         assert_true(leaf.querySelector('.mdl-tree__item-input').hidden);
         assert_false(leaf.querySelector('.mdl-tree__item-text').hidden);
         assert_equals("My changed Text", leaf.textContent);
 
-        this.done();
+        t.done();
       });
 
       span.addEventListener('dblclick', listener1);
       input.addEventListener('change', listener2);
 
       span.dispatchEvent(new MouseEvent('dblclick'));
-    });
+    }, "Change label if span.onDblclick");
 
-    async_test("Collapse action launches onCollapse").step(function() {
+    async_test((t) => {
       var leaf = tree.leaf[0];
       var btn = leaf.querySelector('.mdl-tree__item-expand-collapse');
 
-      var listener = this.step_func((e) => {
+      var listener = t.step_func((e) => {
         leaf.removeEventListener('collapse', listener);
         assert_true(btn.classList.contains('mdl-tree__item--collapsed'));
         assert_false(btn.classList.contains('mdl-tree__item--expanded'));
-        this.done();
+        t.done();
       });
       leaf.addEventListener('collapse', listener);
       assert_true(btn.classList.contains('mdl-tree__item--expanded'));
 
       btn.dispatchEvent(new MouseEvent('click'));
-    });
+    }, "Collapse action launches onCollapse");
 
-    async_test("Expand action launches onExpand").step(function() {
+    async_test((t) => {
       var leaf = tree.leaf[0];
       var btn = leaf.querySelector('.mdl-tree__item-expand-collapse');
 
-      var listener = this.step_func((e) => {
+      var listener = t.step_func((e) => {
         leaf.removeEventListener('expand', listener);
         assert_false(btn.classList.contains('mdl-tree__item--collapsed'));
         assert_true(btn.classList.contains('mdl-tree__item--expanded'));
-        this.done();
+        t.done();
       });
       leaf.addEventListener('expand', listener);
       assert_true(btn.classList.contains('mdl-tree__item--collapsed'));
 
       btn.dispatchEvent(new MouseEvent('click'));
-    });
+    }, "Expand action launches onExpand");
 
-    async_test("appendLeaf() launches onAddleaf").step(function() {
+    async_test((t) => {
       var leaf = tree.leaf[0];
 
-      var listener = this.step_func((e) => {
+      var listener = t.step_func((e) => {
         leaf.removeEventListener('addleaf', listener);
         assert_equals(e.detail.leaf, leaf.leaf[2]);
-        this.done();
+        t.done();
       });
       leaf.addEventListener('addleaf', listener);
 
       leaf.appendLeaf();
-    });
+    }, "appendLeaf() launches onAddleaf");
 
-    async_test("Change text action launches onchangetext").step(function() {
+    async_test((t) => {
       var leaf = tree.leaf[0].leaf[2];
 
-      var listener = this.step_func((e) => {
+      var listener = t.step_func((e) => {
         leaf.removeEventListener('changetext', listener);
         assert_equals(input.value, "This is a text");
-        this.done();
+        t.done();
       });
       leaf.addEventListener('changetext', listener);
       var input = leaf.querySelector('.mdl-textfield__input');
 
       input.value = "This is a text";
       input.dispatchEvent(new Event('change'));
-    });
+    }, "Change text action launches onchangetext");
 
-    async_test("Remove a subitem by clicking on '- remove'").step(function() {
+    async_test((t) => {
       var leaf = tree.leafs[0];
 
       var leafLength = leaf.leaf.length;
       var leafLast = leaf.leaf[leafLength - 1];
       var btnRemove = leafLast.querySelector('.mdl-tree__contextmenu--remove-leaf');
 
-      var removeLeaf = this.step_func((e) => {
+      var removeLeaf = t.step_func((e) => {
         btnRemove.removeEventListener('click', removeLeaf);
         assert_equals(leaf.leafs.length, leafLength - 1);
-        this.done();
+        t.done();
       });
 
       btnRemove.addEventListener('click', removeLeaf);
       btnRemove.dispatchEvent(new MouseEvent('click'));
-    });
+    }, "Remove a subitem by clicking on '- remove'");
 
-    async_test("Remove a subitem launches onRemoveleaf").step(function() {
+    async_test((t) => {
       var leaf = tree.leaf[0];
 
       var leafLength = leaf.leaf.length;
       var lastLeaf = leaf.leaf[leafLength - 1];
 
-      var listener = this.step_func((e) => {
+      var listener = t.step_func((e) => {
         leaf.removeEventListener('removeleaf', listener);
         assert_equals(lastLeaf, e.detail.leaf);
-        this.done();
+        t.done();
       });
       leaf.addEventListener('removeleaf', listener);
 
       lastLeaf.querySelector('.mdl-tree__contextmenu--remove-leaf')
               .dispatchEvent(new MouseEvent('click'));
-    });
+    }, "Remove a subitem launches onRemoveleaf");
 
   }, "Tree's function appendLeaf returns the <li> object-container");
 
