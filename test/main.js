@@ -45,16 +45,24 @@
   async_test((t) => {
 
     assert_true(tree.removeLeaf instanceof Function);
+    var leaf = tree.leaf[0];
+    var btnRemove = leaf.querySelector('.mdl-tree__contextmenu--remove-leaf');
 
-    tree.leaf[0].removeLeaf(); // temporary solution
+    var listener = t.step_func((e) => {
+      assert_true(tree.querySelector('.mdl-tree__splash') instanceof HTMLElement);
+      t.done();
+    });
 
-    t.done(); // temporary solution
+    btnRemove.addEventListener('click', listener);
+    btnRemove.dispatchEvent(new MouseEvent('click'));
+
   }, "Splash screen appears if remove the unique leaf in the tree");
 
   test(() => {
     assert_true(tree.appendLeaf instanceof Function);
 
     var leaf = tree.appendLeaf();
+    assert_false(tree.querySelector('.mdl-tree__splash') instanceof HTMLElement);
     assert_true(leaf instanceof HTMLLIElement);
 
     assert_equals(tree.leafs.length, 1);

@@ -139,19 +139,15 @@
 
     btnRemove.addEventListener('click', function (e) {
       var leaf = e.target.closest(TREE_ITEM);
-      leaf.dispatchEvent(new CustomEvent('removeleaf', {
-        detail: {
-          leaf: leaf
-        },
-        bubbles: true
-      }));
       leaf.removeLeaf();
     });
 
     c.insertBefore(contextmenu, c.firstChild);
-
+    if (this.TREE.querySelector(LEAF_SPLASH)) {
+      this.TREE.querySelector(LEAF_SPLASH).closest(TREE_ITEM).remove();
+    }
     this.appendChild(clone); // append to the tree the leaf
-    initLeaf(leaf);
+    initLeaf(leaf, this);
 
     window.componentHandler.upgradeDom();
     this.dispatchEvent(new CustomEvent('addleaf', {
@@ -167,7 +163,23 @@
    * Remove the leaf
    */
   function removeLeaf() {
+    var tree = this.TREE;
+    this.dispatchEvent(new CustomEvent('removeleaf', {
+      detail: {
+        leaf: this
+      },
+      bubbles: true
+    }));
+    var treeContainer = this.closest(TREE);
     this.remove();
+    if (treeContainer.leafs.length == 0) {
+      if (tree !== treeContainer) {
+        treeContainer.remove();
+      }
+    }
+    if (tree.leafs.length == 0) {
+      appendSplashLeaf(tree);
+    }
   }
 
   // You should write this tree following the recomendations
@@ -220,6 +232,15 @@
    */
   function initTree(tree, parent) {
     addProperty__leafs(tree);
+    if (parent) {
+      Object.defineProperty(tree, "TREE", {
+        value: parent.TREE
+      });
+    } else {
+      Object.defineProperty(tree, "TREE", {
+        value: tree
+      });
+    }
     tree.TEMPLATE_LEAF = TEMPLATE_LEAF;
     tree.TEMPLATE_TREE = TEMPLATE_TREE;
     tree.TEMPLATE_LEAF_CONTEXTMENU = TEMPLATE_LEAF_CONTEXTMENU;
@@ -232,17 +253,26 @@
     });
 
     if (!parent) {
-      var btn = TEMPLATE_LEAF_SPLASH.querySelector(LEAF_SPLASH);
-      btn.addEventListener('click', function (e) {
-        tree.querySelector(LEAF_SPLASH).closest(TREE_ITEM).remove();
-        tree.appendLeaf();
-      });
-      tree.append(TEMPLATE_LEAF_SPLASH);
+      appendSplashLeaf(tree);
     }
   }
 
-  function initLeaf(leaf) {
+  function appendSplashLeaf(tree) {
+    var clone = document.importNode(TEMPLATE_LEAF_SPLASH, true);
+    var btn = clone.querySelector(LEAF_SPLASH);
+    btn.addEventListener('click', function (e) {
+      tree.querySelector(LEAF_SPLASH).closest(TREE_ITEM).remove();
+      tree.appendLeaf();
+    });
+    tree.append(clone);
+  }
+
+  function initLeaf(leaf, parent) {
     addProperty__leafs(leaf);
+
+    Object.defineProperty(leaf, "TREE", {
+      value: parent.TREE
+    });
 
     Object.defineProperty(leaf, 'textContent', {
       get: function get() {
