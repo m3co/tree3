@@ -1,5 +1,14 @@
 ;(() => {
-  'use strict';
+  // Close #15 (https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove)
+  if (!('remove' in Element.prototype)) {
+    Element.prototype.remove = function() {
+      if (this.parentNode) {
+        this.parentNode.removeChild(this);
+      }
+    };
+  }
+})();
+(() => {
   const TREE = ".mdl-tree";
   const TREE_ITEM = `${TREE}__item`;
   const LEAF_SPLASH = `${TREE}__splash`;
@@ -326,7 +335,7 @@
       tree.querySelector(LEAF_SPLASH).closest(TREE_ITEM).remove();
       tree.appendLeaf();
     });
-    tree.append(clone);
+    tree.appendChild(clone);
   }
 
   function initLeaf(leaf, parent) {

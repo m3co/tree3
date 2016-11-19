@@ -1,8 +1,16 @@
 'use strict';
 
 ;(function () {
-  'use strict';
-
+  // Close #15 (https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove)
+  if (!('remove' in Element.prototype)) {
+    Element.prototype.remove = function () {
+      if (this.parentNode) {
+        this.parentNode.removeChild(this);
+      }
+    };
+  }
+})();
+(function () {
   var TREE = ".mdl-tree";
   var TREE_ITEM = TREE + '__item';
   var LEAF_SPLASH = TREE + '__splash';
