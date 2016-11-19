@@ -163,6 +163,11 @@
     return leaf;
   }
 
+  /**
+   * Remove the leaf
+   */
+  function removeLeaf() {}
+
   // You should write this tree following the recomendations
   // https://github.com/google/material-design-lite/wiki/Making-your-first-JS-component
 
@@ -217,7 +222,12 @@
     tree.TEMPLATE_TREE = TEMPLATE_TREE;
     tree.TEMPLATE_LEAF_CONTEXTMENU = TEMPLATE_LEAF_CONTEXTMENU;
     tree.TEMPLATE_LEAF_EXPANDCOLLAPSE = TEMPLATE_LEAF_EXPANDCOLLAPSE;
-    tree.appendLeaf = appendLeaf;
+    Object.defineProperty(tree, "appendLeaf", {
+      value: appendLeaf
+    });
+    Object.defineProperty(tree, "removeLeaf", {
+      value: removeLeaf
+    });
 
     if (!parent) {
       var btn = TEMPLATE_LEAF_SPLASH.querySelector(LEAF_SPLASH);
@@ -250,6 +260,9 @@
 
     Object.defineProperty(leaf, "appendLeaf", {
       value: appendLeaf
+    });
+    Object.defineProperty(leaf, "removeLeaf", {
+      value: removeLeaf
     });
   }
 

@@ -35,13 +35,22 @@
       assert_false(tree.leaf[0].querySelector('.mdl-tree__item-input').hidden);
       assert_false(tree.querySelector('.mdl-tree__splash') instanceof HTMLElement);
 
-      tree.leaf[0].remove();
       t.done();
     });
 
     splash.addEventListener('click', listener);
     splash.dispatchEvent(new MouseEvent('click'));
   }, "Splash screen dissapears if click over +");
+
+  async_test((t) => {
+
+    assert_true(tree.removeLeaf instanceof Function);
+
+    tree.leaf[0].removeLeaf(); // let's talk about it!
+    tree.leaf[0].remove(); // temporary solution
+
+    t.done(); // temporary solution
+  }, "Splash screen appears if remove the unique leaf in the tree");
 
   test(() => {
     assert_true(tree.appendLeaf instanceof Function);
