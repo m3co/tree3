@@ -166,7 +166,9 @@
   /**
    * Remove the leaf
    */
-  function removeLeaf() {}
+  function removeLeaf() {
+    this.remove();
+  }
 
   // You should write this tree following the recomendations
   // https://github.com/google/material-design-lite/wiki/Making-your-first-JS-component

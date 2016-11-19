@@ -46,8 +46,7 @@
 
     assert_true(tree.removeLeaf instanceof Function);
 
-    tree.leaf[0].removeLeaf(); // let's talk about it!
-    tree.leaf[0].remove(); // temporary solution
+    tree.leaf[0].removeLeaf(); // temporary solution
 
     t.done(); // temporary solution
   }, "Splash screen appears if remove the unique leaf in the tree");

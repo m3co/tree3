@@ -224,6 +224,7 @@
    * Remove the leaf
    */
   function removeLeaf() {
+    this.remove();
   }
 
   // You should write this tree following the recomendations
