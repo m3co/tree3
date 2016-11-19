@@ -145,7 +145,7 @@
         },
         bubbles: true
       }));
-      leaf.remove();
+      leaf.removeLeaf();
     });
 
     c.insertBefore(contextmenu, c.firstChild);
