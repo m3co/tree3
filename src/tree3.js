@@ -5,6 +5,7 @@
   const LEAF_SPLASH = `${TREE}__splash`;
   const LEAF_CONTEXTMENU = `${TREE}__contextmenu`;
   const LEAF_CONTEXTMENU_ADD = `${LEAF_CONTEXTMENU}--add-leaf`;
+  const LEAF_CONTEXTMENU_REMOVE = `${LEAF_CONTEXTMENU}--remove-leaf`;
   const LEAF_INPUT = `${TREE_ITEM}-input`;
   const LEAF_TEXT = `${TREE_ITEM}-text`;
   const LEAF_EXPAND_COLLAPSE = `${TREE_ITEM}-expand-collapse`;
@@ -58,6 +59,15 @@
           <i class="material-icons">add</i>
         </button>
         Add
+      </li>
+      <li class="mdl-menu__item
+                 mdl-menu__item--full-bleed-divider
+                 mdl-tree__contextmenu--item
+                 ${LEAF_CONTEXTMENU_REMOVE.slice(1)}">
+        <button class="mdl-button mdl-js-button mdl-button--icon">
+          <i class="material-icons">remove</i>
+        </button>
+        Remove
       </li>
     </ul>
   `;
@@ -173,6 +183,7 @@
 
     var c = leaf.querySelector('.mdl-list__item-primary-content');
     var btnAdd = contextmenu.querySelector(LEAF_CONTEXTMENU_ADD);
+    var btnRemove = contextmenu.querySelector(LEAF_CONTEXTMENU_REMOVE);
 
     btnAdd.addEventListener('click', (e) => {
       var tree = e.target.closest(TREE_ITEM);
@@ -181,6 +192,10 @@
       if (btn.classList.contains(LEAF_COLLAPSED.slice(1))) {
         expandCollapse(btn, tree.querySelector(TREE));
       }
+    });
+
+    btnRemove.addEventListener('click', (e) => {
+      e.target.closest(TREE_ITEM).remove();
     });
 
     c.insertBefore(contextmenu, c.firstChild);

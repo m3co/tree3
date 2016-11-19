@@ -145,7 +145,7 @@
       btn.dispatchEvent(new MouseEvent('click'));
     });
 
-    async_test("Add a subitem by clicking on '+ subitem'").step(function() {
+    async_test("Add a subitem by clicking on '+ add'").step(function() {
       var leaf = tree.leafs[0];
       var btnAdd = leaf.querySelector('.mdl-tree__contextmenu--add-leaf');
       var btnEC = leaf.querySelector('.mdl-tree__item-expand-collapse');
@@ -279,6 +279,22 @@
 
       input.value = "This is a text";
       input.dispatchEvent(new Event('change'));
+    });
+
+    async_test("Remove a subitem by clicking on '- remove'").step(function() {
+      var leaf = tree.leafs[0];
+
+      var leafLength = leaf.leaf.length;
+      var leafLast = leaf.leaf[leafLength - 1];
+      var btnRemove = leafLast.querySelector('.mdl-tree__contextmenu--remove-leaf');
+
+      var removeLeaf = this.step_func((e) => {
+        assert_equals(leaf.leafs.length, leafLength - 1);
+        this.done();
+      });
+
+      btnRemove.addEventListener('click', removeLeaf);
+      btnRemove.dispatchEvent(new MouseEvent('click'));
     });
 
   }, "Tree's function appendLeaf returns the <li> object-container");
