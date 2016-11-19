@@ -228,8 +228,13 @@
       bubbles: true
     }));
     var treeContainer = this.closest(TREE);
+    var leafContainer = treeContainer.closest(TREE_ITEM);
     this.remove();
     if (treeContainer.leafs.length == 0) {
+      if (leafContainer) {
+        var btnExpandCollapse = leafContainer.querySelector(LEAF_EXPAND_COLLAPSE);
+        btnExpandCollapse.remove();
+      }
       if (tree !== treeContainer) {
         treeContainer.remove();
       }

@@ -49,6 +49,7 @@
     var btnRemove = leaf.querySelector('.mdl-tree__contextmenu--remove-leaf');
 
     var listener = t.step_func((e) => {
+      btnRemove.removeEventListener('click', listener);
       assert_true(tree.querySelector('.mdl-tree__splash') instanceof HTMLElement);
       t.done();
     });
@@ -331,6 +332,25 @@
       lastLeaf.querySelector('.mdl-tree__contextmenu--remove-leaf')
               .dispatchEvent(new MouseEvent('click'));
     }, "Remove a subitem launches onRemoveleaf");
+
+    async_test((t) => {
+      var leaf = tree.leaf[0].leaf[0];
+      var btnRemove = leaf.querySelector('.mdl-tree__contextmenu--remove-leaf');
+
+      var listener = t.step_func((e) => {
+        btnRemove.removeEventListener('click', listener);
+        var leaf = tree.leaf[0];
+
+        var btn = leaf.querySelector('.mdl-tree__item-expand-collapse');
+        assert_equals(leaf.leafs.length, 0);
+        assert_false(btn instanceof HTMLElement);
+
+        t.done();
+      });
+
+      btnRemove.addEventListener('click', listener);
+      btnRemove.dispatchEvent(new MouseEvent('click'));
+    }, "Remove last leaf will hide the expand/collapse button");
 
   }, "Tree's function appendLeaf returns the <li> object-container");
 
