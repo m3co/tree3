@@ -269,7 +269,7 @@
       tree.querySelector(LEAF_SPLASH).closest(TREE_ITEM).remove();
       tree.appendLeaf();
     });
-    tree.append(clone);
+    tree.appendChild(clone);
   }
 
   function initLeaf(leaf, parent) {
