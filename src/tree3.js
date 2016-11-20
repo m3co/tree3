@@ -64,18 +64,12 @@
                  mdl-menu__item--full-bleed-divider
                  mdl-tree__contextmenu--item
                  ${LEAF_CONTEXTMENU_ADD.slice(1)}">
-        <button class="mdl-button mdl-js-button mdl-button--icon">
-          <i class="material-icons">add</i>
-        </button>
         Add
       </li>
       <li class="mdl-menu__item
                  mdl-menu__item--full-bleed-divider
                  mdl-tree__contextmenu--item
                  ${LEAF_CONTEXTMENU_REMOVE.slice(1)}">
-        <button class="mdl-button mdl-js-button mdl-button--icon">
-          <i class="material-icons">remove</i>
-        </button>
         Remove
       </li>
     </ul>
