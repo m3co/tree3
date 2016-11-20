@@ -356,5 +356,16 @@
 
   }, "Tree's function appendLeaf returns the <li> object-container");
 
+  test(() => {
+    var newTree = document.createElement('ul');
+    newTree.classList.add('mdl-list');
+    newTree.classList.add('mdl-tree');
+
+    document.body.appendChild(newTree);
+    assert_true(newTree.dataset.hasOwnProperty('upgraded'));
+    assert_true(newTree.dataset.upgraded.indexOf(',Tree3') >= 0);
+
+  }, "Tree is updated by MutationObserver");
+
   t.done();
 }));}, "DOMContentLoaded");
