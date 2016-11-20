@@ -1,7 +1,9 @@
-;(() => {
+;async_test((t) => { document.addEventListener('DOMContentLoaded', t.step_func((e) => {
   'use strict';
   var TAG_SELECTOR = ".mdl-tree";
   var tree = document.querySelector(TAG_SELECTOR);
+  assert_true(tree.dataset.hasOwnProperty('upgraded'));
+  assert_true(tree.dataset.upgraded.indexOf(',Tree3') >= 0);
 
   test(() => {
     assert_true(tree.leafs instanceof Array);
@@ -354,5 +356,5 @@
 
   }, "Tree's function appendLeaf returns the <li> object-container");
 
-
-})();
+  t.done();
+}));}, "DOMContentLoaded");

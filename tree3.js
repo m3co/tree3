@@ -268,6 +268,11 @@
     if (!parent) {
       appendSplashLeaf(tree);
     }
+    if (tree.dataset.hasOwnProperty('upgraded')) {
+      tree.dataset.upgraded += ',Tree3';
+    } else {
+      tree.dataset.upgraded = ',Tree3';
+    }
   }
 
   function appendSplashLeaf(tree) {
@@ -312,10 +317,12 @@
   }
 
   // UPDATE ALL
-  var trees = document.querySelectorAll(TREE);
-  for (var i = 0; i < trees.length; i++) {
-    initTree(trees[i]);
-  }
+  document.addEventListener('DOMContentLoaded', function (e) {
+    var trees = document.querySelectorAll(TREE);
+    for (var i = 0; i < trees.length; i++) {
+      initTree(trees[i]);
+    }
+  });
 
   /**
    * Create from string a DocumentFragment by wrapping the innerHTML
