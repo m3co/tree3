@@ -1,7 +1,5 @@
-;async_test((t) => { document.addEventListener('DOMContentLoaded', t.step_func((e) => {
+function mainTest(tree, index_cm) {
   'use strict';
-  var TAG_SELECTOR = ".mdl-tree";
-  var tree = document.querySelector(TAG_SELECTOR);
   assert_true(tree.dataset.hasOwnProperty('upgraded'));
   assert_true(tree.dataset.upgraded.indexOf(',Tree3') >= 0);
 
@@ -70,8 +68,8 @@
 
     assert_equals(tree.leafs.length, 1);
 
-    assert_true(leaf.querySelector('#mdl-tree__contextmenu-1') instanceof HTMLElement);
-    assert_true(leaf.querySelector('[for="mdl-tree__contextmenu-1"]') instanceof HTMLElement);
+    assert_true(leaf.querySelector(`#mdl-tree__contextmenu-${index_cm}`) instanceof HTMLElement);
+    assert_true(leaf.querySelector(`[for="mdl-tree__contextmenu-${index_cm}"]`) instanceof HTMLElement);
 
     test(() => {
 
@@ -110,8 +108,8 @@
       assert_true(subleaf instanceof HTMLLIElement);
 
       assert_equals(leaf.leafs.length, 1);
-      assert_true(subleaf.querySelector('#mdl-tree__contextmenu-2') instanceof HTMLElement);
-      assert_true(subleaf.querySelector('[for="mdl-tree__contextmenu-2"]') instanceof HTMLElement);
+      assert_true(subleaf.querySelector(`#mdl-tree__contextmenu-${index_cm + 1}`) instanceof HTMLElement);
+      assert_true(subleaf.querySelector(`[for="mdl-tree__contextmenu-${index_cm + 1}"]`) instanceof HTMLElement);
 
       subleaf.textContent = "Subtext";
 
@@ -356,19 +354,28 @@
 
   }, "Tree's function appendLeaf returns the <li> object-container");
 
-  async_test((t) => {
-    var newTree = document.createElement('ul');
-    newTree.classList.add('mdl-list');
-    newTree.classList.add('mdl-tree');
+  this.done();
+}
 
-    document.body.appendChild(newTree);
-    t.step_timeout(() => {
-      assert_true(newTree.dataset.hasOwnProperty('upgraded'));
-      assert_true(newTree.dataset.upgraded.indexOf(',Tree3') >= 0);
-      t.done();
-    }, 0);
+async_test((mt) => {
+  document.addEventListener('DOMContentLoaded',
+                            mt.step_func((e) => {
+    var tree = document.querySelector(".mdl-tree");
+    mainTest.call(mt, tree, 1);
 
-  }, "Tree is updated by MutationObserver");
+    async_test((t) => {
+      var newTree = document.createElement('ul');
+      newTree.classList.add('mdl-list');
+      newTree.classList.add('mdl-tree');
 
-  t.done();
-}));}, "DOMContentLoaded");
+      document.body.appendChild(newTree);
+      t.step_timeout(() => {
+        assert_true(newTree.dataset.hasOwnProperty('upgraded'));
+        assert_true(newTree.dataset.upgraded.indexOf(',Tree3') >= 0);
+        t.done();
+        mainTest.call(mt, newTree, 6);
+      }, 0);
+
+    }, "Tree is updated by MutationObserver");
+  }));
+}, "DOMContentLoaded");
