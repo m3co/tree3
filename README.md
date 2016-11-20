@@ -21,7 +21,7 @@ Expand/Contract.
 
 CRUD. Moreover, every leaf has a three-dots icon that holds some custom actions, i.e
 
-1. Add subleaf
+1. Add
 
 2. View detailed
 
@@ -29,4 +29,27 @@ CRUD. Moreover, every leaf has a three-dots icon that holds some custom actions,
 
 4. Remove
 
-Also, it's desirable to redact the leaf's text, via click or via Edit.
+
+## How to use
+
+If you're planning to use this tree then don't forget to add the following polyfills:
+
+```
+<script src="/bower_components/webcomponentsjs/MutationObserver.js" async></script>
+<script src="/bower_components/customevent-polyfill/customevent-polyfill.min.js"></script>
+```
+
+In order to initiate the tree, add to any ```mdl-list``` component the class ```mdl-tree```
+
+
+## Events
+
+```onCollapse```
+
+```onExpand```
+
+```onAddleaf```
+
+```onRemoveleaf```
+
+```onChangetext```
