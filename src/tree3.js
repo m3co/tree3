@@ -154,8 +154,8 @@
     // if this is "tree" then...
     clone = document.importNode(this.TEMPLATE_LEAF, true);
     var leaf = clone.querySelector(TREE_ITEM);
-    leaf.querySelector(`${LEAF_INPUT} input`)
-        .addEventListener('change', (e) => {
+    var input = leaf.querySelector(`${LEAF_INPUT} input`);
+    input.addEventListener('change', (e) => {
       leaf.textContent = e.target.value.toString();
       leaf.dispatchEvent(new CustomEvent('changetext', {
         detail: {
@@ -164,6 +164,15 @@
         bubbles: true
       }));
     });
+    input.addEventListener('blur', (e) => {
+      if (!input.value) {
+        leaf.removeLeaf();
+      }
+    });
+    window.setTimeout(() => {
+      input.focus();
+      input.setSelectionRange(input.value.length, input.value.length);
+    }, 0);
     leaf.querySelector(LEAF_TEXT)
         .addEventListener('dblclick', (e) => {
       var inputContainer = leaf.querySelector(LEAF_INPUT);

@@ -352,6 +352,18 @@ function mainTest(tree, index_cm) {
       btnRemove.dispatchEvent(new MouseEvent('click'));
     }, "Remove last leaf will hide the expand/collapse button");
 
+    async_test((t) => {
+      var beforeAdding = tree.leafs.length;
+      var leaf = tree.appendLeaf();
+      var input = leaf.querySelector('input');
+      input.addEventListener('blur', t.step_func((e) => {
+        assert_equals(tree.leafs.length, beforeAdding);
+        t.done();
+      }));
+
+      input.dispatchEvent(new FocusEvent('blur'));
+    }, "Remove the leaf if it lost focus having no label");
+
   }, "Tree's function appendLeaf returns the <li> object-container");
 
   this.done();
@@ -373,7 +385,7 @@ async_test((mt) => {
         assert_true(newTree.dataset.hasOwnProperty('upgraded'));
         assert_true(newTree.dataset.upgraded.indexOf(',Tree3') >= 0);
         t.done();
-        mainTest.call(mt, newTree, 6);
+        mainTest.call(mt, newTree, 7);
       }, 0);
 
     }, "Tree is updated by MutationObserver");
