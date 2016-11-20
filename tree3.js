@@ -322,6 +322,23 @@
     for (var i = 0; i < trees.length; i++) {
       initTree(trees[i]);
     }
+
+    var observer = new MutationObserver(function (records, instance) {
+      records.forEach(function (record) {
+        var addedNodes = record.addedNodes;
+        for (var i = 0; i < addedNodes.length; i++) {
+          var node = addedNodes[i];
+          if (node.classList.contains(TREE.slice(1))) {
+            initTree(node);
+          }
+        }
+      });
+    });
+    observer.observe(document.body, {
+      childList: true,
+      attributes: true,
+      attributeFilter: ['class']
+    });
   });
 
   /**
