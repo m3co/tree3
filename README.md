@@ -44,12 +44,12 @@ In order to initiate the tree, add to any ```mdl-list``` component the class ```
 
 ## Events
 
-```onCollapse```
+* onCollapse
 
-```onExpand```
+* onExpand
 
-```onAddleaf```
+* onAddleaf
 
-```onRemoveleaf```
+* onRemoveleaf
 
-```onChangetext```
+* onChangetext
