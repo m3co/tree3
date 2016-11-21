@@ -278,7 +278,7 @@
     if (!parent) {
       appendSplashLeaf(tree);
     }
-    if (tree.dataset.hasOwnProperty('upgraded')) {
+    if (tree.getAttribute('data-upgraded')) {
       tree.dataset.upgraded += ',Tree3';
     } else {
       tree.dataset.upgraded = ',Tree3';
