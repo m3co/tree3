@@ -61,7 +61,6 @@
     <ul class="mdl-menu mdl-js-menu"
       for="${LEAF_CONTEXTMENU.slice(1)}-">
       <li class="mdl-menu__item
-                 mdl-menu__item--full-bleed-divider
                  mdl-tree__contextmenu--item
                  ${LEAF_CONTEXTMENU_ADD.slice(1)}">
         Add
