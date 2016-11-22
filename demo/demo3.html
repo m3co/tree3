@@ -18,17 +18,24 @@
   </head>
   <body>
     <ul id="demo-tree" class="mdl-list mdl-tree"></ul>
-    <template for="#demo-tree" class="mdl-tree__contextmenu">
+    <template for="demo-tree">
       <li class="mdl-menu__item
-                 mdl-tree__contextmenu--item
                  mdl-tree__contextmenu--action1">
         Action 1
       </li>
       <li class="mdl-menu__item
-                 mdl-tree__contextmenu--item
                  mdl-tree__contextmenu--action2">
         Action 2
       </li>
     </template>
+    <script>
+      'use strict';
+      document.querySelector('#demo-tree').addEventListener('action1', function(e) {
+        console.log('action 1', e.detail.leaf);
+      });
+      document.querySelector('#demo-tree').addEventListener('action2', function(e) {
+        console.log('action 2', e.detail.leaf);
+      });
+    </script>
   </body>
 </html>
