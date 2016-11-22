@@ -379,15 +379,27 @@ async_test((mt) => {
       var newTree = document.createElement('ul');
       newTree.classList.add('mdl-list');
       newTree.classList.add('mdl-tree');
+      newTree.id = "second-tree";
 
       document.body.appendChild(newTree);
       t.step_timeout(() => {
         assert_true(newTree.dataset.hasOwnProperty('upgraded'));
         assert_true(newTree.dataset.upgraded.indexOf(',Tree3') >= 0);
-        t.done();
         mainTest.call(mt, newTree, 7);
+
+        test(() => {
+          var contextmenu = newTree.querySelector('.mdl-menu');
+          var act1 = contextmenu.querySelector('.mdl-tree__contextmenu--action1');
+          var act2 = contextmenu.querySelector('.mdl-tree__contextmenu--action2');
+
+          assert_true(act1 instanceof HTMLElement);
+          assert_true(act2 instanceof HTMLElement);
+        }, "Contextmenu is upgraded with new content from a template");
+
+        t.done();
       }, 0);
 
     }, "Tree is updated by MutationObserver");
+
   }));
 }, "DOMContentLoaded");
