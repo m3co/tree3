@@ -88,36 +88,13 @@
       TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML);
 
   var index_contextmenu = 0;
+
   /**
    * Append a leaf to the initial(root) tree or to any child leaf
    * @return {HTMLElement} - The created element
    */
   function appendLeaf() {
     var clone;
-
-    var expandCollapse = (btn, tree) => {
-      if (btn.classList.contains(LEAF_EXPANDED.slice(1))) {
-        btn.classList.remove(LEAF_EXPANDED.slice(1));
-        btn.classList.add(LEAF_COLLAPSED.slice(1));
-        btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_up";
-        tree.hidden = true;
-
-        // fire collapse event
-        btn.dispatchEvent(new CustomEvent('collapse', {
-          bubbles: true
-        }));
-      } else if (btn.classList.contains(LEAF_COLLAPSED.slice(1))) {
-        btn.classList.remove(LEAF_COLLAPSED.slice(1));
-        btn.classList.add(LEAF_EXPANDED.slice(1));
-        btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_down";
-        tree.hidden = false;
-
-        // fire expand event
-        btn.dispatchEvent(new CustomEvent('expand', {
-          bubbles: true
-        }));
-      }
-    };
 
     // if this is "leaf" then...
     if (this instanceof HTMLLIElement) {
@@ -185,7 +162,50 @@
       }, 0);
     });
 
-    var contextmenu = document.importNode(this.TEMPLATE_LEAF_CONTEXTMENU, true);
+    createContextmenu(this, leaf);
+
+    if (this.TREE.querySelector(LEAF_SPLASH)) {
+      this.TREE.querySelector(LEAF_SPLASH).closest(TREE_ITEM).remove();
+    }
+    this.appendChild(clone); // append to the tree the leaf
+    initLeaf(leaf, this);
+
+    window.componentHandler.upgradeDom();
+    this.dispatchEvent(new CustomEvent('addleaf', {
+      detail: {
+        leaf: leaf
+      },
+      bubbles: true
+    }));
+    return leaf;
+  }
+
+  function expandCollapse(btn, tree) {
+    if (btn.classList.contains(LEAF_EXPANDED.slice(1))) {
+      btn.classList.remove(LEAF_EXPANDED.slice(1));
+      btn.classList.add(LEAF_COLLAPSED.slice(1));
+      btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_up";
+      tree.hidden = true;
+
+      // fire collapse event
+      btn.dispatchEvent(new CustomEvent('collapse', {
+        bubbles: true
+      }));
+    } else if (btn.classList.contains(LEAF_COLLAPSED.slice(1))) {
+      btn.classList.remove(LEAF_COLLAPSED.slice(1));
+      btn.classList.add(LEAF_EXPANDED.slice(1));
+      btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_down";
+      tree.hidden = false;
+
+      // fire expand event
+      btn.dispatchEvent(new CustomEvent('expand', {
+        bubbles: true
+      }));
+    }
+  }
+
+  function createContextmenu(tree, leaf) {
+    var contextmenu = document.importNode(tree.TEMPLATE_LEAF_CONTEXTMENU, true);
 
     var button = contextmenu.querySelector(`#${LEAF_CONTEXTMENU.slice(1)}-`);
     var menu = contextmenu.querySelector(`[for="${LEAF_CONTEXTMENU.slice(1)}-"]`);
@@ -211,20 +231,6 @@
     });
 
     c.insertBefore(contextmenu, c.firstChild);
-    if (this.TREE.querySelector(LEAF_SPLASH)) {
-      this.TREE.querySelector(LEAF_SPLASH).closest(TREE_ITEM).remove();
-    }
-    this.appendChild(clone); // append to the tree the leaf
-    initLeaf(leaf, this);
-
-    window.componentHandler.upgradeDom();
-    this.dispatchEvent(new CustomEvent('addleaf', {
-      detail: {
-        leaf: leaf
-      },
-      bubbles: true
-    }));
-    return leaf;
   }
 
   /**
