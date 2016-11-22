@@ -81,37 +81,8 @@
     // if this is "tree" then...
     clone = document.importNode(this.TEMPLATE_LEAF, true);
     var leaf = clone.querySelector(TREE_ITEM);
-    var input = leaf.querySelector(LEAF_INPUT + ' input');
-    input.addEventListener('change', function (e) {
-      leaf.textContent = e.target.value.toString();
-      leaf.dispatchEvent(new CustomEvent('changetext', {
-        detail: {
-          leaf: leaf
-        },
-        bubbles: true
-      }));
-    });
-    input.addEventListener('blur', function (e) {
-      if (!input.value) {
-        leaf.removeLeaf();
-      }
-    });
-    window.setTimeout(function () {
-      input.focus();
-      input.setSelectionRange(input.value.length, input.value.length);
-    }, 0);
-    leaf.querySelector(LEAF_TEXT).addEventListener('dblclick', function (e) {
-      var inputContainer = leaf.querySelector(LEAF_INPUT);
-      var input = inputContainer.querySelector('input');
-      input.value = leaf.textContent;
-      inputContainer.hidden = false;
-      leaf.querySelector(LEAF_TEXT).hidden = true;
-      window.setTimeout(function () {
-        input.focus();
-        input.setSelectionRange(input.value.length, input.value.length);
-      }, 0);
-    });
 
+    configInput(leaf);
     createContextmenu(this, leaf);
 
     if (this.TREE.querySelector(LEAF_SPLASH)) {
@@ -128,6 +99,39 @@
       bubbles: true
     }));
     return leaf;
+  }
+
+  function configInput(leaf) {
+    var input = leaf.querySelector(LEAF_INPUT + ' input');
+    input.addEventListener('change', function (e) {
+      leaf.textContent = e.target.value.toString();
+      leaf.dispatchEvent(new CustomEvent('changetext', {
+        detail: {
+          leaf: leaf
+        },
+        bubbles: true
+      }));
+    });
+    input.addEventListener('blur', function (e) {
+      if (!input.value) {
+        leaf.removeLeaf();
+      }
+    });
+    leaf.querySelector(LEAF_TEXT).addEventListener('dblclick', function (e) {
+      var inputContainer = leaf.querySelector(LEAF_INPUT);
+      var input = inputContainer.querySelector('input');
+      input.value = leaf.textContent;
+      inputContainer.hidden = false;
+      leaf.querySelector(LEAF_TEXT).hidden = true;
+      window.setTimeout(function () {
+        input.focus();
+        input.setSelectionRange(input.value.length, input.value.length);
+      }, 0);
+    });
+    window.setTimeout(function () {
+      input.focus();
+      input.setSelectionRange(input.value.length, input.value.length);
+    }, 0);
   }
 
   function expandCollapse(btn, tree) {
