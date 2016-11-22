@@ -13,21 +13,37 @@ Let's try a demo that shows how to construct a tree based on MD's list.
 
 [Working demo basased on the current solution](http://tree-example.m3c.space/demo/demo2.html)
 
+[Working demo with custom actions](http://tree-example.m3c.space/demo/demo3.html)
+
 [Tests](http://tree-example.m3c.space/test)
 
 ## Tree's actions
 
 Expand/Contract.
 
-CRUD. Moreover, every leaf has a three-dots icon that holds some custom actions, i.e
+CRUD. Moreover, every leaf has a three-dots icon that holds two default actions:
 
 1. Add
 
-2. View detailed
+2. Remove
 
-3. Edit
+Other actions can be added by applying a template. For example
 
-4. Remove
+```html
+<ul id="demo-tree" class="mdl-list mdl-tree"></ul>
+<template for="demo-tree">
+  <li class="mdl-menu__item
+             mdl-tree__contextmenu--action1">
+    Action 1
+  </li>
+  <li class="mdl-menu__item
+             mdl-tree__contextmenu--action2">
+    Action 2
+  </li>
+</template>
+```
+
+The actions ```action1``` and ```action2``` will be dispatched if click on them.
 
 
 ## How to use
@@ -43,6 +59,8 @@ In order to initiate the tree, add to any ```mdl-list``` component the class ```
 
 
 ## Events
+
+By default, the ```tree``` will dispatch the following events:
 
 * onCollapse
 
