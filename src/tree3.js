@@ -58,7 +58,7 @@
       class="mdl-button mdl-js-button mdl-button--icon">
       <i class="material-icons">more_vert</i>
     </button>
-    <ul class="mdl-menu mdl-js-menu"
+    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"
       for="${LEAF_CONTEXTMENU.slice(1)}-">
       <li class="mdl-menu__item
                  ${LEAF_CONTEXTMENU_ADD.slice(1)}">
