@@ -396,6 +396,29 @@ async_test((mt) => {
           assert_true(act2 instanceof HTMLElement);
         }, "Contextmenu is upgraded with new content from a template");
 
+        async_test((t) => {
+          var act1 = newTree.querySelector('.mdl-tree__contextmenu--action1');
+
+          var listener = (e) => {
+            newTree.removeEventListener('action1', listener);
+            t.done();
+          };
+          newTree.addEventListener('action1', listener);
+
+          act1.dispatchEvent(new MouseEvent('click'));
+        }, "Custom 'action1' event is dispatched");
+
+        async_test((t) => {
+          var act2 = newTree.querySelector('.mdl-tree__contextmenu--action2');
+
+          var listener = (e) => {
+            newTree.removeEventListener('action2', listener);
+            t.done();
+          };
+          newTree.addEventListener('action2', listener);
+
+          act2.dispatchEvent(new MouseEvent('click'));
+        }, "Custom 'action2' event is dispatched");
         t.done();
       }, 0);
 

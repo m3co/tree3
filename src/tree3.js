@@ -61,13 +61,11 @@
     <ul class="mdl-menu mdl-js-menu"
       for="${LEAF_CONTEXTMENU.slice(1)}-">
       <li class="mdl-menu__item
-                 mdl-tree__contextmenu--item
                  ${LEAF_CONTEXTMENU_ADD.slice(1)}">
         Add
       </li>
       <li class="mdl-menu__item
                  mdl-menu__item--full-bleed-divider
-                 mdl-tree__contextmenu--item
                  ${LEAF_CONTEXTMENU_REMOVE.slice(1)}">
         Remove
       </li>
@@ -204,6 +202,17 @@
     }
   }
 
+  function dispatchCustomAction(leaf, item, value) {
+    item.addEventListener('click', (e) => {
+      item.dispatchEvent(new CustomEvent(value, {
+        detail: {
+          leaf: leaf
+        },
+        bubbles: true
+      }));
+    });
+  }
+
   function createContextmenu(tree, leaf) {
     var contextmenu = document.importNode(tree.TEMPLATE_LEAF_CONTEXTMENU, true);
 
@@ -213,6 +222,21 @@
       if (template) {
         contextmenu.querySelector('.mdl-menu')
                    .appendChild(document.importNode(template.content, true));
+        // You're doing here a very strange assumption! why .mdl-menu__item?
+        var items = contextmenu.querySelectorAll('.mdl-menu__item');
+        for (var i = 0; i < items.length; i++) {
+          var item = items[i];
+          var match = item.classList
+                          .value
+                          .match(/mdl-tree__contextmenu--([\d\w]+)/);
+          if (match) {
+            var value = match[1];
+            if (['add', 'remove'].includes(value)) {
+            } else {
+              dispatchCustomAction(leaf, item, value);
+            }
+          }
+        }
       }
     }
 

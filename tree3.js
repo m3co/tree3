@@ -32,7 +32,7 @@
   var TEMPLATE_TREE_HTML = '\n    <ul class="mdl-list ' + TREE.slice(1) + '"></ul>\n  ';
   var TEMPLATE_TREE = createFromStringDocumentFragment(TEMPLATE_TREE_HTML);
 
-  var TEMPLATE_LEAF_CONTEXTMENU_HTML = '\n    <button id="' + LEAF_CONTEXTMENU.slice(1) + '-"\n      class="mdl-button mdl-js-button mdl-button--icon">\n      <i class="material-icons">more_vert</i>\n    </button>\n    <ul class="mdl-menu mdl-js-menu"\n      for="' + LEAF_CONTEXTMENU.slice(1) + '-">\n      <li class="mdl-menu__item\n                 mdl-tree__contextmenu--item\n                 ' + LEAF_CONTEXTMENU_ADD.slice(1) + '">\n        Add\n      </li>\n      <li class="mdl-menu__item\n                 mdl-menu__item--full-bleed-divider\n                 mdl-tree__contextmenu--item\n                 ' + LEAF_CONTEXTMENU_REMOVE.slice(1) + '">\n        Remove\n      </li>\n    </ul>\n  ';
+  var TEMPLATE_LEAF_CONTEXTMENU_HTML = '\n    <button id="' + LEAF_CONTEXTMENU.slice(1) + '-"\n      class="mdl-button mdl-js-button mdl-button--icon">\n      <i class="material-icons">more_vert</i>\n    </button>\n    <ul class="mdl-menu mdl-js-menu"\n      for="' + LEAF_CONTEXTMENU.slice(1) + '-">\n      <li class="mdl-menu__item\n                 ' + LEAF_CONTEXTMENU_ADD.slice(1) + '">\n        Add\n      </li>\n      <li class="mdl-menu__item\n                 mdl-menu__item--full-bleed-divider\n                 ' + LEAF_CONTEXTMENU_REMOVE.slice(1) + '">\n        Remove\n      </li>\n    </ul>\n  ';
   var TEMPLATE_LEAF_CONTEXTMENU = createFromStringDocumentFragment(TEMPLATE_LEAF_CONTEXTMENU_HTML);
 
   var TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML = '\n    <button class="mdl-list__item-secondary-action\n                   mdl-button mdl-js-button mdl-button--icon\n                   ' + LEAF_EXPAND_COLLAPSE.slice(1) + '\n                   ' + LEAF_EXPANDED.slice(1) + '">\n      <i class="material-icons">keyboard_arrow_down</i>\n    </button>\n  ';
@@ -154,6 +154,17 @@
     }
   }
 
+  function dispatchCustomAction(leaf, item, value) {
+    item.addEventListener('click', function (e) {
+      item.dispatchEvent(new CustomEvent(value, {
+        detail: {
+          leaf: leaf
+        },
+        bubbles: true
+      }));
+    });
+  }
+
   function createContextmenu(tree, leaf) {
     var contextmenu = document.importNode(tree.TEMPLATE_LEAF_CONTEXTMENU, true);
 
@@ -162,6 +173,18 @@
       var template = document.querySelector('template[for="' + id + '"]');
       if (template) {
         contextmenu.querySelector('.mdl-menu').appendChild(document.importNode(template.content, true));
+        // You're doing here a very strange assumption! why .mdl-menu__item?
+        var items = contextmenu.querySelectorAll('.mdl-menu__item');
+        for (var i = 0; i < items.length; i++) {
+          var item = items[i];
+          var match = item.classList.value.match(/mdl-tree__contextmenu--([\d\w]+)/);
+          if (match) {
+            var value = match[1];
+            if (['add', 'remove'].includes(value)) {} else {
+              dispatchCustomAction(leaf, item, value);
+            }
+          }
+        }
       }
     }
 
