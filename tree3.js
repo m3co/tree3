@@ -157,6 +157,14 @@
   function createContextmenu(tree, leaf) {
     var contextmenu = document.importNode(tree.TEMPLATE_LEAF_CONTEXTMENU, true);
 
+    var id = tree.TREE.id;
+    if (id) {
+      var template = document.querySelector('template[for="' + id + '"]');
+      if (template) {
+        contextmenu.querySelector('.mdl-menu').appendChild(document.importNode(template.content, true));
+      }
+    }
+
     var button = contextmenu.querySelector('#' + LEAF_CONTEXTMENU.slice(1) + '-');
     var menu = contextmenu.querySelector('[for="' + LEAF_CONTEXTMENU.slice(1) + '-"]');
     button.id += index_contextmenu++;
