@@ -108,20 +108,7 @@
 
       // append to the leaf's tree the sub-leaf =>
       // append to the leaf a subleaf
-      if (!this.querySelector(LEAF_EXPAND_COLLAPSE)) {
-        clone = document.importNode(tree.TEMPLATE_LEAF_EXPANDCOLLAPSE, true);
-        var c = this.querySelector('.mdl-list__item-primary-content').nextSibling;
-        if (!c) {
-          throw new Error('please, check why nextSibling is null');
-        }
-        var btn = clone.querySelector(LEAF_EXPAND_COLLAPSE);
-
-        // by default, the expand/collapse button is expanded
-        // and click will switch expanded to collapsed and so on
-        btn.addEventListener('click', expandCollapse.bind(null, btn, tree));
-
-        this.insertBefore(clone, c);
-      }
+      insertExpandCollapseBtn(this, tree);
       return tree.appendLeaf();
     }
 
@@ -146,6 +133,24 @@
       bubbles: true
     }));
     return leaf;
+  }
+
+  function insertExpandCollapseBtn(leaf, tree) {
+    if (leaf.querySelector(LEAF_EXPAND_COLLAPSE)) {
+      return;
+    }
+    var clone = document.importNode(tree.TEMPLATE_LEAF_EXPANDCOLLAPSE, true);
+    var c = leaf.querySelector('.mdl-list__item-primary-content').nextSibling;
+    if (!c) {
+      throw new Error('please, check why nextSibling is null');
+    }
+    var btn = clone.querySelector(LEAF_EXPAND_COLLAPSE);
+
+    // by default, the expand/collapse button is expanded
+    // and click will switch expanded to collapsed and so on
+    btn.addEventListener('click', expandCollapse.bind(null, btn, tree));
+
+    leaf.insertBefore(clone, c);
   }
 
   function configInput(leaf) {
