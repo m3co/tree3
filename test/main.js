@@ -434,6 +434,30 @@ async_test((mt) => {
           t.step_timeout(() => {
             assert_true(btn.hidden);
             t.done();
+
+            async_test((t) => {
+              btn.classList.add('mdl-tree__item--collapsed');
+
+              t.step_timeout(() => {
+                assert_true(newLeaf.closest('.mdl-tree').hidden);
+                assert_false(btn.hidden);
+                btn.classList.remove('mdl-tree__item--collapsed');
+                t.done();
+
+                async_test((t) => {
+                  btn.classList.add('mdl-tree__item--expanded');
+
+                  t.step_timeout(() => {
+                    assert_false(newLeaf.closest('.mdl-tree').hidden);
+                    assert_false(btn.hidden);
+                    t.done();
+
+                  }, 0);
+                }, "Show the expanded button if add --expanded");
+
+              }, 0);
+            }, "Show the collapsed button if add --collapsed");
+
           }, 0);
         }, "Hide the expand/collapse button if remove --expanded");
 

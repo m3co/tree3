@@ -183,27 +183,42 @@
   }
 
   function expandCollapse(btn, tree) {
+    observerTrees.disconnect();
     if (btn.classList.contains(LEAF_EXPANDED.slice(1))) {
       btn.classList.remove(LEAF_EXPANDED.slice(1));
       btn.classList.add(LEAF_COLLAPSED.slice(1));
-      btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_up";
-      tree.hidden = true;
-
-      // fire collapse event
-      btn.dispatchEvent(new CustomEvent('collapse', {
-        bubbles: true
-      }));
+      collapseLeaf(btn, tree);
     } else if (btn.classList.contains(LEAF_COLLAPSED.slice(1))) {
       btn.classList.remove(LEAF_COLLAPSED.slice(1));
       btn.classList.add(LEAF_EXPANDED.slice(1));
-      btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_down";
-      tree.hidden = false;
-
-      // fire expand event
-      btn.dispatchEvent(new CustomEvent('expand', {
-        bubbles: true
-      }));
+      expandLeaf(btn, tree);
     }
+    observerTrees.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class']
+    });
+  }
+
+  function expandLeaf(btn, tree) {
+    btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_down";
+    tree.hidden = false;
+
+    // fire expand event
+    btn.dispatchEvent(new CustomEvent('expand', {
+      bubbles: true
+    }));
+  }
+
+  function collapseLeaf(btn, tree) {
+    btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_up";
+    tree.hidden = true;
+
+    // fire collapse event
+    btn.dispatchEvent(new CustomEvent('collapse', {
+      bubbles: true
+    }));
   }
 
   function dispatchCustomAction(leaf, item, value) {
@@ -419,45 +434,54 @@
     });
   }
 
+  var observerTrees = new MutationObserver(function(records, instance) {
+    records.forEach((record) => {
+      if (record.type == "childList") {
+        var addedNodes = record.addedNodes;
+        for (var i = 0; i < addedNodes.length; i++) {
+          var node = addedNodes[i];
+          if (node.classList &&
+              node.classList.contains(TREE.slice(1))) {
+            var dataUpgraded = node.getAttribute('data-upgraded');
+            if (dataUpgraded) {
+              if (dataUpgraded.indexOf('Tree3') == -1) {
+                initTree(node);
+              }
+            } else {
+              initTree(node);
+            }
+          }
+        }
+      } else if (record.type == "attributes") {
+        var target = record.target;
+        if (!target.parentNode) {
+          return;
+        }
+        if (target.classList.contains(LEAF_EXPAND_COLLAPSE.slice(1))) {
+          var tree = target.closest('.mdl-tree__item')
+                           .querySelector('.mdl-tree');
+          target.hidden = false;
+          if (target.classList.contains(LEAF_EXPANDED.slice(1))) {
+            expandLeaf(target, tree);
+            return;
+          }
+          if (target.classList.contains(LEAF_COLLAPSED.slice(1))) {
+            collapseLeaf(target, tree);
+            return;
+          }
+          target.hidden = true;
+          tree.hidden = true;
+        }
+      }
+    });
+  });
+
   // UPDATE ALL
   document.addEventListener('DOMContentLoaded', (e) => {
     var trees = document.querySelectorAll(TREE);
     for (var i = 0; i < trees.length; i++) {
       initTree(trees[i]);
     }
-
-    var observerTrees = new MutationObserver(function(records, instance) {
-      records.forEach((record) => {
-        if (record.type == "childList") {
-          var addedNodes = record.addedNodes;
-          for (var i = 0; i < addedNodes.length; i++) {
-            var node = addedNodes[i];
-            if (node.classList &&
-                node.classList.contains(TREE.slice(1))) {
-              var dataUpgraded = node.getAttribute('data-upgraded');
-              if (dataUpgraded) {
-                if (dataUpgraded.indexOf('Tree3') == -1) {
-                  initTree(node);
-                }
-              } else {
-                initTree(node);
-              }
-            }
-          }
-        } else if (record.type == "attributes") {
-          var target = record.target;
-          if (target.classList.contains(LEAF_EXPAND_COLLAPSE.slice(1))) {
-            if (target.classList.contains(LEAF_EXPANDED.slice(1))) {
-              return;
-            }
-            if (target.classList.contains(LEAF_COLLAPSED.slice(1))) {
-              return;
-            }
-            target.hidden = true;
-          }
-        }
-      });
-    });
     observerTrees.observe(document.body, {
       childList: true,
       subtree: true,
