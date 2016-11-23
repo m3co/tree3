@@ -116,6 +116,25 @@
         }
         var btn = clone.querySelector(LEAF_EXPAND_COLLAPSE);
 
+        var observer = new MutationObserver((records, instance) => {
+          records.forEach((record) => {
+            var target = record.target;
+            if (target.classList.contains(LEAF_EXPANDED.slice(1))) {
+              return;
+            }
+            if (target.classList.contains(LEAF_COLLAPSED.slice(1))) {
+              return;
+            }
+            target.hidden = true;
+          });
+        });
+        observer.observe(btn, {
+          childList: false,
+          subtree: false,
+          attributes: true,
+          attributeFilter: ['class']
+        });
+
         // by default, the expand/collapse button is expanded
         // and click will switch expanded to collapsed and so on
         btn.addEventListener('click', expandCollapse.bind(null, btn, tree));
