@@ -231,7 +231,7 @@
         for (var i = 0; i < items.length; i++) {
           var item = items[i];
           var match = item.classList
-                          .value
+                          .toString()
                           .match(/mdl-tree__contextmenu--([\d\w]+)/);
           if (match) {
             var value = match[1];

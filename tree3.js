@@ -181,7 +181,7 @@
         var items = contextmenu.querySelectorAll('.mdl-menu__item');
         for (var i = 0; i < items.length; i++) {
           var item = items[i];
-          var match = item.classList.value.match(/mdl-tree__contextmenu--([\d\w]+)/);
+          var match = item.classList.toString().match(/mdl-tree__contextmenu--([\d\w]+)/);
           if (match) {
             var value = match[1];
             if (['add', 'remove'].includes(value)) {} else {
