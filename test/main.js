@@ -419,6 +419,24 @@ async_test((mt) => {
 
           act2.dispatchEvent(new MouseEvent('click'));
         }, "Custom 'action2' event is dispatched");
+
+        // cover the expand/collapse actions via class
+        var leaf = newTree.leaf[0];
+        var newLeaf = leaf.appendLeaf();
+        newLeaf.querySelector('input').value = 'something';
+        newLeaf.querySelector('input').dispatchEvent(new FocusEvent('blur'));
+
+        var btn = leaf.querySelector('.mdl-tree__item-expand-collapse');
+
+        async_test((t) => {
+          btn.classList.remove('mdl-tree__item--expanded');
+
+          t.step_timeout(() => {
+            assert_true(btn.hidden);
+            t.done();
+          }, 0);
+        }, "Hide the expand/collapse button if remove --expanded");
+
         t.done();
       }, 0);
 
