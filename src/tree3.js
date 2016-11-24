@@ -169,9 +169,14 @@
       }));
     });
     input.addEventListener('blur', (e) => {
-      if (!input.value) {
+      if (!e.target.value.toString()) {
         leaf.removeLeaf();
+        return;
       }
+      var inputContainer = leaf.querySelector(LEAF_INPUT);
+      leaf.textContent = e.target.value.toString();
+      leaf.querySelector(LEAF_TEXT).hidden = false;
+      inputContainer.hidden = true;
     });
     leaf.querySelector(LEAF_TEXT)
         .addEventListener('dblclick', (e) => {
