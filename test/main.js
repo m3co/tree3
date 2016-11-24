@@ -433,23 +433,23 @@ async_test((mt) => {
 
           t.step_timeout(() => {
             assert_true(btn.hidden);
-            t.done();
 
-            async_test((t) => {
+            async_test((t1) => {
               btn.classList.add('mdl-tree__item--collapsed');
 
-              t.step_timeout(() => {
+              t1.step_timeout(() => {
                 assert_true(newLeaf.closest('.mdl-tree').hidden);
                 assert_false(btn.hidden);
                 btn.classList.remove('mdl-tree__item--collapsed');
-                t.done();
 
-                async_test((t) => {
+                async_test((t2) => {
                   btn.classList.add('mdl-tree__item--expanded');
 
-                  t.step_timeout(() => {
+                  t2.step_timeout(() => {
                     assert_false(newLeaf.closest('.mdl-tree').hidden);
                     assert_false(btn.hidden);
+                    t2.done();
+                    t1.done();
                     t.done();
 
                   }, 0);
