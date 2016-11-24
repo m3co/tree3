@@ -35,8 +35,8 @@
   var TEMPLATE_LEAF_CONTEXTMENU_HTML = "\n    <button id=\"" + LEAF_CONTEXTMENU.slice(1) + "-\"\n      class=\"mdl-button mdl-js-button mdl-button--icon\">\n      <i class=\"material-icons\">more_vert</i>\n    </button>\n    <ul class=\"mdl-menu mdl-js-menu mdl-js-ripple-effect\"\n      for=\"" + LEAF_CONTEXTMENU.slice(1) + "-\">\n      <li class=\"mdl-menu__item\n                 " + LEAF_CONTEXTMENU_ADD.slice(1) + "\">\n        Add\n      </li>\n      <li class=\"mdl-menu__item\n                 mdl-menu__item--full-bleed-divider\n                 " + LEAF_CONTEXTMENU_REMOVE.slice(1) + "\">\n        Remove\n      </li>\n    </ul>\n  ";
   var TEMPLATE_LEAF_CONTEXTMENU = createFromStringDocumentFragment(TEMPLATE_LEAF_CONTEXTMENU_HTML);
 
-  var TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML = "\n    <button class=\"mdl-list__item-secondary-action\n                   mdl-button mdl-js-button mdl-button--icon\n                   " + LEAF_EXPAND_COLLAPSE.slice(1) + "\n                   " + LEAF_EXPANDED.slice(1) + "\">\n      <i class=\"material-icons\">keyboard_arrow_down</i>\n    </button>\n  ";
-  var TEMPLATE_LEAF_EXPANDCOLLAPSE = createFromStringDocumentFragment(TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML);
+  var TEMPLATE_LEAF_EXPANDED_BTN_HTML = "\n    <button class=\"mdl-list__item-secondary-action\n                   mdl-button mdl-js-button mdl-button--icon\n                   " + LEAF_EXPAND_COLLAPSE.slice(1) + "\n                   " + LEAF_EXPANDED.slice(1) + "\">\n      <i class=\"material-icons\">keyboard_arrow_down</i>\n    </button>\n  ";
+  var TEMPLATE_LEAF_EXPANDED_BTN = createFromStringDocumentFragment(TEMPLATE_LEAF_EXPANDED_BTN_HTML);
 
   var TEMPLATE_LEAF_COLLAPSED_BTN_HTML = "\n    <button class=\"mdl-list__item-secondary-action\n                   mdl-button mdl-js-button mdl-button--icon\n                   " + LEAF_EXPAND_COLLAPSE.slice(1) + "\n                   " + LEAF_COLLAPSED.slice(1) + "\">\n      <i class=\"material-icons\">keyboard_arrow_up</i>\n    </button>\n  ";
   var TEMPLATE_LEAF_COLLAPSED_BTN = createFromStringDocumentFragment(TEMPLATE_LEAF_COLLAPSED_BTN_HTML);
@@ -96,9 +96,9 @@
       return tree;
     }
     if (type === "expanded") {
-      var clone = document.importNode(TEMPLATE_LEAF_EXPANDCOLLAPSE, true);
+      var clone = document.importNode(tree.TEMPLATE_LEAF_EXPANDED_BTN, true);
     } else {
-      var clone = document.importNode(TEMPLATE_LEAF_COLLAPSED_BTN, true);
+      var clone = document.importNode(tree.TEMPLATE_LEAF_COLLAPSED_BTN, true);
     }
     var c = leaf.querySelector('.mdl-list__item-primary-content').nextSibling;
     if (!c) {
@@ -347,7 +347,9 @@
     tree.TEMPLATE_LEAF = TEMPLATE_LEAF;
     tree.TEMPLATE_TREE = TEMPLATE_TREE;
     tree.TEMPLATE_LEAF_CONTEXTMENU = TEMPLATE_LEAF_CONTEXTMENU;
-    tree.TEMPLATE_LEAF_EXPANDCOLLAPSE = TEMPLATE_LEAF_EXPANDCOLLAPSE;
+    tree.TEMPLATE_LEAF_EXPANDED_BTN = TEMPLATE_LEAF_EXPANDED_BTN;
+    tree.TEMPLATE_LEAF_COLLAPSED_BTN = TEMPLATE_LEAF_COLLAPSED_BTN;
+    tree.TEMPLATE_LEAF_SPLASH = TEMPLATE_LEAF_SPLASH;
     Object.defineProperty(tree, "appendLeaf", {
       value: appendLeaf
     });
@@ -366,7 +368,7 @@
   }
 
   function appendSplashLeaf(tree) {
-    var clone = document.importNode(TEMPLATE_LEAF_SPLASH, true);
+    var clone = document.importNode(tree.TEMPLATE_LEAF_SPLASH, true);
     var btn = clone.querySelector(LEAF_SPLASH);
     btn.addEventListener('click', function (e) {
       tree.querySelector(LEAF_SPLASH).closest(TREE_ITEM).remove();

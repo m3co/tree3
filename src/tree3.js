@@ -74,7 +74,7 @@
   var TEMPLATE_LEAF_CONTEXTMENU = createFromStringDocumentFragment(
       TEMPLATE_LEAF_CONTEXTMENU_HTML);
 
-  const TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML = `
+  const TEMPLATE_LEAF_EXPANDED_BTN_HTML = `
     <button class="mdl-list__item-secondary-action
                    mdl-button mdl-js-button mdl-button--icon
                    ${LEAF_EXPAND_COLLAPSE.slice(1)}
@@ -82,8 +82,8 @@
       <i class="material-icons">keyboard_arrow_down</i>
     </button>
   `;
-  var TEMPLATE_LEAF_EXPANDCOLLAPSE = createFromStringDocumentFragment(
-      TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML);
+  var TEMPLATE_LEAF_EXPANDED_BTN = createFromStringDocumentFragment(
+      TEMPLATE_LEAF_EXPANDED_BTN_HTML);
 
   const TEMPLATE_LEAF_COLLAPSED_BTN_HTML = `
     <button class="mdl-list__item-secondary-action
@@ -151,9 +151,9 @@
       return tree;
     }
     if (type === "expanded") {
-      var clone = document.importNode(TEMPLATE_LEAF_EXPANDCOLLAPSE, true);
+      var clone = document.importNode(tree.TEMPLATE_LEAF_EXPANDED_BTN, true);
     } else {
-      var clone = document.importNode(TEMPLATE_LEAF_COLLAPSED_BTN, true);
+      var clone = document.importNode(tree.TEMPLATE_LEAF_COLLAPSED_BTN, true);
     }
     var c = leaf.querySelector('.mdl-list__item-primary-content').nextSibling;
     if (!c) {
@@ -407,7 +407,9 @@
     tree.TEMPLATE_LEAF = TEMPLATE_LEAF;
     tree.TEMPLATE_TREE = TEMPLATE_TREE;
     tree.TEMPLATE_LEAF_CONTEXTMENU = TEMPLATE_LEAF_CONTEXTMENU;
-    tree.TEMPLATE_LEAF_EXPANDCOLLAPSE = TEMPLATE_LEAF_EXPANDCOLLAPSE;
+    tree.TEMPLATE_LEAF_EXPANDED_BTN = TEMPLATE_LEAF_EXPANDED_BTN;
+    tree.TEMPLATE_LEAF_COLLAPSED_BTN = TEMPLATE_LEAF_COLLAPSED_BTN;
+    tree.TEMPLATE_LEAF_SPLASH = TEMPLATE_LEAF_SPLASH;
     Object.defineProperty(tree, "appendLeaf", {
       value: appendLeaf
     });
@@ -426,7 +428,7 @@
   }
 
   function appendSplashLeaf(tree) {
-    var clone = document.importNode(TEMPLATE_LEAF_SPLASH, true);
+    var clone = document.importNode(tree.TEMPLATE_LEAF_SPLASH, true);
     var btn = clone.querySelector(LEAF_SPLASH);
     btn.addEventListener('click', (e) => {
       tree.querySelector(LEAF_SPLASH).closest(TREE_ITEM).remove();
