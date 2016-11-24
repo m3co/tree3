@@ -96,19 +96,10 @@
 
     // if this is "leaf" then...
     if (this instanceof HTMLLIElement) {
-      var tree = this.querySelector(TREE);
-      if (!tree) {
-        tree = this.closest(TREE);
-        clone = document.importNode(tree.TEMPLATE_TREE, true);
-        tree = clone.querySelector(TREE);
-        this.appendChild(tree);
-
-        initTree(tree, this);
-      }
 
       // append to the leaf's tree the sub-leaf =>
       // append to the leaf a subleaf
-      insertExpandCollapseBtn(this, tree);
+      var tree = insertExpandCollapseBtn(this);
       return tree.appendLeaf();
     }
 
@@ -135,9 +126,18 @@
     return leaf;
   }
 
-  function insertExpandCollapseBtn(leaf, tree) {
+  function insertExpandCollapseBtn(leaf) {
+    var tree = leaf.querySelector(TREE);
+    if (!tree) {
+      tree = leaf.closest(TREE);
+      clone = document.importNode(tree.TEMPLATE_TREE, true);
+      tree = clone.querySelector(TREE);
+      leaf.appendChild(tree);
+
+      initTree(tree, leaf);
+    }
     if (leaf.querySelector(LEAF_EXPAND_COLLAPSE)) {
-      return;
+      return tree;
     }
     var clone = document.importNode(tree.TEMPLATE_LEAF_EXPANDCOLLAPSE, true);
     var c = leaf.querySelector('.mdl-list__item-primary-content').nextSibling;
@@ -155,6 +155,7 @@
       attributeFilter: ['class']
     });
     leaf.insertBefore(clone, c);
+    return tree;
   }
 
   function configInput(leaf) {
@@ -215,7 +216,11 @@
 
   function expandLeaf(btn, tree) {
     btn.querySelector('.material-icons').innerHTML = "keyboard_arrow_down";
-    tree.hidden = false;
+    if (tree.leafs.length > 0) {
+      tree.hidden = false;
+    } else {
+      tree.hidden = true;
+    }
 
     // fire expand event
     btn.dispatchEvent(new CustomEvent('expand', {
@@ -443,6 +448,13 @@
     });
     Object.defineProperty(leaf, "removeLeaf", {
       value: removeLeaf
+    });
+
+    Object.defineProperty(leaf, "appendExpandCollapse", {
+      value: () => {
+        var tree = insertExpandCollapseBtn(leaf);
+        expandLeaf(leaf.querySelector(LEAF_EXPAND_COLLAPSE), tree);
+      }
     });
   }
 
