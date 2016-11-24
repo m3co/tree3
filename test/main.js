@@ -461,10 +461,34 @@ async_test((mt) => {
           }, 0);
         }, "Hide the expand/collapse button if remove --expanded");
 
+        async_test((t) => {
+          var leaf = tree.appendLeaf();
+
+          leaf.querySelector('input').value = "leaf";
+          leaf.querySelector('input').dispatchEvent(new FocusEvent('blur'));
+
+          var listener = t.unreached_func("appendExpandCollapse should not fire anything");
+          tree.addEventListener('expand', listener);
+          tree.addEventListener('collapse', listener);
+          leaf.appendExpandCollapse(); // by default adds the collapsed button
+
+          tree.removeEventListener('expand', listener);
+          tree.removeEventListener('collapse', listener);
+          var btn = leaf.querySelector('.mdl-tree__item-expand-collapse');
+          assert_true(btn instanceof HTMLElement);
+
+          var listener1 = t.step_func((e) => {
+            tree.removeEventListener('collapse', listener1);
+            t.done();
+          });
+          tree.addEventListener('collapse', listener1);
+
+        }, "appendExpandCollapsed() as default - collapsed");
+
         t.done();
       }, 0);
-
     }, "Tree is updated by MutationObserver");
+
 
   }));
 }, "DOMContentLoaded");
