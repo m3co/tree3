@@ -452,7 +452,7 @@ async_test((mt) => {
                     async_test((t3) => {
                       var leaf = tree.appendLeaf();
 
-                      leaf.querySelector('input').value = "leaf";
+                      leaf.querySelector('input').value = "leaf collapsed";
                       leaf.querySelector('input').dispatchEvent(new FocusEvent('blur'));
 
                       var listener = t3.unreached_func("appendExpandCollapse should not fire anything");
@@ -467,16 +467,45 @@ async_test((mt) => {
 
                       var listener1 = t3.step_func((e) => {
                         tree.removeEventListener('expand', listener1);
+                        assert_true(leaf.querySelector('.mdl-tree').hidden);
+
+                        t3.done();
+                      });
+                      tree.addEventListener('expand', listener1);
+                      btn.dispatchEvent(new MouseEvent('click'));
+
+                    }, "appendExpandCollapsed() as default - collapsed");
+
+                    async_test((t3) => {
+                      var leaf = tree.appendLeaf();
+
+                      leaf.querySelector('input').value = "leaf expanded";
+                      leaf.querySelector('input').dispatchEvent(new FocusEvent('blur'));
+
+                      var listener = t3.unreached_func("appendExpandCollapse should not fire anything");
+                      tree.addEventListener('expand', listener);
+                      tree.addEventListener('collapse', listener);
+                      leaf.appendExpandCollapse("expanded");
+
+                      tree.removeEventListener('expand', listener);
+                      tree.removeEventListener('collapse', listener);
+                      var btn = leaf.querySelector('.mdl-tree__item-expand-collapse');
+                      assert_true(btn instanceof HTMLElement);
+
+                      var listener1 = t3.step_func((e) => {
+                        tree.removeEventListener('collapse', listener1);
+                        assert_true(leaf.querySelector('.mdl-tree').hidden);
+
                         t3.done();
                         t2.done();
                         t1.done();
                         t.done();
 
                       });
-                      tree.addEventListener('expand', listener1);
+                      tree.addEventListener('collapse', listener1);
                       btn.dispatchEvent(new MouseEvent('click'));
 
-                    }, "appendExpandCollapsed() as default - collapsed");
+                    }, "appendExpandCollapsed('expanded')");
 
                   }, 0);
                 }, "Show the expanded button if add --expanded");

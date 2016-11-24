@@ -466,8 +466,8 @@
     });
 
     Object.defineProperty(leaf, "appendExpandCollapse", {
-      value: () => {
-        var tree = insertExpandCollapseBtn(leaf);
+      value: (type) => {
+        var tree = insertExpandCollapseBtn(leaf, type);
         tree.hidden = true;
       }
     });
