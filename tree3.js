@@ -103,6 +103,10 @@
     // and click will switch expanded to collapsed and so on
     btn.addEventListener('click', expandCollapse.bind(null, btn, tree));
 
+    observerExpandCollapse.observe(btn, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
     leaf.insertBefore(clone, c);
   }
 
@@ -140,7 +144,7 @@
   }
 
   function expandCollapse(btn, tree) {
-    observerTrees.disconnect();
+    observerExpandCollapse.disconnect();
     if (btn.classList.contains(LEAF_EXPANDED.slice(1))) {
       btn.classList.remove(LEAF_EXPANDED.slice(1));
       btn.classList.add(LEAF_COLLAPSED.slice(1));
@@ -150,9 +154,7 @@
       btn.classList.add(LEAF_EXPANDED.slice(1));
       expandLeaf(btn, tree);
     }
-    observerTrees.observe(document.body, {
-      childList: true,
-      subtree: true,
+    observerExpandCollapse.observe(btn, {
       attributes: true,
       attributeFilter: ['class']
     });
@@ -387,41 +389,43 @@
     });
   }
 
-  var observerTrees = new MutationObserver(function (records, instance) {
+  var observerExpandCollapse = new MutationObserver(function (records, instance) {
     records.forEach(function (record) {
-      if (record.type == "childList") {
-        var addedNodes = record.addedNodes;
-        for (var i = 0; i < addedNodes.length; i++) {
-          var node = addedNodes[i];
-          if (node.classList && node.classList.contains(TREE.slice(1))) {
-            var dataUpgraded = node.getAttribute('data-upgraded');
-            if (dataUpgraded) {
-              if (dataUpgraded.indexOf('Tree3') == -1) {
-                initTree(node);
-              }
-            } else {
-              initTree(node);
-            }
-          }
-        }
-      } else if (record.type == "attributes") {
-        var target = record.target;
-        if (!target.parentNode) {
+      var target = record.target;
+      if (!target.parentNode) {
+        return;
+      }
+      if (target.classList.contains(LEAF_EXPAND_COLLAPSE.slice(1))) {
+        var tree = target.closest('.mdl-tree__item').querySelector('.mdl-tree');
+        target.hidden = false;
+        if (target.classList.contains(LEAF_EXPANDED.slice(1))) {
+          expandLeaf(target, tree);
           return;
         }
-        if (target.classList.contains(LEAF_EXPAND_COLLAPSE.slice(1))) {
-          var tree = target.closest('.mdl-tree__item').querySelector('.mdl-tree');
-          target.hidden = false;
-          if (target.classList.contains(LEAF_EXPANDED.slice(1))) {
-            expandLeaf(target, tree);
-            return;
+        if (target.classList.contains(LEAF_COLLAPSED.slice(1))) {
+          collapseLeaf(target, tree);
+          return;
+        }
+        target.hidden = true;
+        tree.hidden = true;
+      }
+    });
+  });
+
+  var observerTrees = new MutationObserver(function (records, instance) {
+    records.forEach(function (record) {
+      var addedNodes = record.addedNodes;
+      for (var i = 0; i < addedNodes.length; i++) {
+        var node = addedNodes[i];
+        if (node.classList && node.classList.contains(TREE.slice(1))) {
+          var dataUpgraded = node.getAttribute('data-upgraded');
+          if (dataUpgraded) {
+            if (dataUpgraded.indexOf('Tree3') == -1) {
+              initTree(node);
+            }
+          } else {
+            initTree(node);
           }
-          if (target.classList.contains(LEAF_COLLAPSED.slice(1))) {
-            collapseLeaf(target, tree);
-            return;
-          }
-          target.hidden = true;
-          tree.hidden = true;
         }
       }
     });
@@ -435,9 +439,7 @@
     }
     observerTrees.observe(document.body, {
       childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['class']
+      subtree: true
     });
   });
 
