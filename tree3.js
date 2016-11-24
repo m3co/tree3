@@ -97,8 +97,10 @@
     }
     if (type === "expanded") {
       var clone = document.importNode(tree.TEMPLATE_LEAF_EXPANDED_BTN, true);
-    } else {
+    } else if (type === "collapsed" || !type) {
       var clone = document.importNode(tree.TEMPLATE_LEAF_COLLAPSED_BTN, true);
+    } else {
+      throw new Error("Allowed types = 'expanded' || 'collapsed' in appendExpandCollapse");
     }
     var c = leaf.querySelector('.mdl-list__item-primary-content').nextSibling;
     if (!c) {
