@@ -85,6 +85,17 @@
   var TEMPLATE_LEAF_EXPANDCOLLAPSE = createFromStringDocumentFragment(
       TEMPLATE_LEAF_EXPANDCOLLAPSE_HTML);
 
+  const TEMPLATE_LEAF_COLLAPSED_BTN_HTML = `
+    <button class="mdl-list__item-secondary-action
+                   mdl-button mdl-js-button mdl-button--icon
+                   ${LEAF_EXPAND_COLLAPSE.slice(1)}
+                   ${LEAF_COLLAPSED.slice(1)}">
+      <i class="material-icons">keyboard_arrow_up</i>
+    </button>
+  `;
+  var TEMPLATE_LEAF_COLLAPSED_BTN = createFromStringDocumentFragment(
+      TEMPLATE_LEAF_COLLAPSED_BTN_HTML);
+
   var index_contextmenu = 0;
 
   /**
@@ -99,7 +110,7 @@
 
       // append to the leaf's tree the sub-leaf =>
       // append to the leaf a subleaf
-      var tree = insertExpandCollapseBtn(this);
+      var tree = insertExpandCollapseBtn(this, "expanded");
       return tree.appendLeaf();
     }
 
@@ -126,7 +137,7 @@
     return leaf;
   }
 
-  function insertExpandCollapseBtn(leaf) {
+  function insertExpandCollapseBtn(leaf, type) {
     var tree = leaf.querySelector(TREE);
     if (!tree) {
       tree = leaf.closest(TREE);
@@ -139,7 +150,11 @@
     if (leaf.querySelector(LEAF_EXPAND_COLLAPSE)) {
       return tree;
     }
-    var clone = document.importNode(tree.TEMPLATE_LEAF_EXPANDCOLLAPSE, true);
+    if (type === "expanded") {
+      var clone = document.importNode(TEMPLATE_LEAF_EXPANDCOLLAPSE, true);
+    } else {
+      var clone = document.importNode(TEMPLATE_LEAF_COLLAPSED_BTN, true);
+    }
     var c = leaf.querySelector('.mdl-list__item-primary-content').nextSibling;
     if (!c) {
       throw new Error('please, check why nextSibling is null');
@@ -453,7 +468,7 @@
     Object.defineProperty(leaf, "appendExpandCollapse", {
       value: () => {
         var tree = insertExpandCollapseBtn(leaf);
-        expandLeaf(leaf.querySelector(LEAF_EXPAND_COLLAPSE), tree);
+        tree.hidden = true;
       }
     });
   }
