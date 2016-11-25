@@ -15,5 +15,13 @@
   tree.addEventListener('collapse', function(e) {
     console.log('collapse');
   });
-
+  tree.addEventListener('addleaf', function(e) {
+    console.log('add leaf', e.detail);
+  });
+  tree.addEventListener('removeleaf', function(e) {
+    console.log('remove leaf', e.detail);
+  });
+  tree.addEventListener('changetext', function(e) {
+    console.log('change text', e.detail);
+  });
 })();
