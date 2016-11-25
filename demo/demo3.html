@@ -21,21 +21,13 @@
     <template for="demo-tree">
       <li class="mdl-menu__item
                  mdl-tree__contextmenu--action1">
-        Action 1
+        Insert collapsed button
       </li>
       <li class="mdl-menu__item
                  mdl-tree__contextmenu--action2">
-        Action 2
+        Insert expanded button
       </li>
     </template>
-    <script>
-      'use strict';
-      document.querySelector('#demo-tree').addEventListener('action1', function(e) {
-        console.log('action 1', e.detail.leaf);
-      });
-      document.querySelector('#demo-tree').addEventListener('action2', function(e) {
-        console.log('action 2', e.detail.leaf);
-      });
-    </script>
+    <script src="demo3.js"></script>
   </body>
 </html>
