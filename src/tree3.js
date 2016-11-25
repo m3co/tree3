@@ -423,9 +423,10 @@
       appendSplashLeaf(tree);
     }
     if (tree.getAttribute('data-upgraded')) {
-      tree.dataset.upgraded += ',Tree3';
+      tree.setAttribute('data-upgraded',
+                        `${tree.getAttribute('data-upgraded')},Tree3`);
     } else {
-      tree.dataset.upgraded = ',Tree3';
+      tree.setAttribute('data-upgraded', ',Tree3');
     }
   }
 
