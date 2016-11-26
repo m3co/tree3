@@ -478,7 +478,7 @@
     });
   }
 
-  var observerExpandCollapse = new MutationObserver(function(records, instance) {
+  var observerExpandCollapse = new MutationObserver((records, instance) => {
     records.forEach((record) => {
       var target = record.target;
       if (!target.parentNode) {
@@ -502,7 +502,7 @@
     });
   });
 
-  var observerTrees = new MutationObserver(function(records, instance) {
+  var observerTrees = new MutationObserver((records, instance) => {
     records.forEach((record) => {
       var addedNodes = record.addedNodes;
       for (var i = 0; i < addedNodes.length; i++) {
