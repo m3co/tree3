@@ -396,6 +396,13 @@
    * @param {HTMLElement} tree - The tree to update
    */
   function initTree(tree, parent) {
+    var dataUpgraded = tree.getAttribute('data-upgraded');
+    if (dataUpgraded) {
+      if (dataUpgraded.indexOf('Tree3') > -1) {
+        return;
+      }
+    }
+
     addProperty__leafs(tree);
     if (parent) {
       Object.defineProperty(tree, "TREE", {
@@ -509,13 +516,13 @@
         var node = addedNodes[i];
         if (node.classList &&
             node.classList.contains(TREE.slice(1))) {
-          var dataUpgraded = node.getAttribute('data-upgraded');
-          if (dataUpgraded) {
-            if (dataUpgraded.indexOf('Tree3') == -1) {
-              initTree(node);
+          initTree(node);
+        } else {
+          if (node.querySelector instanceof Function) {
+            var tree = node.querySelector(TREE);
+            if (tree) {
+              initTree(tree);
             }
-          } else {
-            initTree(node);
           }
         }
       }
