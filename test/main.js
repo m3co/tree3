@@ -247,6 +247,7 @@ function mainTest(tree, index_cm) {
 
       var listener = t.step_func((e) => {
         leaf.removeEventListener('collapse', listener);
+        assert_equals(e.detail.leaf, leaf);
         assert_true(btn.classList.contains('mdl-tree__item--collapsed'));
         assert_false(btn.classList.contains('mdl-tree__item--expanded'));
         t.done();
@@ -263,6 +264,7 @@ function mainTest(tree, index_cm) {
 
       var listener = t.step_func((e) => {
         leaf.removeEventListener('expand', listener);
+        assert_equals(e.detail.leaf, leaf);
         assert_false(btn.classList.contains('mdl-tree__item--collapsed'));
         assert_true(btn.classList.contains('mdl-tree__item--expanded'));
         t.done();

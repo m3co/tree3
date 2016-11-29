@@ -241,6 +241,9 @@
 
     // fire expand event
     btn.dispatchEvent(new CustomEvent('expand', {
+      detail: {
+        leaf: btn.closest('.mdl-tree__item')
+      },
       bubbles: true
     }));
   }
@@ -251,6 +254,9 @@
 
     // fire collapse event
     btn.dispatchEvent(new CustomEvent('collapse', {
+      detail: {
+        leaf: btn.closest('.mdl-tree__item')
+      },
       bubbles: true
     }));
   }
