@@ -125,6 +125,9 @@
       this.TREE.querySelector(LEAF_SPLASH).closest(TREE_ITEM).remove();
     }
     this.appendChild(clone); // append to the tree the leaf
+    if (this.hidden) {
+      this.hidden = false;
+    }
     initLeaf(leaf, this);
 
     window.componentHandler.upgradeDom();
