@@ -205,12 +205,14 @@
       leaf.querySelector(LEAF_TEXT).hidden = true;
       window.setTimeout(() => {
         input.focus();
-        input.setSelectionRange(input.value.length, input.value.length);
+        input.selectionStart = input.value.length;
+        input.selectionEnd = input.value.length;
       }, 0);
     });
     window.setTimeout(() => {
       input.focus();
-      input.setSelectionRange(input.value.length, input.value.length);
+      input.selectionStart = input.value.length;
+      input.selectionEnd = input.value.length;
     }, 0);
   }
 

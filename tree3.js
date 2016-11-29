@@ -149,12 +149,14 @@
       leaf.querySelector(LEAF_TEXT).hidden = true;
       window.setTimeout(function () {
         input.focus();
-        input.setSelectionRange(input.value.length, input.value.length);
+        input.selectionStart = input.value.length;
+        input.selectionEnd = input.value.length;
       }, 0);
     });
     window.setTimeout(function () {
       input.focus();
-      input.setSelectionRange(input.value.length, input.value.length);
+      input.selectionStart = input.value.length;
+      input.selectionEnd = input.value.length;
     }, 0);
   }
 
