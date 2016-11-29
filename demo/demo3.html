@@ -3,7 +3,7 @@
   <head>
     <script src="https://cdn.ravenjs.com/3.8.1/raven.min.js"></script>
     <script>Raven.config('https://a4577dd4d22f43549b5e5111b012295f@sentry.io/115634').install()</script>
-    <script src="/bower_components/webcomponentsjs/MutationObserver.js" async></script>
+    <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Demo</title>
@@ -13,6 +13,44 @@
     <script src="/bower_components/element-matches/closest.js"></script>
     <script src="/bower_components/material-design-lite/material.min.js"></script>
     <script src="/bower_components/customevent-polyfill/customevent-polyfill.min.js"></script>
+    <script>
+// Polyfill token from
+// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/includes#Polyfill
+'use strict';
+(function() {
+  if (!Array.prototype.includes) {
+    Array.prototype.includes = function(searchElement /*, fromIndex*/) {
+      if (this == null) {
+        throw new TypeError('Array.prototype.includes called on null or undefined');
+      }
+
+      var O = Object(this);
+      var len = parseInt(O.length, 10) || 0;
+      if (len === 0) {
+        return false;
+      }
+      var n = parseInt(arguments[1], 10) || 0;
+      var k;
+      if (n >= 0) {
+        k = n;
+      } else {
+        k = len + n;
+        if (k < 0) {k = 0;}
+      }
+      var currentElement;
+      while (k < len) {
+        currentElement = O[k];
+        if (searchElement === currentElement ||
+            (searchElement !== searchElement && currentElement !== currentElement)) { // NaN !== NaN
+              return true;
+            }
+        k++;
+      }
+      return false;
+    };
+  }
+})();
+    </script>
     <link href="/tree3.css" rel="stylesheet">
     <script src="/tree3.js"></script>
   </head>
