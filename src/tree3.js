@@ -447,6 +447,9 @@
     Object.defineProperty(tree, "createLeaf", {
       value: createLeaf
     });
+    Object.defineProperty(tree, "removeSplashLeaf", {
+      value: removeSplashLeaf
+    });
 
     if (!parent) {
       appendSplashLeaf(tree);
@@ -463,10 +466,21 @@
     var clone = document.importNode(tree.TEMPLATE_LEAF_SPLASH, true);
     var btn = clone.querySelector(LEAF_SPLASH);
     btn.addEventListener('click', (e) => {
-      tree.querySelector(LEAF_SPLASH).closest(TREE_ITEM).remove();
+      removeSplashLeaf(tree);
       tree.appendLeaf();
     });
     tree.appendChild(clone);
+  }
+
+  function removeSplashLeaf(tree) {
+    var _tree = tree || this.TREE;
+    var splash = _tree.querySelector(LEAF_SPLASH);
+    if (splash) {
+      var splashContainer = splash.closest(TREE_ITEM);
+      if (splashContainer) {
+        splashContainer.remove();
+      }
+    }
   }
 
   function initLeaf(leaf, parent) {
@@ -492,11 +506,20 @@
       }
     });
 
+    leaf.TEMPLATE_LEAF = TEMPLATE_LEAF;
+    leaf.TEMPLATE_TREE = TEMPLATE_TREE;
+    leaf.TEMPLATE_LEAF_CONTEXTMENU = TEMPLATE_LEAF_CONTEXTMENU;
+    leaf.TEMPLATE_LEAF_EXPANDED_BTN = TEMPLATE_LEAF_EXPANDED_BTN;
+    leaf.TEMPLATE_LEAF_COLLAPSED_BTN = TEMPLATE_LEAF_COLLAPSED_BTN;
+    leaf.TEMPLATE_LEAF_SPLASH = TEMPLATE_LEAF_SPLASH;
     Object.defineProperty(leaf, "appendLeaf", {
       value: appendLeaf
     });
     Object.defineProperty(leaf, "removeLeaf", {
       value: removeLeaf
+    });
+    Object.defineProperty(leaf, "createLeaf", {
+      value: createLeaf
     });
 
     Object.defineProperty(leaf, "appendExpandCollapse", {
