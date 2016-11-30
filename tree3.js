@@ -44,7 +44,23 @@
   var index_contextmenu = 0;
 
   /**
+   * Create a leaf
+   * @return {HTMLElement} - the created element
+   */
+  function createLeaf() {
+    var clone = document.importNode(this.TEMPLATE_LEAF, true);
+    var leaf = clone.querySelector(TREE_ITEM);
+
+    configInput(leaf);
+    createContextmenu(this, leaf);
+
+    initLeaf(leaf, this);
+    return leaf;
+  }
+
+  /**
    * Append a leaf to the initial(root) tree or to any child leaf
+   * and fires the addleaf event
    * @return {HTMLElement} - The created element
    */
   function appendLeaf() {
@@ -60,22 +76,16 @@
     }
 
     // if this is "tree" then...
-    clone = document.importNode(this.TEMPLATE_LEAF, true);
-    var leaf = clone.querySelector(TREE_ITEM);
-
-    configInput(leaf);
-    createContextmenu(this, leaf);
-
+    var leaf = this.createLeaf();
+    this.appendChild(leaf);
     if (this.TREE.querySelector(LEAF_SPLASH)) {
       this.TREE.querySelector(LEAF_SPLASH).closest(TREE_ITEM).remove();
     }
-    this.appendChild(clone); // append to the tree the leaf
     if (this.hidden) {
       this.hidden = false;
     }
-    initLeaf(leaf, this);
-
     window.componentHandler.upgradeDom();
+
     this.dispatchEvent(new CustomEvent('addleaf', {
       detail: {
         leaf: leaf
@@ -373,6 +383,9 @@
     });
     Object.defineProperty(tree, "removeLeaf", {
       value: removeLeaf
+    });
+    Object.defineProperty(tree, "createLeaf", {
+      value: createLeaf
     });
 
     if (!parent) {
