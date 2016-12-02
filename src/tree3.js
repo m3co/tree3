@@ -200,7 +200,7 @@
       }));
     });
     input.addEventListener('keyup', (e) => {
-      if (e.code == 'Enter') {
+      if (e.key == 'Enter') {
         e.target.blur();
       }
     });

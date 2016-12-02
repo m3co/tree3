@@ -145,7 +145,7 @@
       }));
     });
     input.addEventListener('keyup', function (e) {
-      if (e.code == 'Enter') {
+      if (e.key == 'Enter') {
         e.target.blur();
       }
     });
