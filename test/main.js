@@ -123,6 +123,15 @@ function mainTest(tree, index_cm) {
     }, "Tree's leafs selector returns tree's children");
 
     test(() => {
+      var leaf = tree.leaf[0];
+      assert_true(leaf.hasOwnProperty('parentLeaf'));
+      assert_equals(leaf.parentLeaf, null);
+
+      var subleaf = leaf.leaf[0];
+      assert_equals(subleaf.parentLeaf, leaf);
+    }, "Tree's leaf has the parentLeaf property");
+
+    test(() => {
       var btn = tree.leafs[0].querySelector('.mdl-tree__item-expand-collapse');
       var btn2 = tree.leafs[0].leafs[0].querySelector('.mdl-tree__item-expand-collapse');
       assert_false(btn2 instanceof HTMLElement);

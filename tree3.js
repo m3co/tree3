@@ -429,6 +429,10 @@
       value: parent.TREE
     });
 
+    Object.defineProperty(leaf, "parentLeaf", {
+      value: parent.closest(TREE_ITEM)
+    });
+
     Object.defineProperty(leaf, 'textContent', {
       get: function get() {
         return this.querySelector(LEAF_TEXT).textContent.replace(/\n/g, '').trim();
