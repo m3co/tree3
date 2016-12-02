@@ -144,6 +144,11 @@
         bubbles: true
       }));
     });
+    input.addEventListener('keyup', function (e) {
+      if (e.code == 'Enter') {
+        e.target.blur();
+      }
+    });
     input.addEventListener('blur', function (e) {
       if (!e.target.value.toString()) {
         leaf.removeLeaf();
