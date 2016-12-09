@@ -46,7 +46,7 @@ gulp.task('html-hint', _ => {
     .pipe(connect.reload());
 });
 
-gulp.task('js-eslint', _ => {
+gulp.task('js-lint', _ => {
   return gulp.src(paths.jssrc)
     .pipe(jshint())
     .pipe(jscs())
@@ -67,7 +67,7 @@ gulp.task('css-copy', _ => {
 });
 
 gulp.task('watch', _ => {
-  gulp.watch(paths.js, ['js-eslint']);
+  gulp.watch(paths.js, ['js-lint']);
   gulp.watch(paths.css, ['css-lint']);
   gulp.watch(paths.html, ['html-hint']);
   gulp.watch(paths.jssrc, ['js-copy', 'doc']);
@@ -83,7 +83,7 @@ gulp.task('connect', function() {
 });
 
 gulp.task('default', [
-  'js-eslint',
+  'js-lint',
   'css-lint',
   'html-hint',
   'css-copy',
