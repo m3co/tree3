@@ -6,18 +6,5 @@
   "excludeFiles": ["node_modules/**", "bower_components/**", "demo/**", "test/**", "docs/**"],
   "maximumLineLength": 130,
   "validateQuoteMarks": "'",
-  "requireDotNotation": false,
-  "requireCamelCaseOrUpperCaseIdentifiers": null,
-  "closureCamelCase": true,
-  "jsDoc": {
-    "checkAnnotations": {
-      "preset": "closurecompiler",
-      "extra": {
-        "type": true,
-        "suppress": true
-      }
-    },
-    "checkTypes": "strictNativeCase",
-    "enforceExistence": "exceptExports"
-  }
+  "requireDotNotation": false
 }
