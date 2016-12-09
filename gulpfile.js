@@ -24,9 +24,12 @@ const paths = {
 
 
 gulp.task('doc', function () {
-  const config = require('./.jsdocrc');
   return gulp.src(['./README.md'].concat(paths.jssrc), { read: false })
-    .pipe(jsdoc(config));
+    .pipe(jsdoc({
+      opts: {
+        destination: './docs'
+      }
+    }));
 });
 
 gulp.task('css-lint', function() {
