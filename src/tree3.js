@@ -1,3 +1,5 @@
+// jscs:disable
+/* jshint ignore:start */
 ;(() => {
   // Close #15 (https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove)
   if (!('remove' in Element.prototype)) {
@@ -625,5 +627,5 @@
     wrapper = undefined;
     return template;
   }
-
 })();
+/* jshint ignore:end */

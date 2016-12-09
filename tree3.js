@@ -2,6 +2,8 @@
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+// jscs:disable
+/* jshint ignore:start */
 ;(function () {
   // Close #15 (https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove)
   if (!('remove' in Element.prototype)) {
@@ -564,3 +566,4 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     return template;
   }
 })();
+/* jshint ignore:end */
