@@ -8,7 +8,9 @@
   "undef": true,
   "unused": "strict",
   "strict": true,
+  "sub": true,
   "globals": {
-    "componentHandler": true
+    "componentHandler": true,
+    "MaterialMenu": true
   }
 }
