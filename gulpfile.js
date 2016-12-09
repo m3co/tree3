@@ -24,7 +24,7 @@ const paths = {
 
 
 gulp.task('doc', function () {
-  const config = require('./.jsdoc.json');
+  const config = require('./.jsdocrc');
   return gulp.src(['./README.md'].concat(paths.jssrc), { read: false })
     .pipe(jsdoc(config));
 });
