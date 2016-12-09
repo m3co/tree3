@@ -2,7 +2,8 @@
 const gulp = require('gulp');
 const csslint = require('gulp-csslint');
 const htmlhint = require("gulp-htmlhint");
-const eslint = require('gulp-eslint');
+const jscs = require('gulp-jscs');
+const jshint = require('gulp-jshint');
 const babel = require('gulp-babel');
 const connect = require('gulp-connect');
 const jsdoc = require('gulp-jsdoc3');
@@ -43,9 +44,11 @@ gulp.task('html-hint', _ => {
 });
 
 gulp.task('js-eslint', _ => {
-  return gulp.src(paths.js)
-    .pipe(eslint())
-    .pipe(eslint.format())
+  return gulp.src(paths.jssrc)
+    .pipe(jshint())
+    .pipe(jscs())
+    .pipe(jshint.reporter())
+    .pipe(jscs.reporter())
     .pipe(connect.reload());
 });
 
