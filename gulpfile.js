@@ -47,7 +47,7 @@ gulp.task('js-lint', _ => {
   return gulp.src(paths.jssrc)
     .pipe(jshint())
     .pipe(jscs())
-    .pipe(jshint.reporter())
+    .pipe(jshint.reporter('jshint-stylish'))
     .pipe(jscs.reporter())
     .pipe(connect.reload());
 });

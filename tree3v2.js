@@ -14,10 +14,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   var TREE_ITEM = TREE + '__item';
   var CONTEXTMENU = TREE + '__contextmenu';
 
-  var classAsString = 'MaterialTree3';
+  var classAsString = 'Tree3';
   var cssClass = 'mdl-tree3';
 
-  var MaterialTree3 = function () {
+  var Tree3 = function () {
 
     /**
      * Class constructor for dropdown MDL component.
@@ -25,10 +25,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
      * https://github.com/jasonmayes/mdl-component-design-pattern
      *
      * @constructor
-     * @param {HTMLElement} element The element that will be upgraded.
+     * @param {HTMLElement} element - The element that will be upgraded.
      */
-    function MaterialTree3(element) {
-      _classCallCheck(this, MaterialTree3);
+    function Tree3(element) {
+      _classCallCheck(this, Tree3);
 
       this.element_ = element;
       this.init();
@@ -36,10 +36,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     /**
      * Initialize element.
+     *
      */
 
 
-    _createClass(MaterialTree3, [{
+    _createClass(Tree3, [{
       key: 'init',
       value: function init() {
         if (this.element_) {
@@ -50,12 +51,36 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.element_.ALREADY_INIT = true;
         }
       }
+
+      /**
+       * Leafs property
+       *
+       * @returns {NodeList} - The array of leafs
+       */
+
+    }, {
+      key: 'leafs',
+      get: function get() {
+        // Be aware that this selector is temporary
+        return this.element_.querySelectorAll('brrr');
+      }
+
+      /**
+       * Leafs property
+       *
+       * @throws - Do not allow to modify directly this value
+       */
+      ,
+      set: function set(_) {
+        /*jshint unused:false*/
+        throw new Error('Do not allow to modify directly this value');
+      }
     }]);
 
-    return MaterialTree3;
+    return Tree3;
   }();
 
-  window[classAsString] = MaterialTree3;
+  window[classAsString] = Tree3;
 
   /**
    * Store strings for class names defined by this component that are used in
@@ -65,7 +90,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
    * @enum {string}
    * @private
    */
-  MaterialTree3.prototype.CssClasses_ = {
+  Tree3.prototype.CssClasses_ = {
     TREE: '' + TREE,
     ITEM: TREE + '__item',
     SPLASH: TREE + '__splash',
@@ -80,7 +105,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   };
 
   componentHandler.register({
-    constructor: MaterialTree3,
+    constructor: Tree3,
     classAsString: classAsString,
     cssClass: cssClass,
     widget: true

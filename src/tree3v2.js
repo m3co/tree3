@@ -7,10 +7,10 @@
   const TREE_ITEM = `${TREE}__item`;
   const CONTEXTMENU = `${TREE}__contextmenu`;
 
-  const classAsString = 'MaterialTree3';
+  const classAsString = 'Tree3';
   const cssClass = 'mdl-tree3';
 
-  class MaterialTree3 {
+  class Tree3 {
 
     /**
      * Class constructor for dropdown MDL component.
@@ -18,7 +18,7 @@
      * https://github.com/jasonmayes/mdl-component-design-pattern
      *
      * @constructor
-     * @param {HTMLElement} element The element that will be upgraded.
+     * @param {HTMLElement} element - The element that will be upgraded.
      */
     constructor(element) {
       this.element_ = element;
@@ -27,6 +27,7 @@
 
     /**
      * Initialize element.
+     *
      */
     init() {
       if (this.element_) {
@@ -37,8 +38,27 @@
         this.element_.ALREADY_INIT = true;
       }
     }
+
+    /**
+     * Leafs property
+     *
+     * @returns {NodeList} - The array of leafs
+     */
+    get leafs() {
+      // Be aware that this selector is temporary
+      return this.element_.querySelectorAll('brrr');
+    }
+
+    /**
+     * Leafs property
+     *
+     * @throws - Do not allow to modify directly this value
+     */
+    set leafs(_) { /*jshint unused:false*/
+      throw new Error('Do not allow to modify directly this value');
+    }
   }
-  window[classAsString] = MaterialTree3;
+  window[classAsString] = Tree3;
 
   /**
    * Store strings for class names defined by this component that are used in
@@ -48,7 +68,7 @@
    * @enum {string}
    * @private
    */
-  MaterialTree3.prototype.CssClasses_ = {
+  Tree3.prototype.CssClasses_ = {
     TREE: `${TREE}`,
     ITEM: `${TREE}__item`,
     SPLASH: `${TREE}__splash`,
@@ -63,7 +83,7 @@
   };
 
   componentHandler.register({
-    constructor: MaterialTree3,
+    constructor: Tree3,
     classAsString: classAsString,
     cssClass: cssClass,
     widget: true
