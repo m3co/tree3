@@ -10,6 +10,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   var range = new Range();
   var createHTML = range.createContextualFragment.bind(range);
 
+  var TREE = 'mdl-tree';
+  var TREE_ITEM = TREE + '__item';
+  var CONTEXTMENU = TREE + '__contextmenu';
+
   var classAsString = 'MaterialTree3';
   var cssClass = 'mdl-tree3';
 
@@ -39,9 +43,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       key: 'init',
       value: function init() {
         if (this.element_) {
-
-          // Prevent upgradeDom to call init() twice
-          this.element_.dataset.upgraded = ['', classAsString].join();
+          // prevent twice to be executed if upgrading
+          if (this.element_.ALREADY_INIT) {
+            return;
+          }
+          this.element_.ALREADY_INIT = true;
         }
       }
     }]);
@@ -50,6 +56,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   }();
 
   window[classAsString] = MaterialTree3;
+
+  /**
+   * Store strings for class names defined by this component that are used in
+   * JavaScript. This allows us to simply change it in one place should we
+   * decide to modify at a later date.
+   *
+   * @enum {string}
+   * @private
+   */
+  MaterialTree3.prototype.CssClasses_ = {
+    TREE: '' + TREE,
+    ITEM: TREE + '__item',
+    SPLASH: TREE + '__splash',
+    CONTEXTMENU: TREE + '__contextmenu',
+    CONTEXTMENU_ADD: CONTEXTMENU + '--add-leaf',
+    CONTEXTMENU_REMOVE: CONTEXTMENU + '--remove-leaf',
+    INPUT: TREE_ITEM + '-input',
+    TEXT: TREE_ITEM + '-text',
+    EXPAND_COLLAPSE: TREE_ITEM + '-expand-collapse',
+    EXPANDED: TREE_ITEM + '--expanded',
+    COLLAPSED: TREE_ITEM + '--collapsed'
+  };
 
   componentHandler.register({
     constructor: MaterialTree3,
