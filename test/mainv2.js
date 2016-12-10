@@ -36,6 +36,9 @@ onload_test(function(e) {
 //  - repeteable consistently
 //  - isolate
 
+/**
+ * Show the splash screen
+ */
 onload_test(function(e) {
   // [setup]
   var tree = document.createElement('ul');
@@ -56,3 +59,39 @@ onload_test(function(e) {
 
   this.done();
 }, "Show the splash screen");
+
+/**
+ * Click over the splash screen and see if a new leaf was added
+ */
+onload_test(function(e) {
+  // [setup]
+  var tree = document.createElement('ul');
+  tree.classList.add(cssTree);
+
+  // [run]
+  document.body.appendChild(tree);
+  componentHandler.upgradeElement(tree);
+
+  // [setup]
+  var tree3 = tree.Tree3;
+  var splash = tree.querySelector(tree3.CssSelectors_.SPLASH);
+
+  var listener = this.step_func((e) => {
+    // [verify]
+    assert_true(tree3.leaf[0] instanceof HTMLElement);
+    assert_true(tree3.leaf[0].querySelector(tree3.CssSelectors_.TEXT).hidden);
+    assert_false(tree3.leaf[0].querySelector(tree3.CssSelectors_.INPUT).hidden);
+    assert_false(tree3.querySelector(tree3.CssSelectors_.SPLASH)
+      instanceof HTMLElement);
+
+    // [teardown]
+    splash.removeEventListener('click', listener);
+    tree.remove();
+    this.done();
+  });
+
+  // [run]
+  splash.addEventListener('click', listener);
+  splash.dispatchEvent(new MouseEvent('click'));
+  this.done();
+}, "Splash screen dissapears if click over +");
