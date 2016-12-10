@@ -72,8 +72,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'leafs',
       get: function get() {
-        // Be aware that this selector is temporary
-        return this.element_.querySelectorAll('brrr');
+        return this.element_.querySelectorAll(this.CssClasses_.ITEM);
       },
       set: function set(_) {
         /*jshint unused:false*/
@@ -106,6 +105,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     EXPAND_COLLAPSE: ITEM + '-expand-collapse',
     EXPANDED: ITEM + '--expanded',
     COLLAPSED: ITEM + '--collapsed'
+  };
+
+  /**
+   * Store strings for class selectors defined by this component that are used in
+   * JavaScript. This allows us to simply change it in one place should we
+   * decide to modify at a later date.
+   *
+   * @enum {string}
+   * @private
+   */
+  Tree3.prototype.CssSelectors_ = {
+    TREE: '.' + TREE,
+    ITEM: '.' + TREE + '__item',
+    SPLASH: '.' + TREE + '__splash',
+    CONTEXTMENU: '.' + TREE + '__contextmenu',
+    CONTEXTMENU_ADD: '.' + CONTEXTMENU + '--add-leaf',
+    CONTEXTMENU_REMOVE: '.' + CONTEXTMENU + '--remove-leaf',
+    INPUT: '.' + ITEM + '-input',
+    TEXT: '.' + ITEM + '-text',
+    EXPAND_COLLAPSE: '.' + ITEM + '-expand-collapse',
+    EXPANDED: '.' + ITEM + '--expanded',
+    COLLAPSED: '.' + ITEM + '--collapsed'
   };
 
   /**
