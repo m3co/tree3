@@ -24,12 +24,9 @@ const paths = {
 
 
 gulp.task('doc', function () {
+  var config = require('./.jsdoc.json');
   return gulp.src(['./README.md'].concat(paths.jssrc), { read: false })
-    .pipe(jsdoc({
-      opts: {
-        destination: './docs'
-      }
-    }));
+    .pipe(jsdoc(config));
 });
 
 gulp.task('css-lint', function() {

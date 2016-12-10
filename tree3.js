@@ -1,7 +1,5 @@
 "use strict";
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 // jscs:disable
 /* jshint ignore:start */
 ;(function () {
@@ -15,18 +13,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   }
 })();
 (function () {
-
-  /** Class representing a point. */
-  var Dropdow =
-
-  /**
-   * Create a point.
-   * @param {number} x - The x value.
-   * @param {number} y - The y value.
-   */
-  function Dropdow(element) {
-    _classCallCheck(this, Dropdow);
-  };
 
   var TREE = ".mdl-tree";
   var TREE_ITEM = TREE + "__item";

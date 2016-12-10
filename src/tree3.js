@@ -12,19 +12,6 @@
 })();
 (() => {
 
-  /** Class representing a point. */
-  class Dropdow {
-
-    /**
-     * Create a point.
-     * @param {number} x - The x value.
-     * @param {number} y - The y value.
-     */
-    constructor(element) {
-
-    }
-  }
-
   const TREE = ".mdl-tree";
   const TREE_ITEM = `${TREE}__item`;
   const LEAF_SPLASH = `${TREE}__splash`;
