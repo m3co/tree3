@@ -7,8 +7,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 (function () {
   'use strict';
 
-  var r = new Range();
-  var button = '\n<!-- Right aligned menu below button -->\n<button class="mdl-button mdl-js-button mdl-button--icon">\n  <i class="material-icons">more_vert</i>\n</button>\n\n<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect">\n  <li class="mdl-menu__item">Some Action</li>\n  <li class="mdl-menu__item">Another Action</li>\n  <li disabled class="mdl-menu__item">Disabled Action</li>\n  <li class="mdl-menu__item">Yet Another Action</li>\n</ul>\n  ';
+  var range = new Range();
+  var createHTML = range.createContextualFragment.bind(range);
+
+  var classAsString = 'MaterialTree3';
+  var cssClass = 'mdl-tree3';
 
   var MaterialTree3 = function () {
     function MaterialTree3(element) {
@@ -22,15 +25,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       key: 'init',
       value: function init() {
         if (this.element_) {
-          this.element_.classList.add('mdl-list');
-          var t = r.createContextualFragment(button);
-          this.element_.querySelector('li').appendChild(t);
-          var c = new MaterialMenu(this.element_.querySelector('.mdl-menu'));
 
-          var forEl = this.element_.querySelector('li button');
-          c.forElement_ = forEl;
-          forEl.addEventListener('click', c.handleForClick_.bind(c));
-          forEl.addEventListener('keydown', c.handleForKeyboardEvent_.bind(c));
+          // Prevent upgradeDom to call init() twice
+          this.element_.dataset.upgraded = ['', classAsString].join();
         }
       }
     }]);
@@ -38,12 +35,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     return MaterialTree3;
   }();
 
-  window['MaterialTree3'] = MaterialTree3;
+  window[classAsString] = MaterialTree3;
 
   componentHandler.register({
     constructor: MaterialTree3,
-    classAsString: 'MaterialTree3',
-    cssClass: 'mdl-tree',
+    classAsString: classAsString,
+    cssClass: cssClass,
     widget: true
   });
 })();
