@@ -44,6 +44,7 @@
           return;
         }
         this.element_.ALREADY_INIT = true;
+        this.element_.classList.add('mdl-list');
 
         if (this.leafs.length == 0) { /* jshint ignore:line */
           // show the splash

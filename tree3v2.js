@@ -57,6 +57,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             return;
           }
           this.element_.ALREADY_INIT = true;
+          this.element_.classList.add('mdl-list');
 
           if (this.leafs.length == 0) {
             /* jshint ignore:line */
