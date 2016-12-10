@@ -25,6 +25,7 @@ onload_test(function(e) {
   var tree3 = document.querySelector(selTree).Tree3;
 
   assert_true(tree3.leafs instanceof NodeList);
+  assert_true(tree3.leaf instanceof NodeList);
 
   document.querySelector(selTree).remove();
   this.done();

@@ -78,6 +78,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
        */
 
     }, {
+      key: 'leaf',
+      get: function get() {
+        return this.element_.querySelectorAll(this.CssClasses_.ITEM);
+      },
+      set: function set(_) {
+        /*jshint unused:false*/
+        throw new Error('Do not allow to modify directly this value');
+      }
+
+      /**
+       * Leafs property getter and setter. Retreive via querySelectorAll
+       * all the leafs that belong to this tree. Do not allow to modify
+       * the leafs directly.
+       *
+       * @returns {NodeList} - The array of leafs
+       * @throws - Do not allow to modify directly this value
+       */
+
+    }, {
       key: 'leafs',
       get: function get() {
         return this.element_.querySelectorAll(this.CssClasses_.ITEM);
