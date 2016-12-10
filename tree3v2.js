@@ -11,8 +11,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   var createHTML = range.createContextualFragment.bind(range);
 
   var TREE = 'mdl-tree';
-  var TREE_ITEM = TREE + '__item';
+  var ITEM = TREE + '__item';
+  var SPLASH = TREE + '__splash';
   var CONTEXTMENU = TREE + '__contextmenu';
+  var CONTEXTMENU_ADD = CONTEXTMENU + '--add-leaf';
+  var CONTEXTMENU_REMOVE = CONTEXTMENU + '--remove-leaf';
+  var INPUT = ITEM + '-input';
+  var TEXT = ITEM + '-text';
+  var EXPAND_COLLAPSE = ITEM + '-expand-collapse';
+  var EXPANDED = ITEM + '--expanded';
+  var COLLAPSED = ITEM + '--collapsed';
 
   var classAsString = 'Tree3';
   var cssClass = 'mdl-tree3';
@@ -53,9 +61,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
 
       /**
-       * Leafs property
+       * Leafs property getter and setter. Retreive via querySelectorAll
+       * all the leafs that belong to this tree. Do not allow to modify
+       * the leafs directly.
        *
        * @returns {NodeList} - The array of leafs
+       * @throws - Do not allow to modify directly this value
        */
 
     }, {
@@ -63,14 +74,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       get: function get() {
         // Be aware that this selector is temporary
         return this.element_.querySelectorAll('brrr');
-      }
-
-      /**
-       * Leafs property
-       *
-       * @throws - Do not allow to modify directly this value
-       */
-      ,
+      },
       set: function set(_) {
         /*jshint unused:false*/
         throw new Error('Do not allow to modify directly this value');
@@ -97,12 +101,32 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     CONTEXTMENU: TREE + '__contextmenu',
     CONTEXTMENU_ADD: CONTEXTMENU + '--add-leaf',
     CONTEXTMENU_REMOVE: CONTEXTMENU + '--remove-leaf',
-    INPUT: TREE_ITEM + '-input',
-    TEXT: TREE_ITEM + '-text',
-    EXPAND_COLLAPSE: TREE_ITEM + '-expand-collapse',
-    EXPANDED: TREE_ITEM + '--expanded',
-    COLLAPSED: TREE_ITEM + '--collapsed'
+    INPUT: ITEM + '-input',
+    TEXT: ITEM + '-text',
+    EXPAND_COLLAPSE: ITEM + '-expand-collapse',
+    EXPANDED: ITEM + '--expanded',
+    COLLAPSED: ITEM + '--collapsed'
   };
+
+  /**
+   * Store the templates that will be rendered into this component
+   *
+   * @enum {DocumentFragment}
+   * @private
+   */
+  Tree3.prototype.Templates_ = {};
+
+  Tree3.prototype.Templates_.SPLASH = createHTML('\n    <li class="mdl-list__item ' + ITEM.slice(1) + '">\n      <div class="mdl-list__item-primary-content">\n        <button class="mdl-button mdl-js-button mdl-button--icon ' + SPLASH.slice(1) + '">\n          <i class="material-icons">add</i>\n        </button>\n      </div>\n    </li>\n  ');
+
+  Tree3.prototype.Templates_.LEAF = createHTML('\n    <li class="mdl-list__item ' + ITEM.slice(1) + '">\n      <div class="mdl-list__item-primary-content">\n        &nbsp;\n        <span class="' + TEXT.slice(1) + '" hidden>\n        </span>\n        <div class="' + INPUT.slice(1) + ' mdl-textfield mdl-js-textfield">\n          <input class="mdl-textfield__input" type="text" placeholder="Label...">\n        </div>\n        &nbsp;\n      </div>\n    </li>\n  ');
+
+  Tree3.prototype.Templates_.TREE = createHTML('\n    <ul class="mdl-list ' + TREE.slice(1) + '"></ul>\n  ');
+
+  Tree3.prototype.Templates_.CONTEXTMENU = createHTML('\n    <button id="' + CONTEXTMENU.slice(1) + '-"\n      class="mdl-button mdl-js-button mdl-button--icon">\n      <i class="material-icons">more_vert</i>\n    </button>\n    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"\n      for="' + CONTEXTMENU.slice(1) + '-">\n      <li class="mdl-menu__item\n                 ' + CONTEXTMENU_ADD.slice(1) + '">\n        Add\n      </li>\n      <li class="mdl-menu__item\n                 mdl-menu__item--full-bleed-divider\n                 ' + CONTEXTMENU_REMOVE.slice(1) + '">\n        Remove\n      </li>\n    </ul>\n  ');
+
+  Tree3.prototype.Templates_.EXPANDED_BTN = createHTML('\n    <button class="mdl-list__item-secondary-action\n                   mdl-button mdl-js-button mdl-button--icon\n                   ' + EXPAND_COLLAPSE.slice(1) + '\n                   ' + EXPANDED.slice(1) + '">\n      <i class="material-icons">keyboard_arrow_down</i>\n    </button>\n  ');
+
+  Tree3.prototype.Templates_.COLLAPSED_BTN = createHTML('\n    <button class="mdl-list__item-secondary-action\n                   mdl-button mdl-js-button mdl-button--icon\n                   ' + EXPAND_COLLAPSE.slice(1) + '\n                   ' + COLLAPSED.slice(1) + '">\n      <i class="material-icons">keyboard_arrow_up</i>\n    </button>\n  ');
 
   componentHandler.register({
     constructor: Tree3,
