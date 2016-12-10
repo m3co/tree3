@@ -10,7 +10,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   var range = new Range();
   var createHTML = range.createContextualFragment.bind(range);
 
-  var TREE = 'mdl-tree';
+  var TREE = 'mdl-tree3';
   var ITEM = TREE + '__item';
   var SPLASH = TREE + '__splash';
   var CONTEXTMENU = TREE + '__contextmenu';
@@ -57,6 +57,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             return;
           }
           this.element_.ALREADY_INIT = true;
+
+          if (this.leafs.length == 0) {
+            /* jshint ignore:line */
+            // show the splash
+            var splash = document.importNode(this.Templates_.SPLASH, true);
+            this.element_.appendChild(splash);
+          }
         }
       }
 
@@ -137,17 +144,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
    */
   Tree3.prototype.Templates_ = {};
 
-  Tree3.prototype.Templates_.SPLASH = createHTML('\n    <li class="mdl-list__item ' + ITEM.slice(1) + '">\n      <div class="mdl-list__item-primary-content">\n        <button class="mdl-button mdl-js-button mdl-button--icon ' + SPLASH.slice(1) + '">\n          <i class="material-icons">add</i>\n        </button>\n      </div>\n    </li>\n  ');
+  Tree3.prototype.Templates_.SPLASH = createHTML('\n    <li class="mdl-list__item ' + ITEM + '">\n      <div class="mdl-list__item-primary-content">\n        <button class="mdl-button mdl-js-button mdl-button--icon ' + SPLASH + '">\n          <i class="material-icons">add</i>\n        </button>\n      </div>\n    </li>\n  ');
 
-  Tree3.prototype.Templates_.LEAF = createHTML('\n    <li class="mdl-list__item ' + ITEM.slice(1) + '">\n      <div class="mdl-list__item-primary-content">\n        &nbsp;\n        <span class="' + TEXT.slice(1) + '" hidden>\n        </span>\n        <div class="' + INPUT.slice(1) + ' mdl-textfield mdl-js-textfield">\n          <input class="mdl-textfield__input" type="text" placeholder="Label...">\n        </div>\n        &nbsp;\n      </div>\n    </li>\n  ');
+  Tree3.prototype.Templates_.LEAF = createHTML('\n    <li class="mdl-list__item ' + ITEM + '">\n      <div class="mdl-list__item-primary-content">\n        &nbsp;\n        <span class="' + TEXT + '" hidden>\n        </span>\n        <div class="' + INPUT + ' mdl-textfield mdl-js-textfield">\n          <input class="mdl-textfield__input" type="text" placeholder="Label...">\n        </div>\n        &nbsp;\n      </div>\n    </li>\n  ');
 
-  Tree3.prototype.Templates_.TREE = createHTML('\n    <ul class="mdl-list ' + TREE.slice(1) + '"></ul>\n  ');
+  Tree3.prototype.Templates_.TREE = createHTML('\n    <ul class="mdl-list ' + TREE + '"></ul>\n  ');
 
-  Tree3.prototype.Templates_.CONTEXTMENU = createHTML('\n    <button id="' + CONTEXTMENU.slice(1) + '-"\n      class="mdl-button mdl-js-button mdl-button--icon">\n      <i class="material-icons">more_vert</i>\n    </button>\n    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"\n      for="' + CONTEXTMENU.slice(1) + '-">\n      <li class="mdl-menu__item\n                 ' + CONTEXTMENU_ADD.slice(1) + '">\n        Add\n      </li>\n      <li class="mdl-menu__item\n                 mdl-menu__item--full-bleed-divider\n                 ' + CONTEXTMENU_REMOVE.slice(1) + '">\n        Remove\n      </li>\n    </ul>\n  ');
+  Tree3.prototype.Templates_.CONTEXTMENU = createHTML('\n    <button id="' + CONTEXTMENU + '-"\n      class="mdl-button mdl-js-button mdl-button--icon">\n      <i class="material-icons">more_vert</i>\n    </button>\n    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"\n      for="' + CONTEXTMENU + '-">\n      <li class="mdl-menu__item\n                 ' + CONTEXTMENU_ADD + '">\n        Add\n      </li>\n      <li class="mdl-menu__item\n                 mdl-menu__item--full-bleed-divider\n                 ' + CONTEXTMENU_REMOVE + '">\n        Remove\n      </li>\n    </ul>\n  ');
 
-  Tree3.prototype.Templates_.EXPANDED_BTN = createHTML('\n    <button class="mdl-list__item-secondary-action\n                   mdl-button mdl-js-button mdl-button--icon\n                   ' + EXPAND_COLLAPSE.slice(1) + '\n                   ' + EXPANDED.slice(1) + '">\n      <i class="material-icons">keyboard_arrow_down</i>\n    </button>\n  ');
+  Tree3.prototype.Templates_.EXPANDED_BTN = createHTML('\n    <button class="mdl-list__item-secondary-action\n                   mdl-button mdl-js-button mdl-button--icon\n                   ' + EXPAND_COLLAPSE + '\n                   ' + EXPANDED + '">\n      <i class="material-icons">keyboard_arrow_down</i>\n    </button>\n  ');
 
-  Tree3.prototype.Templates_.COLLAPSED_BTN = createHTML('\n    <button class="mdl-list__item-secondary-action\n                   mdl-button mdl-js-button mdl-button--icon\n                   ' + EXPAND_COLLAPSE.slice(1) + '\n                   ' + COLLAPSED.slice(1) + '">\n      <i class="material-icons">keyboard_arrow_up</i>\n    </button>\n  ');
+  Tree3.prototype.Templates_.COLLAPSED_BTN = createHTML('\n    <button class="mdl-list__item-secondary-action\n                   mdl-button mdl-js-button mdl-button--icon\n                   ' + EXPAND_COLLAPSE + '\n                   ' + COLLAPSED + '">\n      <i class="material-icons">keyboard_arrow_up</i>\n    </button>\n  ');
 
   componentHandler.register({
     constructor: Tree3,

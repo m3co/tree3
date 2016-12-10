@@ -3,7 +3,7 @@
   var range = new Range();
   var createHTML = range.createContextualFragment.bind(range);
 
-  const TREE = 'mdl-tree';
+  const TREE = 'mdl-tree3';
   const ITEM = `${TREE}__item`;
   const SPLASH = `${TREE}__splash`;
   const CONTEXTMENU = `${TREE}__contextmenu`;
@@ -44,6 +44,12 @@
           return;
         }
         this.element_.ALREADY_INIT = true;
+
+        if (this.leafs.length == 0) { /* jshint ignore:line */
+          // show the splash
+          var splash = document.importNode(this.Templates_.SPLASH, true);
+          this.element_.appendChild(splash);
+        }
       }
     }
 
@@ -117,9 +123,9 @@
   Tree3.prototype.Templates_ = {};
 
   Tree3.prototype.Templates_.SPLASH = createHTML(`
-    <li class="mdl-list__item ${ITEM.slice(1)}">
+    <li class="mdl-list__item ${ITEM}">
       <div class="mdl-list__item-primary-content">
-        <button class="mdl-button mdl-js-button mdl-button--icon ${SPLASH.slice(1)}">
+        <button class="mdl-button mdl-js-button mdl-button--icon ${SPLASH}">
           <i class="material-icons">add</i>
         </button>
       </div>
@@ -127,12 +133,12 @@
   `);
 
   Tree3.prototype.Templates_.LEAF = createHTML(`
-    <li class="mdl-list__item ${ITEM.slice(1)}">
+    <li class="mdl-list__item ${ITEM}">
       <div class="mdl-list__item-primary-content">
         &nbsp;
-        <span class="${TEXT.slice(1)}" hidden>
+        <span class="${TEXT}" hidden>
         </span>
-        <div class="${INPUT.slice(1)} mdl-textfield mdl-js-textfield">
+        <div class="${INPUT} mdl-textfield mdl-js-textfield">
           <input class="mdl-textfield__input" type="text" placeholder="Label...">
         </div>
         &nbsp;
@@ -141,23 +147,23 @@
   `);
 
   Tree3.prototype.Templates_.TREE = createHTML(`
-    <ul class="mdl-list ${TREE.slice(1)}"></ul>
+    <ul class="mdl-list ${TREE}"></ul>
   `);
 
   Tree3.prototype.Templates_.CONTEXTMENU = createHTML(`
-    <button id="${CONTEXTMENU.slice(1)}-"
+    <button id="${CONTEXTMENU}-"
       class="mdl-button mdl-js-button mdl-button--icon">
       <i class="material-icons">more_vert</i>
     </button>
     <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"
-      for="${CONTEXTMENU.slice(1)}-">
+      for="${CONTEXTMENU}-">
       <li class="mdl-menu__item
-                 ${CONTEXTMENU_ADD.slice(1)}">
+                 ${CONTEXTMENU_ADD}">
         Add
       </li>
       <li class="mdl-menu__item
                  mdl-menu__item--full-bleed-divider
-                 ${CONTEXTMENU_REMOVE.slice(1)}">
+                 ${CONTEXTMENU_REMOVE}">
         Remove
       </li>
     </ul>
@@ -166,8 +172,8 @@
   Tree3.prototype.Templates_.EXPANDED_BTN = createHTML(`
     <button class="mdl-list__item-secondary-action
                    mdl-button mdl-js-button mdl-button--icon
-                   ${EXPAND_COLLAPSE.slice(1)}
-                   ${EXPANDED.slice(1)}">
+                   ${EXPAND_COLLAPSE}
+                   ${EXPANDED}">
       <i class="material-icons">keyboard_arrow_down</i>
     </button>
   `);
@@ -175,8 +181,8 @@
   Tree3.prototype.Templates_.COLLAPSED_BTN = createHTML(`
     <button class="mdl-list__item-secondary-action
                    mdl-button mdl-js-button mdl-button--icon
-                   ${EXPAND_COLLAPSE.slice(1)}
-                   ${COLLAPSED.slice(1)}">
+                   ${EXPAND_COLLAPSE}
+                   ${COLLAPSED}">
       <i class="material-icons">keyboard_arrow_up</i>
     </button>
   `);
