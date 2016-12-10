@@ -7,11 +7,23 @@
   const cssClass = 'mdl-tree3';
 
   class MaterialTree3 {
+
+    /**
+     * Class constructor for dropdown MDL component.
+     * Implements MDL component design pattern defined at:
+     * https://github.com/jasonmayes/mdl-component-design-pattern
+     *
+     * @constructor
+     * @param {HTMLElement} element The element that will be upgraded.
+     */
     constructor(element) {
       this.element_ = element;
       this.init();
     }
 
+    /**
+     * Initialize element.
+     */
     init() {
       if (this.element_) {
 

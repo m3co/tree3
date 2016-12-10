@@ -14,12 +14,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   var cssClass = 'mdl-tree3';
 
   var MaterialTree3 = function () {
+
+    /**
+     * Class constructor for dropdown MDL component.
+     * Implements MDL component design pattern defined at:
+     * https://github.com/jasonmayes/mdl-component-design-pattern
+     *
+     * @constructor
+     * @param {HTMLElement} element The element that will be upgraded.
+     */
     function MaterialTree3(element) {
       _classCallCheck(this, MaterialTree3);
 
       this.element_ = element;
       this.init();
     }
+
+    /**
+     * Initialize element.
+     */
+
 
     _createClass(MaterialTree3, [{
       key: 'init',
