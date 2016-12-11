@@ -46,15 +46,8 @@ onload_test(function(e) {
 //  - isolate
 
 onload_test(function(e) {
-
   // [setup]
-  var tree = document.createElement('ul');
-  tree.classList.add(cssTree);
-
-  document.body.appendChild(tree);
-  componentHandler.upgradeElement(tree);
-
-  var tree3 = tree.Tree3;
+  var { tree, tree3 } = setupTest();
 
   // [run]
   var leaf = tree3.appendLeaf();
@@ -76,13 +69,7 @@ onload_test(function(e) {
   this.done();  // IGNORE
   return;       // IGNORE
   // [setup]
-  var tree = document.createElement('ul');
-  tree.classList.add(cssTree);
-
-  // [run]
-  document.body.appendChild(tree);
-  componentHandler.upgradeElement(tree);
-  var tree3 = tree.Tree3; // setup
+  var { tree, tree3 } = setupTest();
 
   // [verify]
   // As this is an empty tree, then tree3.leafs.length == 0
@@ -102,12 +89,7 @@ onload_test(function(e) {
   this.done();  // IGNORE
   return;       // IGNORE
   // [setup]
-  var tree = document.createElement('ul');
-  tree.classList.add(cssTree);
-
-  // [run]
-  document.body.appendChild(tree);
-  componentHandler.upgradeElement(tree);
+  var { tree, tree3 } = setupTest();
 
   // [setup]
   var tree3 = tree.Tree3;
