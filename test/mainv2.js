@@ -50,6 +50,38 @@ onload_test(function(e) {
 //  - repeteable consistently
 //  - isolate
 
+/**
+ * Check if a new leaf offers an input place.
+ * If text introduced - then saves the leaf
+ */
+onload_test(function(e) {
+  // [setup]
+  var { tree, tree3 } = setupTest();
+  var leaf = tree3.appendLeaf();
+  var input = leaf.querySelector('input');
+  var textFixture = "fixture";
+
+  var listener = this.step_func(function(e) {
+    // [verify]
+    assert_true(leaf.querySelector(selInput).hidden);
+    assert_false(leaf.querySelector(selText).hidden);
+    assert_equals(leaf.querySelector(selText).textContent, textFixture);
+
+    this.done();
+  });
+  input.addEventListener('change', listener);
+
+  // [run]
+  input.value = textFixture;
+  input.dispatchEvent(new Event('change'));
+
+  tree.remove();
+}, "Check if a new leaf offers an input place");
+
+/**
+ * Check if appendLeaf adds a new empty leaf and
+ * removes the splash screen
+ */
 onload_test(function(e) {
   // [setup]
   var { tree, tree3 } = setupTest();
@@ -61,6 +93,11 @@ onload_test(function(e) {
   assert_equals(tree.querySelector(selLeaf), leaf);
   assert_true(leaf.classList.contains(cssLeaf));
   assert_false(tree.querySelector(selSplash) instanceof HTMLElement);
+
+  assert_true(leaf.querySelector(selInput) instanceof HTMLElement);
+  assert_false(leaf.querySelector(selInput).hidden);
+  assert_true(leaf.querySelector(selText) instanceof HTMLElement);
+  assert_true(leaf.querySelector(selText).hidden);
 
   // [teardown]
   tree.remove();
