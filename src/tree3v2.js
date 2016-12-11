@@ -173,19 +173,16 @@
    * @enum {DocumentFragment}
    * @private
    */
-  Tree3.prototype.Templates_ = {};
-
-  Tree3.prototype.Templates_.SPLASH = createHTML(`
+  Tree3.prototype.Templates_ = {
+    SPLASH: createHTML(`
     <li class="mdl-list__item ${LEAF}">
       <div class="mdl-list__item-primary-content">
         <button class="mdl-button mdl-js-button mdl-button--icon ${SPLASH}">
           <i class="material-icons">add</i>
         </button>
       </div>
-    </li>
-  `);
-
-  Tree3.prototype.Templates_.LEAF = createHTML(`
+    </li>`),
+    LEAF: createHTML(`
     <li class="mdl-list__item ${LEAF}">
       <div class="mdl-list__item-primary-content">
         &nbsp;
@@ -196,14 +193,10 @@
         </div>
         &nbsp;
       </div>
-    </li>
-  `);
-
-  Tree3.prototype.Templates_.TREE = createHTML(`
-    <ul class="mdl-list ${TREE}"></ul>
-  `);
-
-  Tree3.prototype.Templates_.CONTEXTMENU = createHTML(`
+    </li>`),
+    TREE: createHTML(`
+    <ul class="mdl-list ${TREE}"></ul>`),
+    CONTEXTMENU: createHTML(`
     <button id="${CONTEXTMENU}-"
       class="mdl-button mdl-js-button mdl-button--icon">
       <i class="material-icons">more_vert</i>
@@ -219,26 +212,22 @@
                  ${CONTEXTMENU_REMOVE}">
         Remove
       </li>
-    </ul>
-  `);
-
-  Tree3.prototype.Templates_.EXPANDED_BTN = createHTML(`
+    </ul>`),
+    EXPANDED_BTN: createHTML(`
     <button class="mdl-list__item-secondary-action
                    mdl-button mdl-js-button mdl-button--icon
                    ${EXPAND_COLLAPSE}
                    ${EXPANDED}">
       <i class="material-icons">keyboard_arrow_down</i>
-    </button>
-  `);
-
-  Tree3.prototype.Templates_.COLLAPSED_BTN = createHTML(`
+    </button>`),
+    COLLAPSED_BTN: createHTML(`
     <button class="mdl-list__item-secondary-action
                    mdl-button mdl-js-button mdl-button--icon
                    ${EXPAND_COLLAPSE}
                    ${COLLAPSED}">
       <i class="material-icons">keyboard_arrow_up</i>
-    </button>
-  `);
+    </button>`)
+  };
 
   componentHandler.register({
     constructor: Tree3,
