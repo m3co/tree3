@@ -1,4 +1,4 @@
-.mdl-tree3__item {
+.mdl-tree3__leaf {
   border-top: thin solid #dedede;
   flex-wrap: wrap;
 }
@@ -12,36 +12,36 @@
   padding-top: 16px;
 }
 
-.mdl-tree3 .mdl-tree3 .mdl-tree3__item:first-child {
+.mdl-tree3 .mdl-tree3 .mdl-tree3__leaf:first-child {
   padding-top: 16px;
 }
 
-.mdl-tree3 .mdl-tree3 .mdl-tree3__item {
+.mdl-tree3 .mdl-tree3 .mdl-tree3__leaf {
   border-top: thin solid #dedede;
   margin: 0 -16px 0 -16px;
 }
 
-.mdl-tree3 .mdl-tree3 .mdl-tree3__item:last-child {
+.mdl-tree3 .mdl-tree3 .mdl-tree3__leaf:last-child {
   padding-bottom: 0;
 }
 
-.mdl-tree3 .mdl-tree3__item:last-child {
+.mdl-tree3 .mdl-tree3__leaf:last-child {
   border-bottom: thin solid #dedede;
 }
 
-.mdl-tree3 .mdl-tree3 .mdl-tree3__item:last-child {
+.mdl-tree3 .mdl-tree3 .mdl-tree3__leaf:last-child {
   border-bottom: none;
 }
 
-.mdl-tree3__item-text {
+.mdl-tree3__leaf-text {
   width: 100%;
 }
 
-.mdl-tree3__item-input .mdl-textfield__input {
+.mdl-tree3__leaf-input .mdl-textfield__input {
   border-bottom: none;
 }
 
-.mdl-tree3__item-text .mdl-textfield,.mdl-js-textfield {
+.mdl-tree3__leaf-text .mdl-textfield,.mdl-js-textfield {
   padding: 0;
   width: 100%;
 }
