@@ -59,12 +59,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.element_.ALREADY_INIT = true;
           this.element_.classList.add('mdl-list');
 
-          if (this.leafs.length == 0) {
-            /* jshint ignore:line */
-            // show the splash
-            var splash = document.importNode(this.Templates_.SPLASH, true);
-            this.element_.appendChild(splash);
-          }
+          this.appendSplash_();
         }
       }
 
@@ -77,13 +72,48 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'appendLeaf',
       value: function appendLeaf() {
+        this.removeSplash_();
+        var leaf = document.importNode(this.Templates_.LEAF, true);
+        return this.element_.appendChild(leaf.querySelector(this.CssSelectors_.LEAF));
+      }
+
+      /**
+       * Add the splash if tree is empty
+       *
+       * @private
+       */
+
+    }, {
+      key: 'appendSplash_',
+      value: function appendSplash_() {
+        var _this = this;
+
+        if (this.leafs.length == 0) {
+          /* jshint ignore:line */
+          var splash = document.importNode(this.Templates_.SPLASH, true);
+
+          var btn = splash.querySelector('button');
+          btn.addEventListener('click', function (e) {
+            _this.removeSplash_();
+            _this.appendLeaf();
+          });
+          this.element_.appendChild(splash);
+        }
+      }
+
+      /**
+       * Remove the splash
+       *
+       * @private
+       */
+
+    }, {
+      key: 'removeSplash_',
+      value: function removeSplash_() {
         var splash = this.element_.querySelector(this.CssSelectors_.SPLASH);
         if (splash) {
           splash.closest(this.CssSelectors_.LEAF).remove();
         }
-
-        var leaf = document.importNode(this.Templates_.LEAF, true);
-        return this.element_.appendChild(leaf.querySelector(this.CssSelectors_.LEAF));
       }
 
       /**
@@ -98,7 +128,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'leaf',
       get: function get() {
-        return this.element_.querySelectorAll(this.CssClasses_.LEAF);
+        return this.element_.querySelectorAll(this.CssSelectors_.LEAF);
       },
       set: function set(_) {
         /*jshint unused:false*/
@@ -117,7 +147,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'leafs',
       get: function get() {
-        return this.element_.querySelectorAll(this.CssClasses_.LEAF);
+        return this.element_.querySelectorAll(this.CssSelectors_.LEAF);
       },
       set: function set(_) {
         /*jshint unused:false*/

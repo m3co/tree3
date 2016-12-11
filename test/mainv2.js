@@ -109,8 +109,6 @@ onload_test(function(e) {
  * Show the splash screen
  */
 onload_test(function(e) {
-  this.done();  // IGNORE
-  return;       // IGNORE
   // [setup]
   var { tree, tree3 } = setupTest();
 
@@ -123,14 +121,12 @@ onload_test(function(e) {
   tree.remove();
 
   this.done();
-}, "[IGNORE] Show the splash screen");
+}, "Show the splash screen");
 
 /**
  * Click over the splash screen and see if a new leaf was added
  */
 onload_test(function(e) {
-  this.done();  // IGNORE
-  return;       // IGNORE
   // [setup]
   var { tree, tree3 } = setupTest();
 
@@ -143,7 +139,7 @@ onload_test(function(e) {
     assert_true(tree3.leaf[0] instanceof HTMLElement);
     assert_true(tree3.leaf[0].querySelector(tree3.CssSelectors_.TEXT).hidden);
     assert_false(tree3.leaf[0].querySelector(tree3.CssSelectors_.INPUT).hidden);
-    assert_false(tree3.querySelector(tree3.CssSelectors_.SPLASH)
+    assert_false(tree.querySelector(tree3.CssSelectors_.SPLASH)
       instanceof HTMLElement);
 
     // [teardown]
@@ -155,5 +151,4 @@ onload_test(function(e) {
   // [run]
   splash.addEventListener('click', listener);
   splash.dispatchEvent(new MouseEvent('click'));
-  this.done();
-}, "[IGNORE] Splash screen dissapears if click over +");
+}, "Splash screen dissapears if click over +");

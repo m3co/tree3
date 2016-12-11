@@ -46,11 +46,7 @@
         this.element_.ALREADY_INIT = true;
         this.element_.classList.add('mdl-list');
 
-        if (this.leafs.length == 0) { /* jshint ignore:line */
-          // show the splash
-          var splash = document.importNode(this.Templates_.SPLASH, true);
-          this.element_.appendChild(splash);
-        }
+        this.appendSplash_();
       }
     }
 
@@ -60,13 +56,39 @@
      * @returns {HTMLElement} - The new element
      */
     appendLeaf() {
+      this.removeSplash_();
+      var leaf = document.importNode(this.Templates_.LEAF, true);
+      return this.element_.appendChild(leaf.querySelector(this.CssSelectors_.LEAF));
+    }
+
+    /**
+     * Add the splash if tree is empty
+     *
+     * @private
+     */
+    appendSplash_() {
+      if (this.leafs.length == 0) { /* jshint ignore:line */
+        var splash = document.importNode(this.Templates_.SPLASH, true);
+
+        var btn = splash.querySelector('button');
+        btn.addEventListener('click', (e) => {
+          this.removeSplash_();
+          this.appendLeaf();
+        });
+        this.element_.appendChild(splash);
+      }
+    }
+
+    /**
+     * Remove the splash
+     *
+     * @private
+     */
+    removeSplash_() {
       var splash = this.element_.querySelector(this.CssSelectors_.SPLASH);
       if (splash) {
         splash.closest(this.CssSelectors_.LEAF).remove();
       }
-
-      var leaf = document.importNode(this.Templates_.LEAF, true);
-      return this.element_.appendChild(leaf.querySelector(this.CssSelectors_.LEAF));
     }
 
     /**
@@ -78,7 +100,7 @@
      * @throws - Do not allow to modify directly this value
      */
     get leaf() {
-      return this.element_.querySelectorAll(this.CssClasses_.LEAF);
+      return this.element_.querySelectorAll(this.CssSelectors_.LEAF);
     }
     set leaf(_) { /*jshint unused:false*/
       throw new Error('Do not allow to modify directly this value');
@@ -93,7 +115,7 @@
      * @throws - Do not allow to modify directly this value
      */
     get leafs() {
-      return this.element_.querySelectorAll(this.CssClasses_.LEAF);
+      return this.element_.querySelectorAll(this.CssSelectors_.LEAF);
     }
     set leafs(_) { /*jshint unused:false*/
       throw new Error('Do not allow to modify directly this value');
