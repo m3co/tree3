@@ -51,14 +51,73 @@
     }
 
     /**
+     * Setup the leaf's input
+     *
+     * @private
+     */
+    setupInput_(leaf) {
+      var input = leaf.querySelector(`${this.CssSelectors_.INPUT} input`);
+      input.addEventListener('change', (e) => {
+        leaf.querySelector(this.CssSelectors_.TEXT)
+            .textContent = e.target.value.toString();
+        leaf.dispatchEvent(new CustomEvent('changetext', {
+          detail: {
+            leaf: leaf
+          },
+          bubbles: true
+        }));
+      });
+      input.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') {
+          e.target.blur();
+        }
+      });
+      input.addEventListener('blur', (e) => {
+        if (!e.target.value.toString()) {
+          leaf.removeLeaf();
+          return;
+        }
+        var inputContainer = leaf.querySelector(this.CssSelectors_.INPUT);
+        leaf.querySelector(this.CssSelectors_.TEXT)
+            .textContent = e.target.value.toString();
+        leaf.querySelector(this.CssSelectors_.TEXT).hidden = false;
+        inputContainer.hidden = true;
+      });
+      leaf.querySelector(this.CssSelectors_.TEXT)
+          .addEventListener('dblclick', () => {
+        var inputContainer = leaf.querySelector(this.CssSelectors_.INPUT);
+        var input = inputContainer.querySelector('input');
+        input.value = leaf.querySelector(this.CssSelectors_.TEXT).textContent;
+        inputContainer.hidden = false;
+        leaf.querySelector(this.CssSelectors_.TEXT).hidden = true;
+        window.setTimeout(() => {
+          input.focus();
+          input.setSelectionRange(input.value.length, input.value.length);
+        }, 0);
+      });
+      window.setTimeout(() => {
+        input.focus();
+        input.setSelectionRange(input.value.length, input.value.length);
+      }, 0);
+    }
+
+    /**
      * Append a leaf to the tree
      *
      * @returns {HTMLElement} - The new element
      */
     appendLeaf() {
       this.removeSplash_();
-      var leaf = document.importNode(this.Templates_.LEAF, true);
-      return this.element_.appendChild(leaf.querySelector(this.CssSelectors_.LEAF));
+      var clone = document.importNode(this.Templates_.LEAF, true);
+      var leaf_ = clone.querySelector(this.CssSelectors_.LEAF);
+      var leaf;
+      if (leaf_) {
+        leaf = this.element_.appendChild(leaf_);
+        this.setupInput_(leaf);
+      } else {
+        throw new Error('Incorrect Template');
+      }
+      return leaf;
     }
 
     /**
@@ -71,7 +130,7 @@
         var splash = document.importNode(this.Templates_.SPLASH, true);
 
         var btn = splash.querySelector('button');
-        btn.addEventListener('click', (e) => {
+        btn.addEventListener('click', () => {
           this.removeSplash_();
           this.appendLeaf();
         });

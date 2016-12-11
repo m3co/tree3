@@ -71,11 +71,11 @@ onload_test(function(e) {
     tree.remove();
     this.done();
   });
-  input.addEventListener('change', listener);
+  input.addEventListener('blur', listener);
 
   // [run]
   input.value = textFixture;
-  input.dispatchEvent(new Event('change'));
+  input.dispatchEvent(new Event('blur'));
 
 }, "Check if a new leaf offers an input place");
 

@@ -64,6 +64,59 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
 
       /**
+       * Setup the leaf's input
+       *
+       * @private
+       */
+
+    }, {
+      key: 'setupInput_',
+      value: function setupInput_(leaf) {
+        var _this = this;
+
+        var input = leaf.querySelector(this.CssSelectors_.INPUT + ' input');
+        input.addEventListener('change', function (e) {
+          leaf.querySelector(_this.CssSelectors_.TEXT).textContent = e.target.value.toString();
+          leaf.dispatchEvent(new CustomEvent('changetext', {
+            detail: {
+              leaf: leaf
+            },
+            bubbles: true
+          }));
+        });
+        input.addEventListener('keyup', function (e) {
+          if (e.key === 'Enter') {
+            e.target.blur();
+          }
+        });
+        input.addEventListener('blur', function (e) {
+          if (!e.target.value.toString()) {
+            leaf.removeLeaf();
+            return;
+          }
+          var inputContainer = leaf.querySelector(_this.CssSelectors_.INPUT);
+          leaf.querySelector(_this.CssSelectors_.TEXT).textContent = e.target.value.toString();
+          leaf.querySelector(_this.CssSelectors_.TEXT).hidden = false;
+          inputContainer.hidden = true;
+        });
+        leaf.querySelector(this.CssSelectors_.TEXT).addEventListener('dblclick', function () {
+          var inputContainer = leaf.querySelector(_this.CssSelectors_.INPUT);
+          var input = inputContainer.querySelector('input');
+          input.value = leaf.querySelector(_this.CssSelectors_.TEXT).textContent;
+          inputContainer.hidden = false;
+          leaf.querySelector(_this.CssSelectors_.TEXT).hidden = true;
+          window.setTimeout(function () {
+            input.focus();
+            input.setSelectionRange(input.value.length, input.value.length);
+          }, 0);
+        });
+        window.setTimeout(function () {
+          input.focus();
+          input.setSelectionRange(input.value.length, input.value.length);
+        }, 0);
+      }
+
+      /**
        * Append a leaf to the tree
        *
        * @returns {HTMLElement} - The new element
@@ -73,8 +126,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       key: 'appendLeaf',
       value: function appendLeaf() {
         this.removeSplash_();
-        var leaf = document.importNode(this.Templates_.LEAF, true);
-        return this.element_.appendChild(leaf.querySelector(this.CssSelectors_.LEAF));
+        var clone = document.importNode(this.Templates_.LEAF, true);
+        var leaf_ = clone.querySelector(this.CssSelectors_.LEAF);
+        var leaf;
+        if (leaf_) {
+          leaf = this.element_.appendChild(leaf_);
+          this.setupInput_(leaf);
+        } else {
+          throw new Error('Incorrect Template');
+        }
+        return leaf;
       }
 
       /**
@@ -86,16 +147,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'appendSplash_',
       value: function appendSplash_() {
-        var _this = this;
+        var _this2 = this;
 
         if (this.leafs.length == 0) {
           /* jshint ignore:line */
           var splash = document.importNode(this.Templates_.SPLASH, true);
 
           var btn = splash.querySelector('button');
-          btn.addEventListener('click', function (e) {
-            _this.removeSplash_();
-            _this.appendLeaf();
+          btn.addEventListener('click', function () {
+            _this2.removeSplash_();
+            _this2.appendLeaf();
           });
           this.element_.appendChild(splash);
         }
