@@ -69,6 +69,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
 
       /**
+       * Append a leaf to the tree
+       *
+       * @returns {HTMLElement} - The new element
+       */
+
+    }, {
+      key: 'appendLeaf',
+      value: function appendLeaf() {
+        var splash = this.element_.querySelector(this.CssSelectors_.SPLASH);
+        if (splash) {
+          splash.closest(this.CssSelectors_.ITEM).remove();
+        }
+
+        var leaf = document.importNode(this.Templates_.LEAF, true);
+        return this.element_.appendChild(leaf.querySelector(this.CssSelectors_.ITEM));
+      }
+
+      /**
        * Leafs property getter and setter. Retreive via querySelectorAll
        * all the leafs that belong to this tree. Do not allow to modify
        * the leafs directly.

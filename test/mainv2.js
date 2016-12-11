@@ -1,8 +1,16 @@
 'use strict';
 
 const clsTree = 'Tree3';
+
 const cssTree = 'mdl-tree3';
-const selTree = '.' + cssTree;
+const selTree = `.${cssTree}`;
+
+const cssSplash = `${cssTree}__splash`;
+const selSplash = `.${cssSplash}`;
+
+const cssLeaf = `${cssTree}__item`;
+const selLeaf = `.${cssLeaf}`;
+
 
 /**
  * Do not move this test to any other place and
@@ -26,6 +34,7 @@ onload_test(function(e) {
 
   assert_true(tree3.leafs instanceof NodeList);
   assert_true(tree3.leaf instanceof NodeList);
+  assert_true(tree3.appendLeaf instanceof Function);
 
   document.querySelector(selTree).remove();
   this.done();
@@ -35,6 +44,30 @@ onload_test(function(e) {
 //  - order-independent
 //  - repeteable consistently
 //  - isolate
+
+onload_test(function(e) {
+
+  // [setup]
+  var tree = document.createElement('ul');
+  tree.classList.add(cssTree);
+
+  document.body.appendChild(tree);
+  componentHandler.upgradeElement(tree);
+
+  var tree3 = tree.Tree3;
+
+  // [run]
+  var leaf = tree3.appendLeaf();
+
+  // [verify]
+  assert_equals(tree.querySelector(selLeaf), leaf);
+  assert_true(leaf.classList.contains(cssLeaf));
+  assert_false(tree.querySelector(selSplash) instanceof HTMLElement);
+
+  // [teardown]
+  tree.remove();
+  this.done();
+}, "appendLeaf() adds a new empty leaf");
 
 /**
  * Show the splash screen
