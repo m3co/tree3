@@ -4,16 +4,16 @@
   var createHTML = range.createContextualFragment.bind(range);
 
   const TREE = 'mdl-tree3';
-  const ITEM = `${TREE}__item`;
+  const LEAF = `${TREE}__leaf`;
   const SPLASH = `${TREE}__splash`;
   const CONTEXTMENU = `${TREE}__contextmenu`;
   const CONTEXTMENU_ADD = `${CONTEXTMENU}--add-leaf`;
   const CONTEXTMENU_REMOVE = `${CONTEXTMENU}--remove-leaf`;
-  const INPUT = `${ITEM}-input`;
-  const TEXT = `${ITEM}-text`;
-  const EXPAND_COLLAPSE = `${ITEM}-expand-collapse`;
-  const EXPANDED = `${ITEM}--expanded`;
-  const COLLAPSED = `${ITEM}--collapsed`;
+  const INPUT = `${LEAF}-input`;
+  const TEXT = `${LEAF}-text`;
+  const EXPAND_COLLAPSE = `${LEAF}-expand-collapse`;
+  const EXPANDED = `${LEAF}--expanded`;
+  const COLLAPSED = `${LEAF}--collapsed`;
 
   const classAsString = 'Tree3';
   const cssClass = 'mdl-tree3';
@@ -62,11 +62,11 @@
     appendLeaf() {
       var splash = this.element_.querySelector(this.CssSelectors_.SPLASH);
       if (splash) {
-        splash.closest(this.CssSelectors_.ITEM).remove();
+        splash.closest(this.CssSelectors_.LEAF).remove();
       }
 
       var leaf = document.importNode(this.Templates_.LEAF, true);
-      return this.element_.appendChild(leaf.querySelector(this.CssSelectors_.ITEM));
+      return this.element_.appendChild(leaf.querySelector(this.CssSelectors_.LEAF));
     }
 
     /**
@@ -78,7 +78,7 @@
      * @throws - Do not allow to modify directly this value
      */
     get leaf() {
-      return this.element_.querySelectorAll(this.CssClasses_.ITEM);
+      return this.element_.querySelectorAll(this.CssClasses_.LEAF);
     }
     set leaf(_) { /*jshint unused:false*/
       throw new Error('Do not allow to modify directly this value');
@@ -93,7 +93,7 @@
      * @throws - Do not allow to modify directly this value
      */
     get leafs() {
-      return this.element_.querySelectorAll(this.CssClasses_.ITEM);
+      return this.element_.querySelectorAll(this.CssClasses_.LEAF);
     }
     set leafs(_) { /*jshint unused:false*/
       throw new Error('Do not allow to modify directly this value');
@@ -111,16 +111,16 @@
    */
   Tree3.prototype.CssClasses_ = {
     TREE: `${TREE}`,
-    ITEM: `${TREE}__item`,
+    LEAF: `${TREE}__leaf`,
     SPLASH: `${TREE}__splash`,
     CONTEXTMENU: `${TREE}__contextmenu`,
     CONTEXTMENU_ADD: `${CONTEXTMENU}--add-leaf`,
     CONTEXTMENU_REMOVE: `${CONTEXTMENU}--remove-leaf`,
-    INPUT: `${ITEM}-input`,
-    TEXT: `${ITEM}-text`,
-    EXPAND_COLLAPSE: `${ITEM}-expand-collapse`,
-    EXPANDED: `${ITEM}--expanded`,
-    COLLAPSED: `${ITEM}--collapsed`,
+    INPUT: `${LEAF}-input`,
+    TEXT: `${LEAF}-text`,
+    EXPAND_COLLAPSE: `${LEAF}-expand-collapse`,
+    EXPANDED: `${LEAF}--expanded`,
+    COLLAPSED: `${LEAF}--collapsed`,
   };
 
   /**
@@ -133,16 +133,16 @@
    */
   Tree3.prototype.CssSelectors_ = {
     TREE: `.${TREE}`,
-    ITEM: `.${TREE}__item`,
+    LEAF: `.${TREE}__leaf`,
     SPLASH: `.${TREE}__splash`,
     CONTEXTMENU: `.${TREE}__contextmenu`,
     CONTEXTMENU_ADD: `.${CONTEXTMENU}--add-leaf`,
     CONTEXTMENU_REMOVE: `.${CONTEXTMENU}--remove-leaf`,
-    INPUT: `.${ITEM}-input`,
-    TEXT: `.${ITEM}-text`,
-    EXPAND_COLLAPSE: `.${ITEM}-expand-collapse`,
-    EXPANDED: `.${ITEM}--expanded`,
-    COLLAPSED: `.${ITEM}--collapsed`,
+    INPUT: `.${LEAF}-input`,
+    TEXT: `.${LEAF}-text`,
+    EXPAND_COLLAPSE: `.${LEAF}-expand-collapse`,
+    EXPANDED: `.${LEAF}--expanded`,
+    COLLAPSED: `.${LEAF}--collapsed`,
   };
 
   /**
@@ -154,7 +154,7 @@
   Tree3.prototype.Templates_ = {};
 
   Tree3.prototype.Templates_.SPLASH = createHTML(`
-    <li class="mdl-list__item ${ITEM}">
+    <li class="mdl-list__item ${LEAF}">
       <div class="mdl-list__item-primary-content">
         <button class="mdl-button mdl-js-button mdl-button--icon ${SPLASH}">
           <i class="material-icons">add</i>
@@ -164,7 +164,7 @@
   `);
 
   Tree3.prototype.Templates_.LEAF = createHTML(`
-    <li class="mdl-list__item ${ITEM}">
+    <li class="mdl-list__item ${LEAF}">
       <div class="mdl-list__item-primary-content">
         &nbsp;
         <span class="${TEXT}" hidden>

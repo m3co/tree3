@@ -11,16 +11,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   var createHTML = range.createContextualFragment.bind(range);
 
   var TREE = 'mdl-tree3';
-  var ITEM = TREE + '__item';
+  var LEAF = TREE + '__leaf';
   var SPLASH = TREE + '__splash';
   var CONTEXTMENU = TREE + '__contextmenu';
   var CONTEXTMENU_ADD = CONTEXTMENU + '--add-leaf';
   var CONTEXTMENU_REMOVE = CONTEXTMENU + '--remove-leaf';
-  var INPUT = ITEM + '-input';
-  var TEXT = ITEM + '-text';
-  var EXPAND_COLLAPSE = ITEM + '-expand-collapse';
-  var EXPANDED = ITEM + '--expanded';
-  var COLLAPSED = ITEM + '--collapsed';
+  var INPUT = LEAF + '-input';
+  var TEXT = LEAF + '-text';
+  var EXPAND_COLLAPSE = LEAF + '-expand-collapse';
+  var EXPANDED = LEAF + '--expanded';
+  var COLLAPSED = LEAF + '--collapsed';
 
   var classAsString = 'Tree3';
   var cssClass = 'mdl-tree3';
@@ -79,11 +79,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       value: function appendLeaf() {
         var splash = this.element_.querySelector(this.CssSelectors_.SPLASH);
         if (splash) {
-          splash.closest(this.CssSelectors_.ITEM).remove();
+          splash.closest(this.CssSelectors_.LEAF).remove();
         }
 
         var leaf = document.importNode(this.Templates_.LEAF, true);
-        return this.element_.appendChild(leaf.querySelector(this.CssSelectors_.ITEM));
+        return this.element_.appendChild(leaf.querySelector(this.CssSelectors_.LEAF));
       }
 
       /**
@@ -98,7 +98,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'leaf',
       get: function get() {
-        return this.element_.querySelectorAll(this.CssClasses_.ITEM);
+        return this.element_.querySelectorAll(this.CssClasses_.LEAF);
       },
       set: function set(_) {
         /*jshint unused:false*/
@@ -117,7 +117,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'leafs',
       get: function get() {
-        return this.element_.querySelectorAll(this.CssClasses_.ITEM);
+        return this.element_.querySelectorAll(this.CssClasses_.LEAF);
       },
       set: function set(_) {
         /*jshint unused:false*/
@@ -140,16 +140,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
    */
   Tree3.prototype.CssClasses_ = {
     TREE: '' + TREE,
-    ITEM: TREE + '__item',
+    LEAF: TREE + '__leaf',
     SPLASH: TREE + '__splash',
     CONTEXTMENU: TREE + '__contextmenu',
     CONTEXTMENU_ADD: CONTEXTMENU + '--add-leaf',
     CONTEXTMENU_REMOVE: CONTEXTMENU + '--remove-leaf',
-    INPUT: ITEM + '-input',
-    TEXT: ITEM + '-text',
-    EXPAND_COLLAPSE: ITEM + '-expand-collapse',
-    EXPANDED: ITEM + '--expanded',
-    COLLAPSED: ITEM + '--collapsed'
+    INPUT: LEAF + '-input',
+    TEXT: LEAF + '-text',
+    EXPAND_COLLAPSE: LEAF + '-expand-collapse',
+    EXPANDED: LEAF + '--expanded',
+    COLLAPSED: LEAF + '--collapsed'
   };
 
   /**
@@ -162,16 +162,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
    */
   Tree3.prototype.CssSelectors_ = {
     TREE: '.' + TREE,
-    ITEM: '.' + TREE + '__item',
+    LEAF: '.' + TREE + '__leaf',
     SPLASH: '.' + TREE + '__splash',
     CONTEXTMENU: '.' + TREE + '__contextmenu',
     CONTEXTMENU_ADD: '.' + CONTEXTMENU + '--add-leaf',
     CONTEXTMENU_REMOVE: '.' + CONTEXTMENU + '--remove-leaf',
-    INPUT: '.' + ITEM + '-input',
-    TEXT: '.' + ITEM + '-text',
-    EXPAND_COLLAPSE: '.' + ITEM + '-expand-collapse',
-    EXPANDED: '.' + ITEM + '--expanded',
-    COLLAPSED: '.' + ITEM + '--collapsed'
+    INPUT: '.' + LEAF + '-input',
+    TEXT: '.' + LEAF + '-text',
+    EXPAND_COLLAPSE: '.' + LEAF + '-expand-collapse',
+    EXPANDED: '.' + LEAF + '--expanded',
+    COLLAPSED: '.' + LEAF + '--collapsed'
   };
 
   /**
@@ -182,9 +182,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
    */
   Tree3.prototype.Templates_ = {};
 
-  Tree3.prototype.Templates_.SPLASH = createHTML('\n    <li class="mdl-list__item ' + ITEM + '">\n      <div class="mdl-list__item-primary-content">\n        <button class="mdl-button mdl-js-button mdl-button--icon ' + SPLASH + '">\n          <i class="material-icons">add</i>\n        </button>\n      </div>\n    </li>\n  ');
+  Tree3.prototype.Templates_.SPLASH = createHTML('\n    <li class="mdl-list__item ' + LEAF + '">\n      <div class="mdl-list__item-primary-content">\n        <button class="mdl-button mdl-js-button mdl-button--icon ' + SPLASH + '">\n          <i class="material-icons">add</i>\n        </button>\n      </div>\n    </li>\n  ');
 
-  Tree3.prototype.Templates_.LEAF = createHTML('\n    <li class="mdl-list__item ' + ITEM + '">\n      <div class="mdl-list__item-primary-content">\n        &nbsp;\n        <span class="' + TEXT + '" hidden>\n        </span>\n        <div class="' + INPUT + ' mdl-textfield mdl-js-textfield">\n          <input class="mdl-textfield__input" type="text" placeholder="Label...">\n        </div>\n        &nbsp;\n      </div>\n    </li>\n  ');
+  Tree3.prototype.Templates_.LEAF = createHTML('\n    <li class="mdl-list__item ' + LEAF + '">\n      <div class="mdl-list__item-primary-content">\n        &nbsp;\n        <span class="' + TEXT + '" hidden>\n        </span>\n        <div class="' + INPUT + ' mdl-textfield mdl-js-textfield">\n          <input class="mdl-textfield__input" type="text" placeholder="Label...">\n        </div>\n        &nbsp;\n      </div>\n    </li>\n  ');
 
   Tree3.prototype.Templates_.TREE = createHTML('\n    <ul class="mdl-list ' + TREE + '"></ul>\n  ');
 

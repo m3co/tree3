@@ -8,9 +8,14 @@ const selTree = `.${cssTree}`;
 const cssSplash = `${cssTree}__splash`;
 const selSplash = `.${cssSplash}`;
 
-const cssLeaf = `${cssTree}__item`;
+const cssLeaf = `${cssTree}__leaf`;
 const selLeaf = `.${cssLeaf}`;
 
+const cssInput = `${cssLeaf}-input`;
+const selInput = `.${cssInput}`;
+
+const cssText = `${cssLeaf}-text`;
+const selText = `.${cssText}`;
 
 /**
  * Do not move this test to any other place and
