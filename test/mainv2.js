@@ -67,6 +67,8 @@ onload_test(function(e) {
     assert_false(leaf.querySelector(selText).hidden);
     assert_equals(leaf.querySelector(selText).textContent, textFixture);
 
+    // [teardown]
+    tree.remove();
     this.done();
   });
   input.addEventListener('change', listener);
@@ -75,7 +77,6 @@ onload_test(function(e) {
   input.value = textFixture;
   input.dispatchEvent(new Event('change'));
 
-  tree.remove();
 }, "Check if a new leaf offers an input place");
 
 /**
