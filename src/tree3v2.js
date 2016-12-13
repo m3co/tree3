@@ -28,7 +28,10 @@
      * @constructor
      * @param {HTMLElement} element - The element that will be upgraded.
      */
-    constructor(element) {
+    constructor(element, parent) {
+      if (parent) {
+        this.parent_ = parent;
+      }
       this.element_ = element;
       this.init();
     }
@@ -46,7 +49,13 @@
         this.element_.ALREADY_INIT = true;
         this.element_.classList.add('mdl-list');
 
-        this.appendSplash_();
+        if (!this.parent_) {
+          this.appendSplash_();
+        } else {
+          if (!this.element_.querySelector(this.CssSelectors_.ITEM)) {
+            this.element_.hidden = true;
+          }
+        }
       }
     }
 
@@ -107,6 +116,7 @@
      * @returns {HTMLElement} - The new element
      */
     appendLeaf() {
+      this.element_.hidden = false;
       this.removeSplash_();
       var clone = document.importNode(this.Templates_.LEAF, true);
       var leaf_ = clone.querySelector(this.CssSelectors_.LEAF);
@@ -117,6 +127,11 @@
       } else {
         throw new Error('Incorrect Template');
       }
+      var tree = document.createElement('ul');
+      tree.classList.add(cssClass);
+      var tree3 = new Tree3(tree, this);
+      componentHandler.upgradeElement(leaf.appendChild(tree));
+      leaf.Tree3 = tree3;
       return leaf;
     }
 
