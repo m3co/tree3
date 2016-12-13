@@ -174,7 +174,14 @@
      * @throws - Do not allow to modify directly this value
      */
     get leaf() {
-      return this.element_.querySelectorAll(this.CssSelectors_.LEAF);
+      var leafs = [];
+      for (var i = 0; i < this.element_.children.length; i++) {
+        var item = this.element_.children[i];
+        if (item.classList.contains(this.CssClasses_.LEAF)) {
+          leafs.push(item);
+        }
+      }
+      return leafs;
     }
     set leaf(_) { /*jshint unused:false*/
       throw new Error('Do not allow to modify directly this value');

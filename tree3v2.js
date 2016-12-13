@@ -204,7 +204,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'leaf',
       get: function get() {
-        return this.element_.querySelectorAll(this.CssSelectors_.LEAF);
+        var leafs = [];
+        for (var i = 0; i < this.element_.children.length; i++) {
+          var item = this.element_.children[i];
+          if (item.classList.contains(this.CssClasses_.LEAF)) {
+            leafs.push(item);
+          }
+        }
+        return leafs;
       },
       set: function set(_) {
         /*jshint unused:false*/

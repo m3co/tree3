@@ -37,8 +37,8 @@ onload_test(function(e) {
 onload_test(function(e) {
   var tree3 = document.querySelector(selTree).Tree3;
 
-  assert_true(tree3.leafs instanceof NodeList);
-  assert_true(tree3.leaf instanceof NodeList);
+  assert_true(tree3.leafs instanceof Array);
+  assert_true(tree3.leaf instanceof Array);
   assert_true(tree3.appendLeaf instanceof Function);
 
   document.querySelector(selTree).remove();
