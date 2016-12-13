@@ -189,10 +189,10 @@
      * @throws - Do not allow to modify directly this value
      */
     get leafs() {
-      return this.element_.querySelectorAll(this.CssSelectors_.LEAF);
+      return this.leaf;
     }
-    set leafs(_) { /*jshint unused:false*/
-      throw new Error('Do not allow to modify directly this value');
+    set leafs(_) {
+      this.leaf = _;
     }
   }
   window[classAsString] = Tree3;

@@ -223,11 +223,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'leafs',
       get: function get() {
-        return this.element_.querySelectorAll(this.CssSelectors_.LEAF);
+        return this.leaf;
       },
       set: function set(_) {
-        /*jshint unused:false*/
-        throw new Error('Do not allow to modify directly this value');
+        this.leaf = _;
       }
     }]);
 
