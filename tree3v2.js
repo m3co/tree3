@@ -126,6 +126,42 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
 
       /**
+       * Append the button expand/collapse to the leaf
+       *
+       * @param {String} type - "expanded" | "collapsed"
+       */
+
+    }, {
+      key: 'appendExpandCollapseBtn_',
+      value: function appendExpandCollapseBtn_(leaf, type) {
+        var type_ = type || 'expanded';
+        var tree = leaf.querySelector(this.CssSelectors_.TREE);
+        var clone;
+        if (leaf.querySelector(this.CssSelectors_.EXPAND_COLLAPSE)) {
+          return tree;
+        }
+        if (type_ === 'expanded') {
+          clone = document.importNode(this.Templates_.EXPANDED_BTN, true);
+        } else if (type_ === 'collapsed' || !type) {
+          clone = document.importNode(this.Templates_.COLLAPSED_BTN, true);
+        } else {
+          throw new Error('Allowed type = "expanded" || "collapsed" in appendExpandCollapse');
+        }
+        var c = leaf.querySelector('.mdl-list__item-primary-content').nextSibling;
+        if (!c) {
+          throw new Error('please, check why nextSibling is null');
+        }
+        //var btn = clone.querySelector(this.CssSelectors_.EXPAND_COLLAPSE);
+
+        // by default, the expand/collapse button is expanded
+        // and click will switch expanded to collapsed and so on
+        //btn.addEventListener('click', expandCollapse.bind(null, btn, tree));
+
+        leaf.insertBefore(clone, c);
+        return tree;
+      }
+
+      /**
        * Append a leaf to the tree
        *
        * @returns {HTMLElement} - The new element
@@ -150,6 +186,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         var tree3 = new Tree3(tree, this);
         componentHandler.upgradeElement(leaf.appendChild(tree));
         leaf.Tree3 = tree3;
+        if (this.parent_) {
+          if (this.parent_.leafs.length > 0) {
+            leaf_ = this.element_.closest(this.CssSelectors_.LEAF);
+            this.appendExpandCollapseBtn_(leaf_, 'expanded');
+          }
+        }
         return leaf;
       }
 

@@ -17,6 +17,16 @@ const selInput = `.${cssInput}`;
 const cssText = `${cssLeaf}-text`;
 const selText = `.${cssText}`;
 
+const cssExpandCollapse = `${cssLeaf}-expand-collapse`;
+const selExpandCollapse = `.${cssExpandCollapse}`;
+
+const cssExpanded = `${cssLeaf}--expanded`;
+const selExpanded = `.${cssExpanded}`;
+
+const cssCollapsed = `${cssLeaf}--collapsed`;
+const selCollapsed = `.${cssCollapsed}`;
+
+(function() {
 /**
  * Do not move this test to any other place and
  * Do not remove the unique <ul class="mdl-tree3" /> element
@@ -49,6 +59,33 @@ onload_test(function(e) {
 //  - order-independent
 //  - repeteable consistently
 //  - isolate
+
+/**
+ * Check if a leaf that holds any subleaf has
+ * the expand/contract button
+ */
+onload_test(function(e) {
+  // [setup]
+  var { tree, tree3 } = setupTest();
+  var leaf = tree3.appendLeaf();
+
+  // [run]
+  var subleaf = leaf.Tree3.appendLeaf(); // This leaf is an HTMLElement and
+  // this leaf has mutated because it has a property called Tree3 that
+  // allows to behave like a tree
+
+  // [verify]
+  var btn = leaf.querySelector(selExpandCollapse);
+  assert_true(btn instanceof HTMLElement);
+  assert_true(btn.classList.contains(cssExpanded));
+
+  var btn = subleaf.querySelector(selExpandCollapse);
+  assert_equals(btn, null);
+
+  // [teardown]
+  tree.remove();
+  this.done();
+}, "Check if a leaf that contains a subleaf has the expand/contract button");
 
 /**
  * Check if appendLeaf() executed from a leaf adds
@@ -178,3 +215,5 @@ onload_test(function(e) {
   splash.addEventListener('click', listener);
   splash.dispatchEvent(new MouseEvent('click'));
 }, "Splash screen dissapears if click over +");
+
+})();
