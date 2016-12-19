@@ -61,6 +61,61 @@ onload_test(function(e) {
 //  - isolate
 
 /**
+ * Check if a leaf that holds any subleaf
+ * expands and contracts its subtree if click on the button
+ */
+onload_test(function(e) {
+  // [setup]
+  var { tree, tree3 } = setupTest();
+  var leaf = tree3.appendLeaf();
+
+  var checkCollapse = this.step_func((e) => {
+
+    // [verify]
+    assert_true(btn instanceof HTMLElement);
+    assert_true(subleaf.parentNode.hidden);
+    assert_true(btn.classList.contains(cssCollapsed));
+    assert_false(btn.classList.contains(cssExpanded));
+
+    // [cleanup]
+    btn.removeEventListener('click', checkCollapse);
+    btn.addEventListener('click', checkExpand);
+
+    // [run]
+    btn.dispatchEvent(new MouseEvent('click'));
+
+  });
+
+  var checkExpand = this.step_func((e) => {
+
+    // [verify]
+    assert_true(btn instanceof HTMLElement);
+    assert_false(subleaf.parentNode.hidden);
+    assert_false(btn.classList.contains(cssCollapsed));
+    assert_true(btn.classList.contains(cssExpanded));
+
+    // [cleanup]
+    btn.removeEventListener('click', checkExpand);
+
+    // [teardown]
+    tree.remove();
+    this.done();
+  });
+
+  // [run]
+  var subleaf = leaf.Tree3.appendLeaf(); // This leaf is an HTMLElement and
+  // this leaf has mutated because it has a property called Tree3 that
+  // allows to behave like a tree
+
+  var btn = leaf.querySelector(selExpandCollapse);
+  btn.addEventListener('click', checkCollapse);
+
+  // [run]
+  btn.dispatchEvent(new MouseEvent('click'));
+
+}, "Check if the leaf's expand/contract button reacts to click");
+
+/**
  * Check if a leaf that holds any subleaf has
  * the expand/contract button
  */
