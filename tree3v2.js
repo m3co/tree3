@@ -128,6 +128,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       /**
        * Append the button expand/collapse to the leaf
        *
+       * @private
        * @param {String} type - "expanded" | "collapsed"
        */
 
@@ -158,9 +159,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         // by default, the expand/collapse button is expanded
         // and click will switch expanded to collapsed and so on
         btn.addEventListener('click', function (e) {
-          if (e.target.classList.contains(_this2.CssClasses_.EXPANDED)) {
+          var btn = e.target.closest(_this2.CssSelectors_.EXPAND_COLLAPSE);
+          if (btn.classList.contains(_this2.CssClasses_.EXPANDED)) {
             _this2.collapseLeaf();
-          } else if (e.target.classList.contains(_this2.CssClasses_.COLLAPSED)) {
+          } else if (btn.classList.contains(_this2.CssClasses_.COLLAPSED)) {
             _this2.expandLeaf();
           } else {
             throw new Error('Check the expand/collapse TEMPLATE');
