@@ -61,6 +61,32 @@ onload_test(function(e) {
 //  - isolate
 
 /**
+ * Check if appendLeaf() executed from a leaf adds
+ * a new _sub_leaf level 1
+ */
+onload_test(function(e) {
+  // [setup]
+  var { tree, tree3 } = setupTest();
+  var leaf = tree3.appendLeaf();
+
+  // [run]
+  var subleaf = leaf.Tree3.appendLeaf(); // This leaf is an HTMLElement and
+  // this leaf has mutated because it has a property called Tree3 that
+  // allows to behave like a tree
+
+  subleaf = subleaf.Tree3.appendLeaf();
+
+  // [verify]
+  assert_true(subleaf.Tree3.element_.hidden);
+  assert_equals(tree3.leaf[0].Tree3.leaf[0].Tree3.leaf[0], subleaf);
+  assert_equals(tree3.leaf[0].Tree3.leafs.length, 1);
+
+  // [teardown]
+  tree.remove();
+  this.done();
+}, "Add a subleaf via appendLeaf() - level 2");
+
+/**
  * Check if a leaf that holds any subleaf
  * expands and contracts its subtree if click on the button
  */
