@@ -25,6 +25,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   var classAsString = 'Tree3';
   var cssClass = 'mdl-tree3';
 
+  var lastIdContextmenu = 0;
+
   var Tree3 = function () {
 
     /**
@@ -73,9 +75,37 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
 
       /**
-       * Setup the leaf's input
+       * Setup the leaf's context menu
+       * This function adds side-effects to the param leaf
        *
        * @private
+       * @param {HTMLElement} leaf - the leaf to be upgraded
+       */
+
+    }, {
+      key: 'setupContextmenu_',
+      value: function setupContextmenu_(leaf) {
+        var contextmenu = document.importNode(this.Templates_.CONTEXTMENU, true);
+
+        // this is a pretty strange assumption
+        var btn = contextmenu.querySelector('.mdl-button');
+        var menu = contextmenu.querySelector('.mdl-menu');
+
+        lastIdContextmenu++;
+        btn.id = btn.id + lastIdContextmenu;
+        menu.setAttribute('for', menu.getAttribute('for') + lastIdContextmenu);
+
+        var primaryContent = leaf.querySelector('.mdl-list__item-primary-content');
+        leaf.insertBefore(contextmenu, primaryContent);
+        componentHandler.upgradeElement(menu);
+      }
+
+      /**
+       * Setup the leaf's input
+       * This function adds side-effects to the param leaf
+       *
+       * @private
+       * @param {HTMLElement} leaf - the leaf to be upgraded
        */
 
     }, {
@@ -220,6 +250,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         if (leaf_) {
           leaf = this.element_.appendChild(leaf_);
           this.setupInput_(leaf);
+          this.setupContextmenu_(leaf);
         } else {
           throw new Error('Incorrect Template');
         }
@@ -388,7 +419,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           SPLASH: createHTML('\n<li class="mdl-list__item ' + LEAF + '">\n  <div class="mdl-list__item-primary-content">\n    <button class="mdl-button mdl-js-button mdl-button--icon ' + SPLASH + '">\n      <i class="material-icons">add</i>\n    </button>\n  </div>\n</li>'),
           LEAF: createHTML('\n<li class="mdl-list__item ' + LEAF + '">\n  <div class="mdl-list__item-primary-content">\n    &nbsp;\n    <span class="' + TEXT + '" hidden>\n    </span>\n    <div class="' + INPUT + ' mdl-textfield mdl-js-textfield">\n      <input class="mdl-textfield__input" type="text" placeholder="Label...">\n    </div>\n    &nbsp;\n  </div>\n</li>'),
           TREE: createHTML('\n<ul class="mdl-list ' + TREE + '"></ul>'),
-          CONTEXTMENU: createHTML('\n<button id="' + CONTEXTMENU + '-"\n  class="mdl-button mdl-js-button mdl-button--icon">\n  <i class="material-icons">more_vert</i>\n</button>\n<ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"\n  for="' + CONTEXTMENU + '-">\n  <li class="mdl-menu__item\n             ' + CONTEXTMENU_ADD + '">\n    Add\n  </li>\n  <li class="mdl-menu__item\n             mdl-menu__item--full-bleed-divider\n             ' + CONTEXTMENU_REMOVE + '">\n    Remove\n  </li>\n</ul>'),
+          CONTEXTMENU: createHTML('\n<button id="' + CONTEXTMENU + '-"\n  class="mdl-button mdl-js-button mdl-button--icon">\n  <i class="material-icons">more_vert</i>\n</button>\n<ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect ' + CONTEXTMENU + '"\n  for="' + CONTEXTMENU + '-">\n  <li class="mdl-menu__item\n             ' + CONTEXTMENU_ADD + '">\n    Add\n  </li>\n  <li class="mdl-menu__item\n             mdl-menu__item--full-bleed-divider\n             ' + CONTEXTMENU_REMOVE + '">\n    Remove\n  </li>\n</ul>'),
           EXPANDED_BTN: createHTML('\n<button class="mdl-list__item-secondary-action\n               mdl-button mdl-js-button mdl-button--icon\n               ' + EXPAND_COLLAPSE + '\n               ' + EXPANDED + '">\n  <i class="material-icons">keyboard_arrow_down</i>\n</button>'),
           COLLAPSED_BTN: createHTML('\n<button class="mdl-list__item-secondary-action\n               mdl-button mdl-js-button mdl-button--icon\n               ' + EXPAND_COLLAPSE + '\n               ' + COLLAPSED + '">\n  <i class="material-icons">keyboard_arrow_up</i>\n</button>')
         };

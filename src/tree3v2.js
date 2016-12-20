@@ -18,6 +18,8 @@
   const classAsString = 'Tree3';
   const cssClass = 'mdl-tree3';
 
+  var lastIdContextmenu = 0;
+
   class Tree3 {
 
     /**
@@ -60,9 +62,34 @@
     }
 
     /**
-     * Setup the leaf's input
+     * Setup the leaf's context menu
+     * This function adds side-effects to the param leaf
      *
      * @private
+     * @param {HTMLElement} leaf - the leaf to be upgraded
+     */
+    setupContextmenu_(leaf) {
+      var contextmenu = document.importNode(this.Templates_.CONTEXTMENU, true);
+
+      // this is a pretty strange assumption
+      var btn = contextmenu.querySelector('.mdl-button');
+      var menu = contextmenu.querySelector('.mdl-menu');
+
+      lastIdContextmenu++;
+      btn.id = btn.id + lastIdContextmenu;
+      menu.setAttribute('for', menu.getAttribute('for') + lastIdContextmenu);
+
+      var primaryContent = leaf.querySelector('.mdl-list__item-primary-content');
+      leaf.insertBefore(contextmenu, primaryContent);
+      componentHandler.upgradeElement(menu);
+    }
+
+    /**
+     * Setup the leaf's input
+     * This function adds side-effects to the param leaf
+     *
+     * @private
+     * @param {HTMLElement} leaf - the leaf to be upgraded
      */
     setupInput_(leaf) {
       var input = leaf.querySelector(`${this.CssSelectors_.INPUT} input`);
@@ -191,6 +218,7 @@
       if (leaf_) {
         leaf = this.element_.appendChild(leaf_);
         this.setupInput_(leaf);
+        this.setupContextmenu_(leaf);
       } else {
         throw new Error('Incorrect Template');
       }
@@ -358,7 +386,7 @@
   class="mdl-button mdl-js-button mdl-button--icon">
   <i class="material-icons">more_vert</i>
 </button>
-<ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"
+<ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect ${CONTEXTMENU}"
   for="${CONTEXTMENU}-">
   <li class="mdl-menu__item
              ${CONTEXTMENU_ADD}">
