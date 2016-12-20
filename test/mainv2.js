@@ -26,6 +26,9 @@ const selExpanded = `.${cssExpanded}`;
 const cssCollapsed = `${cssLeaf}--collapsed`;
 const selCollapsed = `.${cssCollapsed}`;
 
+const cssContextmenu = `${cssTree}__contextmenu`;
+const selContextmenu = `.${cssContextmenu}`;
+
 (function() {
 /**
  * Do not move this test to any other place and
@@ -61,8 +64,25 @@ onload_test(function(e) {
 //  - isolate
 
 /**
+ * Check if a leaf has a context menu with the add button
+ */
+onload_test(function(e) {
+  // [setup]
+  var { tree, tree3 } = setupTest();
+  var leaf = tree3.appendLeaf();
+
+  // [verify]
+  var contextmenu = leaf.querySelector(selContextmenu);
+  assert_true(contextmenu instanceof HTMLElement);
+
+  // [teardown]
+  tree.remove();
+  this.done();
+}, "Check if a leaf has a context menu with the add button");
+
+/**
  * Check if appendLeaf() executed from a leaf adds
- * a new _sub_leaf level 1
+ * a new _sub_leaf level 2
  */
 onload_test(function(e) {
   // [setup]
