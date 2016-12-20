@@ -73,7 +73,9 @@ onload_test(function(e) {
 
   // [verify]
   var contextmenu = leaf.querySelector(selContextmenu);
+  var btnAdd = contextmenu.querySelector(selContextmenu + '--add-leaf');
   assert_true(contextmenu instanceof HTMLElement);
+  assert_true(btnAdd instanceof HTMLElement);
 
   // [teardown]
   tree.remove();
