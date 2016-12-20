@@ -332,58 +332,58 @@
     get Templates_() {
       return {
         SPLASH: createHTML(`
-        <li class="mdl-list__item ${LEAF}">
-          <div class="mdl-list__item-primary-content">
-            <button class="mdl-button mdl-js-button mdl-button--icon ${SPLASH}">
-              <i class="material-icons">add</i>
-            </button>
-          </div>
-        </li>`),
+<li class="mdl-list__item ${LEAF}">
+  <div class="mdl-list__item-primary-content">
+    <button class="mdl-button mdl-js-button mdl-button--icon ${SPLASH}">
+      <i class="material-icons">add</i>
+    </button>
+  </div>
+</li>`),
         LEAF: createHTML(`
-        <li class="mdl-list__item ${LEAF}">
-          <div class="mdl-list__item-primary-content">
-            &nbsp;
-            <span class="${TEXT}" hidden>
-            </span>
-            <div class="${INPUT} mdl-textfield mdl-js-textfield">
-              <input class="mdl-textfield__input" type="text" placeholder="Label...">
-            </div>
-            &nbsp;
-          </div>
-        </li>`),
+<li class="mdl-list__item ${LEAF}">
+  <div class="mdl-list__item-primary-content">
+    &nbsp;
+    <span class="${TEXT}" hidden>
+    </span>
+    <div class="${INPUT} mdl-textfield mdl-js-textfield">
+      <input class="mdl-textfield__input" type="text" placeholder="Label...">
+    </div>
+    &nbsp;
+  </div>
+</li>`),
         TREE: createHTML(`
-        <ul class="mdl-list ${TREE}"></ul>`),
+<ul class="mdl-list ${TREE}"></ul>`),
         CONTEXTMENU: createHTML(`
-        <button id="${CONTEXTMENU}-"
-          class="mdl-button mdl-js-button mdl-button--icon">
-          <i class="material-icons">more_vert</i>
-        </button>
-        <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"
-          for="${CONTEXTMENU}-">
-          <li class="mdl-menu__item
-                     ${CONTEXTMENU_ADD}">
-            Add
-          </li>
-          <li class="mdl-menu__item
-                     mdl-menu__item--full-bleed-divider
-                     ${CONTEXTMENU_REMOVE}">
-            Remove
-          </li>
-        </ul>`),
+<button id="${CONTEXTMENU}-"
+  class="mdl-button mdl-js-button mdl-button--icon">
+  <i class="material-icons">more_vert</i>
+</button>
+<ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"
+  for="${CONTEXTMENU}-">
+  <li class="mdl-menu__item
+             ${CONTEXTMENU_ADD}">
+    Add
+  </li>
+  <li class="mdl-menu__item
+             mdl-menu__item--full-bleed-divider
+             ${CONTEXTMENU_REMOVE}">
+    Remove
+  </li>
+</ul>`),
         EXPANDED_BTN: createHTML(`
-        <button class="mdl-list__item-secondary-action
-                       mdl-button mdl-js-button mdl-button--icon
-                       ${EXPAND_COLLAPSE}
-                       ${EXPANDED}">
-          <i class="material-icons">keyboard_arrow_down</i>
-        </button>`),
+<button class="mdl-list__item-secondary-action
+               mdl-button mdl-js-button mdl-button--icon
+               ${EXPAND_COLLAPSE}
+               ${EXPANDED}">
+  <i class="material-icons">keyboard_arrow_down</i>
+</button>`),
         COLLAPSED_BTN: createHTML(`
-        <button class="mdl-list__item-secondary-action
-                       mdl-button mdl-js-button mdl-button--icon
-                       ${EXPAND_COLLAPSE}
-                       ${COLLAPSED}">
-          <i class="material-icons">keyboard_arrow_up</i>
-        </button>`)
+<button class="mdl-list__item-secondary-action
+               mdl-button mdl-js-button mdl-button--icon
+               ${EXPAND_COLLAPSE}
+               ${COLLAPSED}">
+  <i class="material-icons">keyboard_arrow_up</i>
+</button>`)
       };
     }
   }
