@@ -133,14 +133,46 @@
       if (!c) {
         throw new Error('please, check why nextSibling is null');
       }
-      //var btn = clone.querySelector(this.CssSelectors_.EXPAND_COLLAPSE);
+      var btn = clone.querySelector(this.CssSelectors_.EXPAND_COLLAPSE);
 
       // by default, the expand/collapse button is expanded
       // and click will switch expanded to collapsed and so on
-      //btn.addEventListener('click', expandCollapse.bind(null, btn, tree));
+      btn.addEventListener('click', (e => {
+        if (e.target.classList.contains(this.CssClasses_.EXPANDED)) {
+          this.collapseLeaf();
+        } else if (e.target.classList.contains(this.CssClasses_.COLLAPSED)) {
+          this.expandLeaf();
+        } else {
+          throw new Error('Check the expand/collapse TEMPLATE');
+        }
+      }).bind(this));
 
       leaf.insertBefore(clone, c);
       return tree;
+    }
+
+    /**
+     * Expand the leaf
+     */
+    expandLeaf() {
+      var parent = this.element_.closest(this.CssSelectors_.LEAF);
+      var btn = parent.querySelector(this.CssSelectors_.EXPAND_COLLAPSE);
+      btn.classList.remove(this.CssClasses_.COLLAPSED);
+      btn.classList.add(this.CssClasses_.EXPANDED);
+      btn.querySelector('.material-icons').innerHTML = 'keyboard_arrow_down';
+      this.element_.hidden = false;
+    }
+
+    /**
+     * Collapse the leaf
+     */
+    collapseLeaf() {
+      var parent = this.element_.closest(this.CssSelectors_.LEAF);
+      var btn = parent.querySelector(this.CssSelectors_.EXPAND_COLLAPSE);
+      btn.classList.add(this.CssClasses_.COLLAPSED);
+      btn.classList.remove(this.CssClasses_.EXPANDED);
+      btn.querySelector('.material-icons').innerHTML = 'keyboard_arrow_up';
+      this.element_.hidden = true;
     }
 
     /**

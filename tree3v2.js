@@ -134,6 +134,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'appendExpandCollapseBtn_',
       value: function appendExpandCollapseBtn_(leaf, type) {
+        var _this2 = this;
+
         var type_ = type || 'expanded';
         var tree = leaf.querySelector(this.CssSelectors_.TREE);
         var clone;
@@ -151,14 +153,52 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         if (!c) {
           throw new Error('please, check why nextSibling is null');
         }
-        //var btn = clone.querySelector(this.CssSelectors_.EXPAND_COLLAPSE);
+        var btn = clone.querySelector(this.CssSelectors_.EXPAND_COLLAPSE);
 
         // by default, the expand/collapse button is expanded
         // and click will switch expanded to collapsed and so on
-        //btn.addEventListener('click', expandCollapse.bind(null, btn, tree));
+        btn.addEventListener('click', function (e) {
+          if (e.target.classList.contains(_this2.CssClasses_.EXPANDED)) {
+            _this2.collapseLeaf();
+          } else if (e.target.classList.contains(_this2.CssClasses_.COLLAPSED)) {
+            _this2.expandLeaf();
+          } else {
+            throw new Error('Check the expand/collapse TEMPLATE');
+          }
+        }.bind(this));
 
         leaf.insertBefore(clone, c);
         return tree;
+      }
+
+      /**
+       * Expand the leaf
+       */
+
+    }, {
+      key: 'expandLeaf',
+      value: function expandLeaf() {
+        var parent = this.element_.closest(this.CssSelectors_.LEAF);
+        var btn = parent.querySelector(this.CssSelectors_.EXPAND_COLLAPSE);
+        btn.classList.remove(this.CssClasses_.COLLAPSED);
+        btn.classList.add(this.CssClasses_.EXPANDED);
+        btn.querySelector('.material-icons').innerHTML = 'keyboard_arrow_down';
+        this.element_.hidden = false;
+      }
+
+      /**
+       * Collapse the leaf
+       */
+
+    }, {
+      key: 'collapseLeaf',
+      value: function collapseLeaf() {
+        var parent = this.element_.closest(this.CssSelectors_.LEAF);
+        var btn = parent.querySelector(this.CssSelectors_.EXPAND_COLLAPSE);
+        btn.classList.add(this.CssClasses_.COLLAPSED);
+        btn.classList.remove(this.CssClasses_.EXPANDED);
+        btn.querySelector('.material-icons').innerHTML = 'keyboard_arrow_up';
+        this.element_.hidden = true;
       }
 
       /**
@@ -204,7 +244,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'appendSplash_',
       value: function appendSplash_() {
-        var _this2 = this;
+        var _this3 = this;
 
         if (this.leafs.length == 0) {
           /* jshint ignore:line */
@@ -212,8 +252,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           var btn = splash.querySelector('button');
           btn.addEventListener('click', function () {
-            _this2.removeSplash_();
-            _this2.appendLeaf();
+            _this3.removeSplash_();
+            _this3.appendLeaf();
           });
           this.element_.appendChild(splash);
         }
