@@ -319,71 +319,86 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       set: function set(_) {
         this.leaf = _;
       }
+
+      /**
+       * Store strings for class names defined by this component that are used in
+       * JavaScript. This allows us to simply change it in one place should we
+       * decide to modify at a later date.
+       *
+       * @enum {string}
+       * @private
+       */
+
+    }, {
+      key: 'CssClasses_',
+      get: function get() {
+        return {
+          TREE: '' + TREE,
+          LEAF: TREE + '__leaf',
+          SPLASH: TREE + '__splash',
+          CONTEXTMENU: TREE + '__contextmenu',
+          CONTEXTMENU_ADD: CONTEXTMENU + '--add-leaf',
+          CONTEXTMENU_REMOVE: CONTEXTMENU + '--remove-leaf',
+          INPUT: LEAF + '-input',
+          TEXT: LEAF + '-text',
+          EXPAND_COLLAPSE: LEAF + '-expand-collapse',
+          EXPANDED: LEAF + '--expanded',
+          COLLAPSED: LEAF + '--collapsed'
+        };
+      }
+
+      /**
+       * Store strings for class selectors defined by this component that are used in
+       * JavaScript. This allows us to simply change it in one place should we
+       * decide to modify at a later date.
+       *
+       * @enum {string}
+       * @private
+       */
+
+    }, {
+      key: 'CssSelectors_',
+      get: function get() {
+        return {
+          TREE: '.' + TREE,
+          LEAF: '.' + TREE + '__leaf',
+          SPLASH: '.' + TREE + '__splash',
+          CONTEXTMENU: '.' + TREE + '__contextmenu',
+          CONTEXTMENU_ADD: '.' + CONTEXTMENU + '--add-leaf',
+          CONTEXTMENU_REMOVE: '.' + CONTEXTMENU + '--remove-leaf',
+          INPUT: '.' + LEAF + '-input',
+          TEXT: '.' + LEAF + '-text',
+          EXPAND_COLLAPSE: '.' + LEAF + '-expand-collapse',
+          EXPANDED: '.' + LEAF + '--expanded',
+          COLLAPSED: '.' + LEAF + '--collapsed'
+        };
+      }
+
+      /**
+       * Store the templates that will be rendered into this component
+       *
+       * @enum {DocumentFragment}
+       * @private
+       */
+
+    }, {
+      key: 'Templates_',
+      get: function get() {
+        return {
+          SPLASH: createHTML('\n        <li class="mdl-list__item ' + LEAF + '">\n          <div class="mdl-list__item-primary-content">\n            <button class="mdl-button mdl-js-button mdl-button--icon ' + SPLASH + '">\n              <i class="material-icons">add</i>\n            </button>\n          </div>\n        </li>'),
+          LEAF: createHTML('\n        <li class="mdl-list__item ' + LEAF + '">\n          <div class="mdl-list__item-primary-content">\n            &nbsp;\n            <span class="' + TEXT + '" hidden>\n            </span>\n            <div class="' + INPUT + ' mdl-textfield mdl-js-textfield">\n              <input class="mdl-textfield__input" type="text" placeholder="Label...">\n            </div>\n            &nbsp;\n          </div>\n        </li>'),
+          TREE: createHTML('\n        <ul class="mdl-list ' + TREE + '"></ul>'),
+          CONTEXTMENU: createHTML('\n        <button id="' + CONTEXTMENU + '-"\n          class="mdl-button mdl-js-button mdl-button--icon">\n          <i class="material-icons">more_vert</i>\n        </button>\n        <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"\n          for="' + CONTEXTMENU + '-">\n          <li class="mdl-menu__item\n                     ' + CONTEXTMENU_ADD + '">\n            Add\n          </li>\n          <li class="mdl-menu__item\n                     mdl-menu__item--full-bleed-divider\n                     ' + CONTEXTMENU_REMOVE + '">\n            Remove\n          </li>\n        </ul>'),
+          EXPANDED_BTN: createHTML('\n        <button class="mdl-list__item-secondary-action\n                       mdl-button mdl-js-button mdl-button--icon\n                       ' + EXPAND_COLLAPSE + '\n                       ' + EXPANDED + '">\n          <i class="material-icons">keyboard_arrow_down</i>\n        </button>'),
+          COLLAPSED_BTN: createHTML('\n        <button class="mdl-list__item-secondary-action\n                       mdl-button mdl-js-button mdl-button--icon\n                       ' + EXPAND_COLLAPSE + '\n                       ' + COLLAPSED + '">\n          <i class="material-icons">keyboard_arrow_up</i>\n        </button>')
+        };
+      }
     }]);
 
     return Tree3;
   }();
 
   window[classAsString] = Tree3;
-
-  /**
-   * Store strings for class names defined by this component that are used in
-   * JavaScript. This allows us to simply change it in one place should we
-   * decide to modify at a later date.
-   *
-   * @enum {string}
-   * @private
-   */
-  Tree3.prototype.CssClasses_ = {
-    TREE: '' + TREE,
-    LEAF: TREE + '__leaf',
-    SPLASH: TREE + '__splash',
-    CONTEXTMENU: TREE + '__contextmenu',
-    CONTEXTMENU_ADD: CONTEXTMENU + '--add-leaf',
-    CONTEXTMENU_REMOVE: CONTEXTMENU + '--remove-leaf',
-    INPUT: LEAF + '-input',
-    TEXT: LEAF + '-text',
-    EXPAND_COLLAPSE: LEAF + '-expand-collapse',
-    EXPANDED: LEAF + '--expanded',
-    COLLAPSED: LEAF + '--collapsed'
-  };
-
-  /**
-   * Store strings for class selectors defined by this component that are used in
-   * JavaScript. This allows us to simply change it in one place should we
-   * decide to modify at a later date.
-   *
-   * @enum {string}
-   * @private
-   */
-  Tree3.prototype.CssSelectors_ = {
-    TREE: '.' + TREE,
-    LEAF: '.' + TREE + '__leaf',
-    SPLASH: '.' + TREE + '__splash',
-    CONTEXTMENU: '.' + TREE + '__contextmenu',
-    CONTEXTMENU_ADD: '.' + CONTEXTMENU + '--add-leaf',
-    CONTEXTMENU_REMOVE: '.' + CONTEXTMENU + '--remove-leaf',
-    INPUT: '.' + LEAF + '-input',
-    TEXT: '.' + LEAF + '-text',
-    EXPAND_COLLAPSE: '.' + LEAF + '-expand-collapse',
-    EXPANDED: '.' + LEAF + '--expanded',
-    COLLAPSED: '.' + LEAF + '--collapsed'
-  };
-
-  /**
-   * Store the templates that will be rendered into this component
-   *
-   * @enum {DocumentFragment}
-   * @private
-   */
-  Tree3.prototype.Templates_ = {
-    SPLASH: createHTML('\n    <li class="mdl-list__item ' + LEAF + '">\n      <div class="mdl-list__item-primary-content">\n        <button class="mdl-button mdl-js-button mdl-button--icon ' + SPLASH + '">\n          <i class="material-icons">add</i>\n        </button>\n      </div>\n    </li>'),
-    LEAF: createHTML('\n    <li class="mdl-list__item ' + LEAF + '">\n      <div class="mdl-list__item-primary-content">\n        &nbsp;\n        <span class="' + TEXT + '" hidden>\n        </span>\n        <div class="' + INPUT + ' mdl-textfield mdl-js-textfield">\n          <input class="mdl-textfield__input" type="text" placeholder="Label...">\n        </div>\n        &nbsp;\n      </div>\n    </li>'),
-    TREE: createHTML('\n    <ul class="mdl-list ' + TREE + '"></ul>'),
-    CONTEXTMENU: createHTML('\n    <button id="' + CONTEXTMENU + '-"\n      class="mdl-button mdl-js-button mdl-button--icon">\n      <i class="material-icons">more_vert</i>\n    </button>\n    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect"\n      for="' + CONTEXTMENU + '-">\n      <li class="mdl-menu__item\n                 ' + CONTEXTMENU_ADD + '">\n        Add\n      </li>\n      <li class="mdl-menu__item\n                 mdl-menu__item--full-bleed-divider\n                 ' + CONTEXTMENU_REMOVE + '">\n        Remove\n      </li>\n    </ul>'),
-    EXPANDED_BTN: createHTML('\n    <button class="mdl-list__item-secondary-action\n                   mdl-button mdl-js-button mdl-button--icon\n                   ' + EXPAND_COLLAPSE + '\n                   ' + EXPANDED + '">\n      <i class="material-icons">keyboard_arrow_down</i>\n    </button>'),
-    COLLAPSED_BTN: createHTML('\n    <button class="mdl-list__item-secondary-action\n                   mdl-button mdl-js-button mdl-button--icon\n                   ' + EXPAND_COLLAPSE + '\n                   ' + COLLAPSED + '">\n      <i class="material-icons">keyboard_arrow_up</i>\n    </button>')
-  };
 
   componentHandler.register({
     constructor: Tree3,
