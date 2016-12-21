@@ -72,6 +72,32 @@ onload_test(function(e) {
   var leaf = tree3.appendLeaf();
 
   var contextmenu = leaf.querySelector(selContextmenu);
+  var btnRemove = contextmenu.querySelector(selContextmenu + '--remove-leaf');
+
+  var checkRemoveBtn = this.step_func((e) => {
+    // [verify]
+    assert_equals(tree3.leafs.length, 0);
+
+    // [teardown]
+    tree.remove();
+    this.done();
+
+  });
+
+  // [run]
+  btnRemove.addEventListener('click', checkRemoveBtn);
+  btnRemove.dispatchEvent(new MouseEvent('click'));
+}, "Check if click on add button at contextmenu adds a leaf");
+
+/**
+ * Check if click on add button at contextmenu adds a leaf
+ */
+onload_test(function(e) {
+  // [setup]
+  var { tree, tree3 } = setupTest();
+  var leaf = tree3.appendLeaf();
+
+  var contextmenu = leaf.querySelector(selContextmenu);
   var btnAdd = contextmenu.querySelector(selContextmenu + '--add-leaf');
 
   var checkAddBtn = this.step_func((e) => {
