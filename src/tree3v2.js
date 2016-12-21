@@ -30,6 +30,7 @@
      *
      * @constructor
      * @param {HTMLElement} element - The element that will be upgraded.
+     * @param {Tree3} parent - The parent of the created element
      */
     constructor(element, parent) {
       if (parent) {

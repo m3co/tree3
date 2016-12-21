@@ -37,6 +37,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
      *
      * @constructor
      * @param {HTMLElement} element - The element that will be upgraded.
+     * @param {Tree3} parent - The parent of the created element
      */
     function Tree3(element, parent) {
       _classCallCheck(this, Tree3);
