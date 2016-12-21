@@ -1,4 +1,4 @@
-.mdl-tree3__leaf {
+.mdl-tree3__leaf,.mdl-tree3__splash {
   border-top: thin solid #dedede;
   flex-wrap: wrap;
 }
@@ -33,6 +33,10 @@
   border-bottom: none;
 }
 
+.mdl-tree3 .mdl-tree3__splash:last-child {
+  border-bottom: thin solid #dedede;
+}
+
 .mdl-tree3__leaf-text {
   width: 100%;
 }
@@ -46,7 +50,7 @@
   width: 100%;
 }
 
-.mdl-tree3__splash {
+.mdl-tree3__splash--button {
   left: 50%;
 }
 

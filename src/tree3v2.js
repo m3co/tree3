@@ -6,6 +6,7 @@
   const TREE = 'mdl-tree3';
   const LEAF = `${TREE}__leaf`;
   const SPLASH = `${TREE}__splash`;
+  const SPLASH_BUTTON = `${SPLASH}--button`;
   const CONTEXTMENU = `${TREE}__contextmenu`;
   const CONTEXTMENU_ADD = `${CONTEXTMENU}--add-leaf`;
   const CONTEXTMENU_REMOVE = `${CONTEXTMENU}--remove-leaf`;
@@ -52,6 +53,7 @@
         this.element_.classList.add('mdl-list');
 
         if (!this.parent_) {
+          this.root_ = this;
           this.appendSplash_();
         } else {
           this.element_.hidden = true;
@@ -238,6 +240,7 @@
       componentHandler.upgradeElement(leaf.appendChild(tree));
       leaf.Tree3 = tree3;
       leaf.Tree3.leaf_ = leaf; // this is for removeLeaf()
+      leaf.Tree3.root_ = this.root_; // this is for removeLeaf()
       if (this.parent_) {
         if (this.parent_.leafs.length > 0) {
           leaf_ = this.element_.closest(this.CssSelectors_.LEAF);
@@ -254,6 +257,7 @@
      */
     removeLeaf() {
       this.leaf_.remove();
+      this.root_.appendSplash_();
       return this.leaf_;
     }
 
@@ -263,15 +267,15 @@
      * @private
      */
     appendSplash_() {
-      if (this.leafs.length == 0) { /* jshint ignore:line */
+      if (this.root_.leafs.length == 0) { /* jshint ignore:line */
         var splash = document.importNode(this.Templates_.SPLASH, true);
 
         var btn = splash.querySelector('button');
         btn.addEventListener('click', () => {
-          this.removeSplash_();
-          this.appendLeaf();
+          this.root_.removeSplash_();
+          this.root_.appendLeaf();
         });
-        this.element_.appendChild(splash);
+        this.root_.element_.appendChild(splash);
       }
     }
 
@@ -283,7 +287,7 @@
     removeSplash_() {
       var splash = this.element_.querySelector(this.CssSelectors_.SPLASH);
       if (splash) {
-        splash.closest(this.CssSelectors_.LEAF).remove();
+        splash.remove();
       }
     }
 
@@ -337,6 +341,7 @@
         TREE: `${TREE}`,
         LEAF: `${TREE}__leaf`,
         SPLASH: `${TREE}__splash`,
+        SPLASH_BUTTON: `${SPLASH}--button`,
         CONTEXTMENU: `${TREE}__contextmenu`,
         CONTEXTMENU_ADD: `${CONTEXTMENU}--add-leaf`,
         CONTEXTMENU_REMOVE: `${CONTEXTMENU}--remove-leaf`,
@@ -361,6 +366,7 @@
         TREE: `.${TREE}`,
         LEAF: `.${TREE}__leaf`,
         SPLASH: `.${TREE}__splash`,
+        SPLASH_BUTTON: `.${SPLASH}--button`,
         CONTEXTMENU: `.${TREE}__contextmenu`,
         CONTEXTMENU_ADD: `.${CONTEXTMENU}--add-leaf`,
         CONTEXTMENU_REMOVE: `.${CONTEXTMENU}--remove-leaf`,
@@ -381,9 +387,9 @@
     get Templates_() {
       return {
         SPLASH: createHTML(`
-<li class="mdl-list__item ${LEAF}">
+<li class="mdl-list__item ${SPLASH}">
   <div class="mdl-list__item-primary-content">
-    <button class="mdl-button mdl-js-button mdl-button--icon ${SPLASH}">
+    <button class="mdl-button mdl-js-button mdl-button--icon ${SPLASH_BUTTON}">
       <i class="material-icons">add</i>
     </button>
   </div>

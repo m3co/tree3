@@ -361,7 +361,7 @@ onload_test(function(e) {
 
   // [setup]
   var tree3 = tree.Tree3;
-  var splash = tree.querySelector(tree3.CssSelectors_.SPLASH);
+  var splashBtn = tree.querySelector(tree3.CssSelectors_.SPLASH_BUTTON);
 
   var listener = this.step_func((e) => {
     // [verify]
@@ -372,14 +372,14 @@ onload_test(function(e) {
       instanceof HTMLElement);
 
     // [teardown]
-    splash.removeEventListener('click', listener);
+    splashBtn.removeEventListener('click', listener);
     tree.remove();
     this.done();
   });
 
   // [run]
-  splash.addEventListener('click', listener);
-  splash.dispatchEvent(new MouseEvent('click'));
+  splashBtn.addEventListener('click', listener);
+  splashBtn.dispatchEvent(new MouseEvent('click'));
 }, "Splash screen dissapears if click over +");
 
 })();

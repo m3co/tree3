@@ -13,6 +13,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   var TREE = 'mdl-tree3';
   var LEAF = TREE + '__leaf';
   var SPLASH = TREE + '__splash';
+  var SPLASH_BUTTON = SPLASH + '--button';
   var CONTEXTMENU = TREE + '__contextmenu';
   var CONTEXTMENU_ADD = CONTEXTMENU + '--add-leaf';
   var CONTEXTMENU_REMOVE = CONTEXTMENU + '--remove-leaf';
@@ -65,6 +66,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.element_.classList.add('mdl-list');
 
           if (!this.parent_) {
+            this.root_ = this;
             this.appendSplash_();
           } else {
             this.element_.hidden = true;
@@ -272,6 +274,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         componentHandler.upgradeElement(leaf.appendChild(tree));
         leaf.Tree3 = tree3;
         leaf.Tree3.leaf_ = leaf; // this is for removeLeaf()
+        leaf.Tree3.root_ = this.root_; // this is for removeLeaf()
         if (this.parent_) {
           if (this.parent_.leafs.length > 0) {
             leaf_ = this.element_.closest(this.CssSelectors_.LEAF);
@@ -291,6 +294,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       key: 'removeLeaf',
       value: function removeLeaf() {
         this.leaf_.remove();
+        this.root_.appendSplash_();
         return this.leaf_;
       }
 
@@ -305,16 +309,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       value: function appendSplash_() {
         var _this4 = this;
 
-        if (this.leafs.length == 0) {
+        if (this.root_.leafs.length == 0) {
           /* jshint ignore:line */
           var splash = document.importNode(this.Templates_.SPLASH, true);
 
           var btn = splash.querySelector('button');
           btn.addEventListener('click', function () {
-            _this4.removeSplash_();
-            _this4.appendLeaf();
+            _this4.root_.removeSplash_();
+            _this4.root_.appendLeaf();
           });
-          this.element_.appendChild(splash);
+          this.root_.element_.appendChild(splash);
         }
       }
 
@@ -329,7 +333,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       value: function removeSplash_() {
         var splash = this.element_.querySelector(this.CssSelectors_.SPLASH);
         if (splash) {
-          splash.closest(this.CssSelectors_.LEAF).remove();
+          splash.remove();
         }
       }
 
@@ -393,6 +397,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           TREE: '' + TREE,
           LEAF: TREE + '__leaf',
           SPLASH: TREE + '__splash',
+          SPLASH_BUTTON: SPLASH + '--button',
           CONTEXTMENU: TREE + '__contextmenu',
           CONTEXTMENU_ADD: CONTEXTMENU + '--add-leaf',
           CONTEXTMENU_REMOVE: CONTEXTMENU + '--remove-leaf',
@@ -420,6 +425,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           TREE: '.' + TREE,
           LEAF: '.' + TREE + '__leaf',
           SPLASH: '.' + TREE + '__splash',
+          SPLASH_BUTTON: '.' + SPLASH + '--button',
           CONTEXTMENU: '.' + TREE + '__contextmenu',
           CONTEXTMENU_ADD: '.' + CONTEXTMENU + '--add-leaf',
           CONTEXTMENU_REMOVE: '.' + CONTEXTMENU + '--remove-leaf',
@@ -442,7 +448,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       key: 'Templates_',
       get: function get() {
         return {
-          SPLASH: createHTML('\n<li class="mdl-list__item ' + LEAF + '">\n  <div class="mdl-list__item-primary-content">\n    <button class="mdl-button mdl-js-button mdl-button--icon ' + SPLASH + '">\n      <i class="material-icons">add</i>\n    </button>\n  </div>\n</li>'),
+          SPLASH: createHTML('\n<li class="mdl-list__item ' + SPLASH + '">\n  <div class="mdl-list__item-primary-content">\n    <button class="mdl-button mdl-js-button mdl-button--icon ' + SPLASH_BUTTON + '">\n      <i class="material-icons">add</i>\n    </button>\n  </div>\n</li>'),
           LEAF: createHTML('\n<li class="mdl-list__item ' + LEAF + '">\n  <div class="mdl-list__item-primary-content">\n    &nbsp;\n    <span class="' + TEXT + '" hidden>\n    </span>\n    <div class="' + INPUT + ' mdl-textfield mdl-js-textfield">\n      <input class="mdl-textfield__input" type="text" placeholder="Label...">\n    </div>\n    &nbsp;\n  </div>\n</li>'),
           TREE: createHTML('\n<ul class="mdl-list ' + TREE + '"></ul>'),
           CONTEXTMENU: createHTML('\n<button id="' + CONTEXTMENU + '-"\n  class="mdl-button mdl-js-button mdl-button--icon">\n  <i class="material-icons">more_vert</i>\n</button>\n<ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect ' + CONTEXTMENU + '"\n  for="' + CONTEXTMENU + '-">\n  <li class="mdl-menu__item\n             ' + CONTEXTMENU_ADD + '">\n    Add\n  </li>\n  <li class="mdl-menu__item\n             mdl-menu__item--full-bleed-divider\n             ' + CONTEXTMENU_REMOVE + '">\n    Remove\n  </li>\n</ul>'),
