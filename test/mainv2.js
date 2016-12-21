@@ -92,7 +92,7 @@ onload_test(function(e) {
     assert_true(actionElement instanceof HTMLElement);
   });
 
-  tree.remove();
+  //tree.remove();
   this.done();
 }, "Allow to add custom actions to the contextmenu");
 

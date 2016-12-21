@@ -92,6 +92,18 @@
         leaf.Tree3.removeLeaf();
       });
 
+      var tree = this.element_;
+      var id = tree.id;
+      if (id) {
+        var template = document.querySelector(`template[for="${id}"]`);
+        if (template) {
+          contextmenu.querySelector('.mdl-menu')
+                     .appendChild(document.importNode(template.content, true));
+          // You're doing here a very strange assumption! why .mdl-menu__item?
+          var items = contextmenu.querySelectorAll('.mdl-menu__item');
+        }
+      }
+
       var primaryContent = leaf.querySelector('.mdl-list__item-primary-content');
       leaf.insertBefore(contextmenu, primaryContent);
       componentHandler.upgradeElement(menu);
