@@ -161,6 +161,11 @@
       var tree = leaf.querySelector(this.CssSelectors_.TREE);
       var clone;
       if (leaf.querySelector(this.CssSelectors_.EXPAND_COLLAPSE)) {
+        // <untested-code>
+        if (type_ === 'expanded') {
+          this.leaf_.Tree3.expandLeaf();
+        }
+        // </untested-code>
         return tree;
       }
       if (type_ === 'expanded') {
