@@ -101,6 +101,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           leaf.Tree3.appendLeaf();
         });
 
+        var btnRemove = menu.querySelector(this.CssSelectors_.CONTEXTMENU_REMOVE);
+        btnRemove.addEventListener('click', function (e) {
+          var leaf = e.target.closest(_this.CssSelectors_.LEAF);
+          leaf.Tree3.removeLeaf();
+        });
+
         var primaryContent = leaf.querySelector('.mdl-list__item-primary-content');
         leaf.insertBefore(contextmenu, primaryContent);
         componentHandler.upgradeElement(menu);
@@ -265,6 +271,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         var tree3 = new Tree3(tree, this);
         componentHandler.upgradeElement(leaf.appendChild(tree));
         leaf.Tree3 = tree3;
+        leaf.Tree3.leaf_ = leaf; // this is for removeLeaf()
         if (this.parent_) {
           if (this.parent_.leafs.length > 0) {
             leaf_ = this.element_.closest(this.CssSelectors_.LEAF);
@@ -272,6 +279,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }
         }
         return leaf;
+      }
+
+      /**
+       * Remove the called leaf from the tree
+       *
+       * @return {HTMLElement} - The removed element
+       */
+
+    }, {
+      key: 'removeLeaf',
+      value: function removeLeaf() {
+        this.leaf_.remove();
+        return this.leaf_;
       }
 
       /**
