@@ -110,7 +110,8 @@ onload_test(function(e) {
 
     // As this is an empty tree, then tree3.leafs.length == 0
     assert_true(tree.querySelector(tree3.CssSelectors_.SPLASH)
-      instanceof HTMLElement)
+      instanceof HTMLElement);
+    assert_false(tree.hidden);
 
     // [teardown]
     tree.remove();

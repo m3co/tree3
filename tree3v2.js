@@ -186,6 +186,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         var tree = leaf.querySelector(this.CssSelectors_.TREE);
         var clone;
         if (leaf.querySelector(this.CssSelectors_.EXPAND_COLLAPSE)) {
+          // <untested-code>
+          if (type_ === 'expanded') {
+            this.leaf_.Tree3.expandLeaf();
+          }
+          // </untested-code>
           return tree;
         }
         if (type_ === 'expanded') {
@@ -305,7 +310,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.root_.appendSplash_();
 
         if (parent.leafs.length == 0) {
-          parent.element_.hidden = true;
+          /* jshint ignore:line */
+          if (this.root_ != parent) {
+            /* jshint ignore:line */
+            parent.element_.hidden = true;
+          }
           if (btn) {
             btn.remove();
           }

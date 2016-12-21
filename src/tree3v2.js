@@ -267,8 +267,10 @@
       this.leaf_.remove();
       this.root_.appendSplash_();
 
-      if (parent.leafs.length == 0) {
-        parent.element_.hidden = true;
+      if (parent.leafs.length == 0) { /* jshint ignore:line */
+        if (this.root_ != parent) { /* jshint ignore:line */
+          parent.element_.hidden = true;
+        }
         if (btn) {
           btn.remove();
         }
