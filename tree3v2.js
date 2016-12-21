@@ -67,9 +67,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (!this.parent_) {
             this.appendSplash_();
           } else {
-            if (!this.element_.querySelector(this.CssSelectors_.ITEM)) {
-              this.element_.hidden = true;
-            }
+            this.element_.hidden = true;
           }
         }
       }
