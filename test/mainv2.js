@@ -29,6 +29,12 @@ const selCollapsed = `.${cssCollapsed}`;
 const cssContextmenu = `${cssTree}__contextmenu`;
 const selContextmenu = `.${cssContextmenu}`;
 
+const cssContextmenuAdd = `${cssContextmenu}--add-leaf`;
+const selContextmenuAdd = `.${cssContextmenuAdd}`;
+
+const cssContextmenuRemove = `${cssContextmenu}--remove-leaf`;
+const selContextmenuRemove = `.${cssContextmenuRemove}`;
+
 (function() {
 /**
  * Do not move this test to any other place and
@@ -68,6 +74,28 @@ onload_test(function(e) {
 //  - repeteable consistently
 //  - isolate
 
+onload_test(function(e) {
+
+  // [setup]
+  var { tree, tree3, actions } = setupTemplateTest();
+  var leaf = tree3.appendLeaf();
+
+  leaf.querySelector('input').value = "a label";
+
+  var actionAdd = leaf.querySelector(selContextmenuAdd);
+  var actionRemove = leaf.querySelector(selContextmenuRemove);
+
+  assert_true(actionAdd instanceof HTMLElement);
+  assert_true(actionRemove instanceof HTMLElement);
+  actions.forEach(action => {
+    var actionElement = leaf.querySelector('.' + action.css);
+    assert_true(actionElement instanceof HTMLElement);
+  });
+
+  tree.remove();
+  this.done();
+}, "Allow to add custom actions to the contextmenu");
+
 /**
  * Check if removeLeaf() from a subleaf hides the subtree too
  */
@@ -102,7 +130,7 @@ onload_test(function(e) {
   var leaf = tree3.appendLeaf();
 
   var contextmenu = leaf.querySelector(selContextmenu);
-  var btnRemove = contextmenu.querySelector(selContextmenu + '--remove-leaf');
+  var btnRemove = contextmenu.querySelector(selContextmenuRemove);
 
   var checkRemoveBtn = this.step_func((e) => {
     // [verify]
@@ -133,7 +161,7 @@ onload_test(function(e) {
   var leaf = tree3.appendLeaf();
 
   var contextmenu = leaf.querySelector(selContextmenu);
-  var btnAdd = contextmenu.querySelector(selContextmenu + '--add-leaf');
+  var btnAdd = contextmenu.querySelector(selContextmenuAdd);
 
   var checkAddBtn = this.step_func((e) => {
     // [verify]
@@ -160,8 +188,8 @@ onload_test(function(e) {
 
   // [verify]
   var contextmenu = leaf.querySelector(selContextmenu);
-  var btnAdd = contextmenu.querySelector(selContextmenu + '--add-leaf');
-  var btnRemove = contextmenu.querySelector(selContextmenu + '--remove-leaf');
+  var btnAdd = contextmenu.querySelector(selContextmenuAdd);
+  var btnRemove = contextmenu.querySelector(selContextmenuRemove);
   assert_true(contextmenu instanceof HTMLElement);
   assert_true(btnAdd instanceof HTMLElement);
   assert_true(btnRemove instanceof HTMLElement);
