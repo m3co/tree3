@@ -64,7 +64,33 @@ onload_test(function(e) {
 //  - isolate
 
 /**
- * Check if a leaf has a context menu with the add button
+ * Check if click on add button at contextmenu adds a leaf
+ */
+onload_test(function(e) {
+  // [setup]
+  var { tree, tree3 } = setupTest();
+  var leaf = tree3.appendLeaf();
+
+  var contextmenu = leaf.querySelector(selContextmenu);
+  var btnAdd = contextmenu.querySelector(selContextmenu + '--add-leaf');
+
+  var checkAddBtn = this.step_func((e) => {
+    // [verify]
+    assert_equals(leaf.Tree3.leafs.length, 1);
+
+    // [teardown]
+    tree.remove();
+    this.done();
+
+  });
+
+  // [run]
+  btnAdd.addEventListener('click', checkAddBtn);
+  btnAdd.dispatchEvent(new MouseEvent('click'));
+}, "Check if click on add button at contextmenu adds a leaf");
+
+/**
+ * Check if a leaf has a context menu with the add and remove buttons
  */
 onload_test(function(e) {
   // [setup]
@@ -74,13 +100,15 @@ onload_test(function(e) {
   // [verify]
   var contextmenu = leaf.querySelector(selContextmenu);
   var btnAdd = contextmenu.querySelector(selContextmenu + '--add-leaf');
+  var btnRemove = contextmenu.querySelector(selContextmenu + '--remove-leaf');
   assert_true(contextmenu instanceof HTMLElement);
   assert_true(btnAdd instanceof HTMLElement);
+  assert_true(btnRemove instanceof HTMLElement);
 
   // [teardown]
   tree.remove();
   this.done();
-}, "Check if a leaf has a context menu with the add button");
+}, "Check if a leaf has a context menu with the add and remove buttons");
 
 /**
  * Check if appendLeaf() executed from a leaf adds

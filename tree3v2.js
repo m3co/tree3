@@ -85,6 +85,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'setupContextmenu_',
       value: function setupContextmenu_(leaf) {
+        var _this = this;
+
         var contextmenu = document.importNode(this.Templates_.CONTEXTMENU, true);
 
         // this is a pretty strange assumption
@@ -94,6 +96,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         lastIdContextmenu++;
         btn.id = btn.id + lastIdContextmenu;
         menu.setAttribute('for', menu.getAttribute('for') + lastIdContextmenu);
+
+        var btnAdd = menu.querySelector(this.CssSelectors_.CONTEXTMENU_ADD);
+        btnAdd.addEventListener('click', function (e) {
+          var leaf = e.target.closest(_this.CssSelectors_.LEAF);
+          leaf.Tree3.appendLeaf();
+        });
 
         var primaryContent = leaf.querySelector('.mdl-list__item-primary-content');
         leaf.insertBefore(contextmenu, primaryContent);
@@ -111,11 +119,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'setupInput_',
       value: function setupInput_(leaf) {
-        var _this = this;
+        var _this2 = this;
 
         var input = leaf.querySelector(this.CssSelectors_.INPUT + ' input');
         input.addEventListener('change', function (e) {
-          leaf.querySelector(_this.CssSelectors_.TEXT).textContent = e.target.value.toString();
+          leaf.querySelector(_this2.CssSelectors_.TEXT).textContent = e.target.value.toString();
           leaf.dispatchEvent(new CustomEvent('changetext', {
             detail: {
               leaf: leaf
@@ -133,17 +141,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             leaf.removeLeaf();
             return;
           }
-          var inputContainer = leaf.querySelector(_this.CssSelectors_.INPUT);
-          leaf.querySelector(_this.CssSelectors_.TEXT).textContent = e.target.value.toString();
-          leaf.querySelector(_this.CssSelectors_.TEXT).hidden = false;
+          var inputContainer = leaf.querySelector(_this2.CssSelectors_.INPUT);
+          leaf.querySelector(_this2.CssSelectors_.TEXT).textContent = e.target.value.toString();
+          leaf.querySelector(_this2.CssSelectors_.TEXT).hidden = false;
           inputContainer.hidden = true;
         });
         leaf.querySelector(this.CssSelectors_.TEXT).addEventListener('dblclick', function () {
-          var inputContainer = leaf.querySelector(_this.CssSelectors_.INPUT);
+          var inputContainer = leaf.querySelector(_this2.CssSelectors_.INPUT);
           var input = inputContainer.querySelector('input');
-          input.value = leaf.querySelector(_this.CssSelectors_.TEXT).textContent;
+          input.value = leaf.querySelector(_this2.CssSelectors_.TEXT).textContent;
           inputContainer.hidden = false;
-          leaf.querySelector(_this.CssSelectors_.TEXT).hidden = true;
+          leaf.querySelector(_this2.CssSelectors_.TEXT).hidden = true;
           window.setTimeout(function () {
             input.focus();
             input.setSelectionRange(input.value.length, input.value.length);
@@ -165,7 +173,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'appendExpandCollapseBtn_',
       value: function appendExpandCollapseBtn_(leaf, type) {
-        var _this2 = this;
+        var _this3 = this;
 
         var type_ = type || 'expanded';
         var tree = leaf.querySelector(this.CssSelectors_.TREE);
@@ -189,11 +197,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         // by default, the expand/collapse button is expanded
         // and click will switch expanded to collapsed and so on
         btn.addEventListener('click', function (e) {
-          var btn = e.target.closest(_this2.CssSelectors_.EXPAND_COLLAPSE);
-          if (btn.classList.contains(_this2.CssClasses_.EXPANDED)) {
-            _this2.collapseLeaf();
-          } else if (btn.classList.contains(_this2.CssClasses_.COLLAPSED)) {
-            _this2.expandLeaf();
+          var btn = e.target.closest(_this3.CssSelectors_.EXPAND_COLLAPSE);
+          if (btn.classList.contains(_this3.CssClasses_.EXPANDED)) {
+            _this3.collapseLeaf();
+          } else if (btn.classList.contains(_this3.CssClasses_.COLLAPSED)) {
+            _this3.expandLeaf();
           } else {
             throw new Error('Check the expand/collapse TEMPLATE');
           }
@@ -277,7 +285,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'appendSplash_',
       value: function appendSplash_() {
-        var _this3 = this;
+        var _this4 = this;
 
         if (this.leafs.length == 0) {
           /* jshint ignore:line */
@@ -285,8 +293,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           var btn = splash.querySelector('button');
           btn.addEventListener('click', function () {
-            _this3.removeSplash_();
-            _this3.appendLeaf();
+            _this4.removeSplash_();
+            _this4.appendLeaf();
           });
           this.element_.appendChild(splash);
         }

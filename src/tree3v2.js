@@ -79,6 +79,12 @@
       btn.id = btn.id + lastIdContextmenu;
       menu.setAttribute('for', menu.getAttribute('for') + lastIdContextmenu);
 
+      var btnAdd = menu.querySelector(this.CssSelectors_.CONTEXTMENU_ADD);
+      btnAdd.addEventListener('click', (e) => {
+        var leaf = e.target.closest(this.CssSelectors_.LEAF);
+        leaf.Tree3.appendLeaf();
+      });
+
       var primaryContent = leaf.querySelector('.mdl-list__item-primary-content');
       leaf.insertBefore(contextmenu, primaryContent);
       componentHandler.upgradeElement(menu);
