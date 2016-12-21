@@ -69,7 +69,29 @@ onload_test(function(e) {
 //  - isolate
 
 /**
- * Check if click on add button at contextmenu adds a leaf
+ * Check if removeLeaf() from a subleaf hides the subtree too
+ */
+onload_test(function(e) {
+  // [setup]
+  var { tree, tree3 } = setupTest();
+  var leaf = tree3.appendLeaf();
+  var subleaf = leaf.Tree3.appendLeaf();
+
+  // [run]
+  subleaf.Tree3.removeLeaf();
+
+  // [verify]
+  assert_equals(leaf.Tree3.leafs.length, 0);
+  assert_true(leaf.querySelector(selTree).hidden);
+
+  // [teardown]
+  tree.remove();
+  this.done();
+
+}, "Check if removeLeaf() from a subleaf hides the subtree too");
+
+/**
+ * Check if click on remove button at contextmenu removes the leaf
  */
 onload_test(function(e) {
   // [setup]
@@ -96,7 +118,7 @@ onload_test(function(e) {
   // [run]
   btnRemove.addEventListener('click', checkRemoveBtn);
   btnRemove.dispatchEvent(new MouseEvent('click'));
-}, "Check if click on add button at contextmenu adds a leaf");
+}, "Check if click on remove button at contextmenu removes the leaf");
 
 /**
  * Check if click on add button at contextmenu adds a leaf
