@@ -83,6 +83,10 @@ onload_test(function(e) {
     // [verify]
     assert_equals(tree3.leafs.length, 0);
 
+    // As this is an empty tree, then tree3.leafs.length == 0
+    assert_true(tree.querySelector(tree3.CssSelectors_.SPLASH)
+      instanceof HTMLElement)
+
     // [teardown]
     tree.remove();
     this.done();
