@@ -123,7 +123,7 @@
       });
       input.addEventListener('blur', (e) => {
         if (!e.target.value.toString()) {
-          leaf.removeLeaf();
+          leaf.Tree3.removeLeaf();
           return;
         }
         var inputContainer = leaf.querySelector(this.CssSelectors_.INPUT);
@@ -257,8 +257,23 @@
      * @return {HTMLElement} - The removed element
      */
     removeLeaf() {
+      var parent = this.parent_;
+      var parentLeaf = parent.element_.closest(this.CssSelectors_.LEAF);
+      var btn = null;
+      if (parentLeaf) {
+        btn = parentLeaf.querySelector(this.CssSelectors_.EXPAND_COLLAPSE);
+      }
+
       this.leaf_.remove();
       this.root_.appendSplash_();
+
+      if (parent.leafs.length == 0) {
+        parent.element_.hidden = true;
+        if (btn) {
+          btn.remove();
+        }
+      }
+
       return this.leaf_;
     }
 

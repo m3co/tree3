@@ -84,6 +84,9 @@ onload_test(function(e) {
   assert_equals(leaf.Tree3.leafs.length, 0);
   assert_true(leaf.querySelector(selTree).hidden);
 
+  var expandCollapseBtn = leaf.querySelector(selExpandCollapse);
+  assert_false(expandCollapseBtn instanceof HTMLElement);
+
   // [teardown]
   tree.remove();
   this.done();

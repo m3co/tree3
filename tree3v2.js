@@ -145,7 +145,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         });
         input.addEventListener('blur', function (e) {
           if (!e.target.value.toString()) {
-            leaf.removeLeaf();
+            leaf.Tree3.removeLeaf();
             return;
           }
           var inputContainer = leaf.querySelector(_this2.CssSelectors_.INPUT);
@@ -294,8 +294,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'removeLeaf',
       value: function removeLeaf() {
+        var parent = this.parent_;
+        var parentLeaf = parent.element_.closest(this.CssSelectors_.LEAF);
+        var btn = null;
+        if (parentLeaf) {
+          btn = parentLeaf.querySelector(this.CssSelectors_.EXPAND_COLLAPSE);
+        }
+
         this.leaf_.remove();
         this.root_.appendSplash_();
+
+        if (parent.leafs.length == 0) {
+          parent.element_.hidden = true;
+          if (btn) {
+            btn.remove();
+          }
+        }
+
         return this.leaf_;
       }
 
