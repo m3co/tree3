@@ -234,6 +234,13 @@
       btn.classList.remove(this.CssClasses_.EXPANDED);
       btn.querySelector('.material-icons').innerHTML = 'keyboard_arrow_up';
       this.element_.hidden = true;
+
+      parent.dispatchEvent(new CustomEvent('collapseleaf', {
+        detail: {
+          leaf: parent
+        },
+        bubbles: true
+      }));
     }
 
     /**
