@@ -117,7 +117,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (template) {
             contextmenu.querySelector('.mdl-menu').appendChild(document.importNode(template.content, true));
             // You're doing here a very strange assumption! why .mdl-menu__item?
-            var items = contextmenu.querySelectorAll('.mdl-menu__item');
+            //var items = contextmenu.querySelectorAll('.mdl-menu__item');
           }
         }
 

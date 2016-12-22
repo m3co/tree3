@@ -75,16 +75,35 @@ onload_test(function(e) {
 //  - isolate
 
 onload_test(function(e) {
+  // [setup]
+  var { tree, tree3 } = setupTest();
+  var listener = this.step_func((e) => {
+    // [verify]
+    assert_equals(e.detail.leaf, leaf);
+
+    // [teardown]
+    tree.remove();
+    this.done();
+  });
+
+  // [run]
+  tree.addEventListener('addleaf', listener);
+  var leaf = tree3.appendLeaf();
+}, "Test event - onaddleaf");
+
+onload_test(function(e) {
 
   // [setup]
   var { tree, tree3, actions } = setupTemplateTest();
+
+  // [run]
   var leaf = tree3.appendLeaf();
 
-  leaf.querySelector('input').value = "a label";
-
+  // [setup]
   var actionAdd = leaf.querySelector(selContextmenuAdd);
   var actionRemove = leaf.querySelector(selContextmenuRemove);
 
+  // [verify]
   assert_true(actionAdd instanceof HTMLElement);
   assert_true(actionRemove instanceof HTMLElement);
   actions.forEach(action => {
@@ -92,6 +111,7 @@ onload_test(function(e) {
     assert_true(actionElement instanceof HTMLElement);
   });
 
+  // [teardown]
   tree.remove();
   this.done();
 }, "Allow to add custom actions to the contextmenu");
@@ -118,7 +138,6 @@ onload_test(function(e) {
   // [teardown]
   tree.remove();
   this.done();
-
 }, "Check if removeLeaf() from a subleaf hides the subtree too");
 
 /**
