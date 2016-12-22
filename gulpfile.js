@@ -2,7 +2,8 @@
 const gulp = require('gulp');
 const csslint = require('gulp-csslint');
 const htmlhint = require("gulp-htmlhint");
-const eslint = require('gulp-eslint');
+const jscs = require('gulp-jscs');
+const jshint = require('gulp-jshint');
 const babel = require('gulp-babel');
 const connect = require('gulp-connect');
 const jsdoc = require('gulp-jsdoc3');
@@ -23,7 +24,7 @@ const paths = {
 
 
 gulp.task('doc', function () {
-  const config = require('./.jsdoc.json');
+  var config = require('./.jsdoc.json');
   return gulp.src(['./README.md'].concat(paths.jssrc), { read: false })
     .pipe(jsdoc(config));
 });
@@ -42,10 +43,12 @@ gulp.task('html-hint', _ => {
     .pipe(connect.reload());
 });
 
-gulp.task('js-eslint', _ => {
-  return gulp.src(paths.js)
-    .pipe(eslint())
-    .pipe(eslint.format())
+gulp.task('js-lint', _ => {
+  return gulp.src(paths.jssrc)
+    .pipe(jshint())
+    .pipe(jscs())
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(jscs.reporter())
     .pipe(connect.reload());
 });
 
@@ -61,7 +64,7 @@ gulp.task('css-copy', _ => {
 });
 
 gulp.task('watch', _ => {
-  gulp.watch(paths.js, ['js-eslint']);
+  gulp.watch(paths.js, ['js-lint']);
   gulp.watch(paths.css, ['css-lint']);
   gulp.watch(paths.html, ['html-hint']);
   gulp.watch(paths.jssrc, ['js-copy', 'doc']);
@@ -77,7 +80,7 @@ gulp.task('connect', function() {
 });
 
 gulp.task('default', [
-  'js-eslint',
+  'js-lint',
   'css-lint',
   'html-hint',
   'css-copy',

@@ -1,5 +1,8 @@
 {
   "opts": {
     "destination": "./docs"
+  },
+  "source": {
+    "exclude": ["./src/tree3.js"]
   }
 }
