@@ -75,7 +75,32 @@ onload_test(function(e) {
 //  - isolate
 
 /**
- * Test the event - onaddleaf that is dispatched by appendLeaf
+ * Test the event - onexpandleaf that is dispatched by appendLeaf
+ */
+onload_test(function(e) {
+  // [setup]
+  var { tree, tree3 } = setupTest();
+  var leaf;
+  var listener = this.step_func((e) => {
+    this.step_timeout(() => {
+      // [verify]
+      assert_true(e.detail.leaf instanceof HTMLElement);
+      assert_equals(e.detail.leaf, leaf);
+
+      // [teardown]
+      tree.remove();
+      this.done();
+    }, 0);
+  });
+
+  // [run]
+  tree.addEventListener('expandleaf', listener);
+  leaf = tree3.appendLeaf();
+  leaf.Tree3.appendLeaf();
+}, "Test the event - onexpandleaf");
+
+/**
+ * Test the event - onremoveleaf that is dispatched by removeLeaf
  */
 onload_test(function(e) {
   // [setup]

@@ -173,16 +173,11 @@
       var tree = leaf.querySelector(this.CssSelectors_.TREE);
       var clone;
       if (leaf.querySelector(this.CssSelectors_.EXPAND_COLLAPSE)) {
-        // <untested-code>
-        if (type_ === 'expanded') {
-          this.leaf_.Tree3.expandLeaf();
-        }
-        // </untested-code>
         return tree;
       }
       if (type_ === 'expanded') {
         clone = document.importNode(this.Templates_.EXPANDED_BTN, true);
-      } else if (type_ === 'collapsed' || (!type)) {
+      } else if (type_ === 'collapsed') {
         clone = document.importNode(this.Templates_.COLLAPSED_BTN, true);
       } else {
         throw new Error('Allowed type = "expanded" || "collapsed" in appendExpandCollapse');
@@ -220,6 +215,13 @@
       btn.classList.add(this.CssClasses_.EXPANDED);
       btn.querySelector('.material-icons').innerHTML = 'keyboard_arrow_down';
       this.element_.hidden = false;
+
+      parent.dispatchEvent(new CustomEvent('expandleaf', {
+        detail: {
+          leaf: parent
+        },
+        bubbles: true
+      }));
     }
 
     /**
@@ -263,6 +265,7 @@
         if (this.parent_.leafs.length > 0) {
           leaf_ = this.element_.closest(this.CssSelectors_.LEAF);
           this.appendExpandCollapseBtn_(leaf_, 'expanded');
+          leaf_.Tree3.expandLeaf();
         }
       }
       leaf.dispatchEvent(new CustomEvent('addleaf', {
