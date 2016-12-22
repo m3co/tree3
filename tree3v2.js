@@ -298,6 +298,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             this.appendExpandCollapseBtn_(leaf_, 'expanded');
           }
         }
+        leaf.dispatchEvent(new CustomEvent('addleaf', {
+          detail: {
+            leaf: leaf
+          },
+          bubbles: true
+        }));
         return leaf;
       }
 

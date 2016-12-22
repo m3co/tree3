@@ -77,9 +77,10 @@ onload_test(function(e) {
 onload_test(function(e) {
   // [setup]
   var { tree, tree3 } = setupTest();
+  var leaf;
   var listener = this.step_func((e) => {
     // [verify]
-    assert_equals(e.detail.leaf, leaf);
+    assert_true(e.detail.leaf instanceof HTMLElement);
 
     // [teardown]
     tree.remove();
@@ -88,7 +89,7 @@ onload_test(function(e) {
 
   // [run]
   tree.addEventListener('addleaf', listener);
-  var leaf = tree3.appendLeaf();
+  leaf = tree3.appendLeaf();
 }, "Test event - onaddleaf");
 
 onload_test(function(e) {
