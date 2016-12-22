@@ -1,55 +1,59 @@
-.mdl-tree__item {
+.mdl-tree3__leaf,.mdl-tree3__splash {
   border-top: thin solid #dedede;
   flex-wrap: wrap;
 }
 
-.mdl-tree {
+.mdl-tree3 {
   width: 100%;
 }
 
-.mdl-tree .mdl-tree {
+.mdl-tree3 .mdl-tree3 {
   padding-bottom: 0;
   padding-top: 16px;
 }
 
-.mdl-tree .mdl-tree .mdl-tree__item:first-child {
+.mdl-tree3 .mdl-tree3 .mdl-tree3__leaf:first-child {
   padding-top: 16px;
 }
 
-.mdl-tree .mdl-tree .mdl-tree__item {
+.mdl-tree3 .mdl-tree3 .mdl-tree3__leaf {
   border-top: thin solid #dedede;
   margin: 0 -16px 0 -16px;
 }
 
-.mdl-tree .mdl-tree .mdl-tree__item:last-child {
+.mdl-tree3 .mdl-tree3 .mdl-tree3__leaf:last-child {
   padding-bottom: 0;
 }
 
-.mdl-tree .mdl-tree__item:last-child {
+.mdl-tree3 .mdl-tree3__leaf:last-child {
   border-bottom: thin solid #dedede;
 }
 
-.mdl-tree .mdl-tree .mdl-tree__item:last-child {
+.mdl-tree3 .mdl-tree3 .mdl-tree3__leaf:last-child {
   border-bottom: none;
 }
 
-.mdl-tree__item-text {
+.mdl-tree3 .mdl-tree3__splash:last-child {
+  border-bottom: thin solid #dedede;
+}
+
+.mdl-tree3__leaf-text {
   width: 100%;
 }
 
-.mdl-tree__item-input .mdl-textfield__input {
+.mdl-tree3__leaf-input .mdl-textfield__input {
   border-bottom: none;
 }
 
-.mdl-tree__item-text .mdl-textfield,.mdl-js-textfield {
+.mdl-tree3__leaf-text .mdl-textfield,.mdl-js-textfield {
   padding: 0;
   width: 100%;
 }
 
-.mdl-tree__splash {
+.mdl-tree3__splash--button {
   left: 50%;
 }
 
-.mdl-tree__contextmenu--item .mdl-button:hover {
+.mdl-tree3__contextmenu--item .mdl-button:hover {
   background-color: transparent;
 }
