@@ -21,7 +21,53 @@
 
   var lastIdContextmenu = 0;
 
+  /**
+   * Class Tree3 that organizes a tree based on ul, li
+   *
+   * @class
+   */
   class Tree3 {
+
+    /**
+     * On add leaf
+     *
+     * @event Tree3#addleaf
+     * @type {CustomEvent}
+     * @property {HTMLElement} leaf - The added leaf
+     */
+
+    /**
+     * On remove leaf
+     *
+     * @event Tree3#removeleaf
+     * @type {CustomEvent}
+     * @property {HTMLElement} leaf - The removed leaf
+     */
+
+    /**
+     * On collapse leaf
+     *
+     * @event Tree3#collapseleaf
+     * @type {CustomEvent}
+     * @property {HTMLElement} leaf - The collapsed leaf
+     */
+
+    /**
+     * On expand leaf
+     *
+     * @event Tree3#expandleaf
+     * @type {CustomEvent}
+     * @property {HTMLElement} leaf - The expanded leaf
+     */
+
+    /**
+     * On change the leaf's text
+     *
+     * @event Tree3#changetextleaf
+     * @type {CustomEvent}
+     * @property {HTMLElement} leaf - The leaf that holds the input
+     * @property {String} text - The new text assigned to the leaf
+     */
 
     /**
      * Class constructor for dropdown MDL component.
@@ -208,6 +254,8 @@
 
     /**
      * Expand the leaf
+     *
+     * @return {HTMLElement} - The expanded leaf
      */
     expandLeaf() {
       var parent = this.element_.closest(this.CssSelectors_.LEAF);
@@ -223,10 +271,14 @@
         },
         bubbles: true
       }));
+
+      return parent;
     }
 
     /**
      * Collapse the leaf
+     *
+     * @return {HTMLElement} - The collapsed leaf
      */
     collapseLeaf() {
       var parent = this.element_.closest(this.CssSelectors_.LEAF);
@@ -242,6 +294,8 @@
         },
         bubbles: true
       }));
+
+      return parent;
     }
 
     /**

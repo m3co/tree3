@@ -28,7 +28,54 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
   var lastIdContextmenu = 0;
 
+  /**
+   * Class Tree3 that organizes a tree based on ul, li
+   *
+   * @class
+   */
+
   var Tree3 = function () {
+
+    /**
+     * On add leaf
+     *
+     * @event Tree3#addleaf
+     * @type {CustomEvent}
+     * @property {HTMLElement} leaf - The added leaf
+     */
+
+    /**
+     * On remove leaf
+     *
+     * @event Tree3#removeleaf
+     * @type {CustomEvent}
+     * @property {HTMLElement} leaf - The removed leaf
+     */
+
+    /**
+     * On collapse leaf
+     *
+     * @event Tree3#collapseleaf
+     * @type {CustomEvent}
+     * @property {HTMLElement} leaf - The collapsed leaf
+     */
+
+    /**
+     * On expand leaf
+     *
+     * @event Tree3#expandleaf
+     * @type {CustomEvent}
+     * @property {HTMLElement} leaf - The expanded leaf
+     */
+
+    /**
+     * On change the leaf's text
+     *
+     * @event Tree3#changetextleaf
+     * @type {CustomEvent}
+     * @property {HTMLElement} leaf - The leaf that holds the input
+     * @property {String} text - The new text assigned to the leaf
+     */
 
     /**
      * Class constructor for dropdown MDL component.
@@ -232,6 +279,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
       /**
        * Expand the leaf
+       *
+       * @return {HTMLElement} - The expanded leaf
        */
 
     }, {
@@ -250,10 +299,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           },
           bubbles: true
         }));
+
+        return parent;
       }
 
       /**
        * Collapse the leaf
+       *
+       * @return {HTMLElement} - The collapsed leaf
        */
 
     }, {
@@ -272,6 +325,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           },
           bubbles: true
         }));
+
+        return parent;
       }
 
       /**
