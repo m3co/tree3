@@ -204,6 +204,54 @@ onload_test(function(e) {
 }, "Test the event - onaddleaf");
 
 /**
+ * Test the action2's event
+ */
+onload_test(function(e) {
+  // [setup]
+  var { tree, tree3, actions } = setupTemplateTest();
+
+  // [run]
+  var leaf = tree3.appendLeaf();
+  var act1 = leaf.querySelector('.mdl-tree3__contextmenu--action2');
+
+  var listener = this.step_func((e) => {
+    // [verify]
+    assert_equals(e.detail.leaf, leaf);
+
+    // [teardown]
+    tree.remove();
+    this.done();
+  });
+
+  tree.addEventListener('action2', listener);
+  act1.dispatchEvent(new MouseEvent('click'));
+}, "Custom 'action2' event is dispatched");
+
+/**
+ * Test the action1's event
+ */
+onload_test(function(e) {
+  // [setup]
+  var { tree, tree3, actions } = setupTemplateTest();
+
+  // [run]
+  var leaf = tree3.appendLeaf();
+  var act1 = leaf.querySelector('.mdl-tree3__contextmenu--action1');
+
+  var listener = this.step_func((e) => {
+    // [verify]
+    assert_equals(e.detail.leaf, leaf);
+
+    // [teardown]
+    tree.remove();
+    this.done();
+  });
+
+  tree.addEventListener('action1', listener);
+  act1.dispatchEvent(new MouseEvent('click'));
+}, "Custom 'action1' event is dispatched");
+
+/**
  * Allow to add custom actions to the contextmenu
  */
 onload_test(function(e) {

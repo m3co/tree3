@@ -164,13 +164,44 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (template) {
             contextmenu.querySelector('.mdl-menu').appendChild(document.importNode(template.content, true));
             // You're doing here a very strange assumption! why .mdl-menu__item?
-            //var items = contextmenu.querySelectorAll('.mdl-menu__item');
+            var items = contextmenu.querySelectorAll('.mdl-menu__item');
+            for (var i = 0; i < items.length; i++) {
+              var item = items[i];
+              var match = item.classList.toString().match(/mdl-tree3__contextmenu--([\d\w]+)/);
+              if (match) {
+                var value = match[1];
+                if (['add', 'remove'].includes(value)) {} else {
+                  this.dispatchCustomAction_(leaf, item, value);
+                }
+              }
+            }
           }
         }
 
         var primaryContent = leaf.querySelector('.mdl-list__item-primary-content');
         leaf.insertBefore(contextmenu, primaryContent);
         componentHandler.upgradeElement(menu);
+      }
+
+      /**
+       * Dispatch a custom action fired from the context menu
+       * This function MUST be refactored. It doesn't use __this__ and
+       * looks like an strange patch... maybe static?
+       *
+       * @private
+       */
+
+    }, {
+      key: 'dispatchCustomAction_',
+      value: function dispatchCustomAction_(leaf, item, value) {
+        item.addEventListener('click', function (e) {
+          e.target.dispatchEvent(new CustomEvent(value, {
+            detail: {
+              leaf: leaf
+            },
+            bubbles: true
+          }));
+        });
       }
 
       /**
