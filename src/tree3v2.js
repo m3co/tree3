@@ -121,9 +121,10 @@
       input.addEventListener('change', (e) => {
         leaf.querySelector(this.CssSelectors_.TEXT)
             .textContent = e.target.value.toString();
-        leaf.dispatchEvent(new CustomEvent('changetext', {
+        leaf.dispatchEvent(new CustomEvent('changetextleaf', {
           detail: {
-            leaf: leaf
+            leaf: leaf,
+            text: e.target.value.toString()
           },
           bubbles: true
         }));

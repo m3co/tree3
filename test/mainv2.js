@@ -75,6 +75,35 @@ onload_test(function(e) {
 //  - isolate
 
 /**
+ * Test the event - onchangetextleaf that is dispatched from setupInput_
+ */
+onload_test(function(e) {
+  // [setup]
+  var { tree, tree3 } = setupTest();
+  var leaf;
+  var listener = this.step_func((e) => {
+    this.step_timeout(() => {
+      // [verify]
+      assert_true(e.detail.leaf instanceof HTMLElement);
+      assert_equals(e.detail.leaf, leaf);
+      assert_equals(e.detail.text, "my text");
+
+      // [teardown]
+      tree.remove();
+      this.done();
+    }, 0);
+  });
+
+  // [run]
+  tree.addEventListener('changetextleaf', listener);
+  leaf = tree3.appendLeaf();
+
+  var input = leaf.querySelector('input');
+  input.value = "my text";
+  input.dispatchEvent(new Event('change'));
+}, "Test the event - onchangetextleaf");
+
+/**
  * Test the event - onexpandleaf that is dispatched by appendLeaf
  */
 onload_test(function(e) {

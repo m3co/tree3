@@ -142,9 +142,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         var input = leaf.querySelector(this.CssSelectors_.INPUT + ' input');
         input.addEventListener('change', function (e) {
           leaf.querySelector(_this2.CssSelectors_.TEXT).textContent = e.target.value.toString();
-          leaf.dispatchEvent(new CustomEvent('changetext', {
+          leaf.dispatchEvent(new CustomEvent('changetextleaf', {
             detail: {
-              leaf: leaf
+              leaf: leaf,
+              text: e.target.value.toString()
             },
             bubbles: true
           }));
