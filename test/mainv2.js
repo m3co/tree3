@@ -74,17 +74,23 @@ onload_test(function(e) {
 //  - repeteable consistently
 //  - isolate
 
+/**
+ * Test the event - onaddleaf that is dispatched by appendLeaf
+ */
 onload_test(function(e) {
   // [setup]
   var { tree, tree3 } = setupTest();
   var leaf;
   var listener = this.step_func((e) => {
-    // [verify]
-    assert_true(e.detail.leaf instanceof HTMLElement);
+    this.step_timeout(() => {
+      // [verify]
+      assert_true(e.detail.leaf instanceof HTMLElement);
+      assert_equals(e.detail.leaf, leaf);
 
-    // [teardown]
-    tree.remove();
-    this.done();
+      // [teardown]
+      tree.remove();
+      this.done();
+    }, 0);
   });
 
   // [run]
@@ -92,6 +98,9 @@ onload_test(function(e) {
   leaf = tree3.appendLeaf();
 }, "Test event - onaddleaf");
 
+/**
+ * Allow to add custom actions to the contextmenu
+ */
 onload_test(function(e) {
 
   // [setup]
