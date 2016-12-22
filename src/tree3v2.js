@@ -240,14 +240,25 @@
       }, 0);
     }
 
+
+    /**
+     * Append the button expand/collapse to the leaf
+     *
+     * @param {String} type - "expanded" | "collapsed"
+     */
+    appendExpandCollapse(type) {
+      this.appendExpandCollapse_(this.leaf_, type);
+    }
+
     /**
      * Append the button expand/collapse to the leaf
      *
      * @private
+     * @param {HTMLElement} leaf - The leaf to upgrade with expand/collapse button
      * @param {String} type - "expanded" | "collapsed"
      */
-    appendExpandCollapseBtn_(leaf, type) {
-      var type_ = type || 'expanded';
+    appendExpandCollapse_(leaf, type) {
+      var type_ = type || 'collapsed';
       var tree = leaf.querySelector(this.CssSelectors_.TREE);
       var clone;
       if (leaf.querySelector(this.CssSelectors_.EXPAND_COLLAPSE)) {
@@ -258,7 +269,8 @@
       } else if (type_ === 'collapsed') {
         clone = document.importNode(this.Templates_.COLLAPSED_BTN, true);
       } else {
-        throw new Error('Allowed type = "expanded" || "collapsed" in appendExpandCollapse');
+        throw new Error(
+          'Allowed type = "expanded" || "collapsed" in appendExpandCollapse');
       }
       var c = leaf.querySelector('.mdl-list__item-primary-content').nextSibling;
       if (!c) {
@@ -357,7 +369,7 @@
       if (this.parent_) {
         if (this.parent_.leafs.length > 0) {
           leaf_ = this.element_.closest(this.CssSelectors_.LEAF);
-          this.appendExpandCollapseBtn_(leaf_, 'expanded');
+          this.appendExpandCollapse_(leaf_, 'expanded');
           leaf_.Tree3.expandLeaf();
         }
       }

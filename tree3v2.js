@@ -263,16 +263,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       /**
        * Append the button expand/collapse to the leaf
        *
-       * @private
        * @param {String} type - "expanded" | "collapsed"
        */
 
     }, {
-      key: 'appendExpandCollapseBtn_',
-      value: function appendExpandCollapseBtn_(leaf, type) {
+      key: 'appendExpandCollapse',
+      value: function appendExpandCollapse(type) {
+        this.appendExpandCollapse_(this.leaf_, type);
+      }
+
+      /**
+       * Append the button expand/collapse to the leaf
+       *
+       * @private
+       * @param {HTMLElement} leaf - The leaf to upgrade with expand/collapse button
+       * @param {String} type - "expanded" | "collapsed"
+       */
+
+    }, {
+      key: 'appendExpandCollapse_',
+      value: function appendExpandCollapse_(leaf, type) {
         var _this3 = this;
 
-        var type_ = type || 'expanded';
+        var type_ = type || 'collapsed';
         var tree = leaf.querySelector(this.CssSelectors_.TREE);
         var clone;
         if (leaf.querySelector(this.CssSelectors_.EXPAND_COLLAPSE)) {
@@ -391,7 +404,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         if (this.parent_) {
           if (this.parent_.leafs.length > 0) {
             leaf_ = this.element_.closest(this.CssSelectors_.LEAF);
-            this.appendExpandCollapseBtn_(leaf_, 'expanded');
+            this.appendExpandCollapse_(leaf_, 'expanded');
             leaf_.Tree3.expandLeaf();
           }
         }
