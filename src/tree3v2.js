@@ -287,6 +287,12 @@
         btn = parentLeaf.querySelector(this.CssSelectors_.EXPAND_COLLAPSE);
       }
 
+      this.leaf_.dispatchEvent(new CustomEvent('removeleaf', {
+        detail: {
+          leaf: this.leaf_
+        },
+        bubbles: true
+      }));
       this.leaf_.remove();
       this.root_.appendSplash_();
 
