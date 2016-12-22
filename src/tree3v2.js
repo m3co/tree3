@@ -47,7 +47,7 @@
     /**
      * On collapse leaf
      *
-     * @event Tree3#collapseleaf
+     * @event Tree3#collapse
      * @type {CustomEvent}
      * @property {HTMLElement} leaf - The collapsed leaf
      */
@@ -55,7 +55,7 @@
     /**
      * On expand leaf
      *
-     * @event Tree3#expandleaf
+     * @event Tree3#expand
      * @type {CustomEvent}
      * @property {HTMLElement} leaf - The expanded leaf
      */
@@ -63,7 +63,7 @@
     /**
      * On change the leaf's text
      *
-     * @event Tree3#changetextleaf
+     * @event Tree3#changetext
      * @type {CustomEvent}
      * @property {HTMLElement} leaf - The leaf that holds the input
      * @property {String} text - The new text assigned to the leaf
