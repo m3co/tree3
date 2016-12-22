@@ -95,16 +95,16 @@ onload_test(function(e) {
   });
 
   // [run]
-  tree.addEventListener('changetextleaf', listener);
+  tree.addEventListener('changetext', listener);
   leaf = tree3.appendLeaf();
 
   var input = leaf.querySelector('input');
   input.value = "my text";
   input.dispatchEvent(new Event('change'));
-}, "Test the event - onchangetextleaf");
+}, "Test the event - onchangetext");
 
 /**
- * Test the event - onexpandleaf that is dispatched by appendLeaf
+ * Test the event - oncollapse that is dispatched by collapseLeaf
  */
 onload_test(function(e) {
   // [setup]
@@ -123,14 +123,14 @@ onload_test(function(e) {
   });
 
   // [run]
-  tree.addEventListener('collapseleaf', listener);
+  tree.addEventListener('collapse', listener);
   leaf = tree3.appendLeaf();
   leaf.Tree3.appendLeaf();
   leaf.Tree3.collapseLeaf();
-}, "Test the event - oncollapseleaf");
+}, "Test the event - oncollapse");
 
 /**
- * Test the event - onexpandleaf that is dispatched by appendLeaf
+ * Test the event - onexpand that is dispatched by expandLeaf
  */
 onload_test(function(e) {
   // [setup]
@@ -149,10 +149,10 @@ onload_test(function(e) {
   });
 
   // [run]
-  tree.addEventListener('expandleaf', listener);
+  tree.addEventListener('expand', listener);
   leaf = tree3.appendLeaf();
   leaf.Tree3.appendLeaf();
-}, "Test the event - onexpandleaf");
+}, "Test the event - onexpand");
 
 /**
  * Test the event - onremoveleaf that is dispatched by removeLeaf

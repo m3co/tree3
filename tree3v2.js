@@ -189,7 +189,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         var input = leaf.querySelector(this.CssSelectors_.INPUT + ' input');
         input.addEventListener('change', function (e) {
           leaf.querySelector(_this2.CssSelectors_.TEXT).textContent = e.target.value.toString();
-          leaf.dispatchEvent(new CustomEvent('changetextleaf', {
+          leaf.dispatchEvent(new CustomEvent('changetext', {
             detail: {
               leaf: leaf,
               text: e.target.value.toString()
@@ -293,7 +293,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         btn.querySelector('.material-icons').innerHTML = 'keyboard_arrow_down';
         this.element_.hidden = false;
 
-        parent.dispatchEvent(new CustomEvent('expandleaf', {
+        parent.dispatchEvent(new CustomEvent('expand', {
           detail: {
             leaf: parent
           },
@@ -319,7 +319,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         btn.querySelector('.material-icons').innerHTML = 'keyboard_arrow_up';
         this.element_.hidden = true;
 
-        parent.dispatchEvent(new CustomEvent('collapseleaf', {
+        parent.dispatchEvent(new CustomEvent('collapse', {
           detail: {
             leaf: parent
           },
