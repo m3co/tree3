@@ -138,8 +138,7 @@
         leaf.Tree3.removeLeaf();
       });
 
-      var tree = this.element_;
-      var id = tree.id;
+      var id = this.root_.element_.id;
       if (id) {
         var template = document.querySelector(`template[for="${id}"]`);
         if (template) {
