@@ -41,6 +41,12 @@
   width: 100%;
 }
 
+/* csslint ignore:start */
+.mdl-tree3__leaf-input .mdl-textfield__input:focus {
+  outline: none;
+}
+/* csslint ignore:end */
+
 .mdl-tree3__leaf-input .mdl-textfield__input {
   border-bottom: none;
 }
