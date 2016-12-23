@@ -23,8 +23,6 @@
 
   /**
    * Class Tree3 that organizes a tree based on ul, li
-   *
-   * @class
    */
   class Tree3 {
 
@@ -73,7 +71,6 @@
      * Class constructor for dropdown MDL component.
      * Implements {@link https://github.com/jasonmayes/mdl-component-design-pattern|MDL component design pattern}
      *
-     * @constructor
      * @param {HTMLElement} element - The element that will be upgraded.
      * @param {Tree3} parent - The parent of the created element
      */

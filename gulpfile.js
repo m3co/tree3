@@ -26,21 +26,20 @@ const paths = {
 gulp.task('doc', function () {
   var config = require('./.jsdoc.json');
   return gulp.src(['./README.md'].concat(paths.jssrc), { read: false })
-    .pipe(jsdoc(config));
+    .pipe(jsdoc(config))
+    .pipe(connect.reload());
 });
 
 gulp.task('css-lint', function() {
   return gulp.src(paths.css)
     .pipe(csslint())
-    .pipe(csslint.formatter())
-    .pipe(connect.reload());
+    .pipe(csslint.formatter());
 });
 
 gulp.task('html-hint', _ => {
   return gulp.src(paths.html)
     .pipe(htmlhint())
-    .pipe(htmlhint.reporter())
-    .pipe(connect.reload());
+    .pipe(htmlhint.reporter());
 });
 
 gulp.task('js-lint', _ => {
@@ -48,8 +47,7 @@ gulp.task('js-lint', _ => {
     .pipe(jshint())
     .pipe(jscs())
     .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(jscs.reporter())
-    .pipe(connect.reload());
+    .pipe(jscs.reporter());
 });
 
 gulp.task('js-copy', _ => {
@@ -64,11 +62,9 @@ gulp.task('css-copy', _ => {
 });
 
 gulp.task('watch', _ => {
-  gulp.watch(paths.js, ['js-lint']);
-  gulp.watch(paths.css, ['css-lint']);
-  gulp.watch(paths.html, ['html-hint']);
-  gulp.watch(paths.jssrc, ['js-copy', 'doc']);
-  gulp.watch(paths.csssrc, ['css-copy']);
+  gulp.watch(paths.html, ['html-hint', 'doc']);
+  gulp.watch(paths.jssrc, ['js-lint', 'js-copy', 'doc']);
+  gulp.watch(paths.csssrc, ['css-lint', 'css-copy']);
 });
 
 gulp.task('connect', function() {
