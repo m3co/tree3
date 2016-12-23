@@ -252,6 +252,35 @@ onload_test(function(e) {
 }, "Custom 'action1' event is dispatched");
 
 /**
+ * Allow to add custom actions to the contextmenu - level 2
+ */
+onload_test(function(e) {
+
+  // [setup]
+  var { tree, tree3, actions } = setupTemplateTest();
+
+  // [run]
+  var leaf = tree3.appendLeaf();
+  var subleaf = leaf.Tree3.appendLeaf();
+
+  // [setup]
+  var actionAdd = subleaf.querySelector(selContextmenuAdd);
+  var actionRemove = subleaf.querySelector(selContextmenuRemove);
+
+  // [verify]
+  assert_true(actionAdd instanceof HTMLElement);
+  assert_true(actionRemove instanceof HTMLElement);
+  actions.forEach(action => {
+    var actionElement = subleaf.querySelector('.' + action.css);
+    assert_true(actionElement instanceof HTMLElement);
+  });
+
+  // [teardown]
+  tree.remove();
+  this.done();
+}, "Allow to add custom actions to the contextmenu - level 2");
+
+/**
  * Allow to add custom actions to the contextmenu
  */
 onload_test(function(e) {
