@@ -71,8 +71,7 @@
 
     /**
      * Class constructor for dropdown MDL component.
-     * Implements MDL component design pattern defined at:
-     * https://github.com/jasonmayes/mdl-component-design-pattern
+     * Implements {@link https://github.com/jasonmayes/mdl-component-design-pattern|MDL component design pattern}
      *
      * @constructor
      * @param {HTMLElement} element - The element that will be upgraded.

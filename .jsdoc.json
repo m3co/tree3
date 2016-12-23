@@ -1,8 +1,8 @@
 {
   "opts": {
-    "destination": "./docs"
-  },
-  "source": {
-    "exclude": ["./src/tree3.js"]
+    "destination": "./docs",
+    "recurse": true,
+    "tutorials": "./demo",
+    "template": "./node_modules/minami"
   }
 }
