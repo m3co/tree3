@@ -240,7 +240,6 @@
       }, 0);
     }
 
-
     /**
      * Append the button expand/collapse to the leaf
      *
