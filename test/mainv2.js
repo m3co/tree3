@@ -76,6 +76,37 @@ onload_test(function(e) {
 //  - isolate
 
 /**
+ * Test the createLeaf - create a leaf and set a label to it,
+ * then, append it and see if it doesn't exposes the input but shows the label
+ */
+onload_test(function(e) {
+  // [setup]
+  var { tree, tree3 } = setupTest();
+
+  // [run]
+  var createdLeaf = tree3.createLeaf();
+  var textContainer = createdLeaf.querySelector('.mdl-tree3__leaf-text');
+
+  // [verify]
+  assert_true(createdLeaf instanceof HTMLElement);
+  assert_true(textContainer instanceof HTMLElement);
+  assert_true(createdLeaf.Tree3 instanceof Tree3);
+
+  // [run]
+  textContainer.textContent = "This is a label";
+  var appendedLeaf = tree3.appendLeaf(createdLeaf);
+  var inputContainer = appendedLeaf.querySelector('.mdl-tree3__leaf-input');
+
+  // [verify]
+  assert_true(inputContainer.hidden);
+  assert_false(textContainer.hidden);
+
+  // [teardown]
+  tree.remove();
+  this.done();
+}, "Test createLeaf() case when appendLeaf(createdLeaf) with a label");
+
+/**
  * Test the createLeaf - just create an empty leaf, i.e. without label,
  * then, append it and see if it exposes an input
  */
