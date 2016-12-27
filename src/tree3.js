@@ -324,13 +324,8 @@
      */
     createLeaf() {
       var clone = document.importNode(this.Templates_.LEAF, true);
-      var leaf_ = clone.querySelector(this.CssSelectors_.LEAF);
-      var leaf;
-      if (leaf_) {
-        leaf = this.element_.appendChild(leaf_); // I've to do something with this
-        this.setupInput_(leaf);
-        this.setupContextmenu_(leaf);
-      } else {
+      var leaf = clone.querySelector(this.CssSelectors_.LEAF);
+      if (!leaf) {
         throw new Error('Incorrect Template');
       }
       var tree = document.createElement('ul');
@@ -351,6 +346,10 @@
     appendLeaf(leaf = this.createLeaf()) {
       this.element_.hidden = false;
       this.removeSplash_();
+
+      this.element_.appendChild(leaf);
+      this.setupInput_(leaf);
+      this.setupContextmenu_(leaf);
 
       var leaf_;
       if (this.parent_) {

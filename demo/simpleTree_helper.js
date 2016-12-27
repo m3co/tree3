@@ -1,4 +1,7 @@
 (function() {
   'use strict';
-  document.querySelector('#main section header').hidden = true;
+  var header = document.querySelector('#main section header');
+  if (header) {
+    header.hidden = true;
+  }
 })();
