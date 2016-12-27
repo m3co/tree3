@@ -1,8 +1,6 @@
 <!doctype html>
 <html>
   <head>
-    <script src="https://cdn.ravenjs.com/3.8.1/raven.min.js"></script>
-    <script>Raven.config('https://a4577dd4d22f43549b5e5111b012295f@sentry.io/115634').install()</script>
     <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -13,6 +11,9 @@
     <script src="/bower_components/element-matches/closest.js"></script>
     <script src="/bower_components/material-design-lite/material.min.js"></script>
     <script src="/bower_components/customevent-polyfill/customevent-polyfill.min.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
     <script>
 // Polyfill token from
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/includes#Polyfill
@@ -55,6 +56,56 @@
     <script src="/tree3.js"></script>
   </head>
   <body>
+    <p>The simplest way to define a tree is given by a single <i>&lt;ul&gt;</i> tag.</p>
+    <pre><code class="html">
+&lt;ul id="demo-tree" class="mdl-list mdl-tree3"&gt;&lt;/ul&gt;
+    </code></pre>
+
+    <p>Then, you'll se an empty tree that has an splash-screen with <strong>+</strong> button.</p>
+    <p>If you need to add some custom actions to the context-menu, then a <i>&lt;template&gt;</i> tag will be enough.</p>
+    <p>Notice the <i>for</i> attribute in the template.</p>
+    <pre><code class="html">
+&lt;ul id="demo-tree" class="mdl-list mdl-tree3"&gt;&lt;/ul&gt;
+&lt;template for="demo-tree"&gt;
+  &lt;li class="mdl-menu__item
+             mdl-tree3__contextmenu--action1"&gt;
+    Insert collapsed button
+  &lt;/li&gt;
+  &lt;li class="mdl-menu__item
+             mdl-tree3__contextmenu--action2"&gt;
+    Insert expanded button
+  &lt;/li&gt;
+&lt;/template&gt;
+    </code></pre>
+    <p>Let's play with some JavaScript code around the tree...</p>
+    <pre><code class="javascript">
+  'use strict';
+  var tree = document.querySelector('#demo-tree');
+  tree.addEventListener('action1', function(e) {
+    console.log('action 1', e.detail.leaf);
+    e.detail.leaf.Tree3.appendExpandCollapse();
+  });
+  tree.addEventListener('action2', function(e) {
+    console.log('action 2', e.detail.leaf);
+    e.detail.leaf.Tree3.appendExpandCollapse("expanded");
+  });
+  tree.addEventListener('expand', function(e) {
+    console.log('expanded');
+  });
+  tree.addEventListener('collapse', function(e) {
+    console.log('collapse');
+  });
+  tree.addEventListener('addleaf', function(e) {
+    console.log('add leaf', e.detail);
+  });
+  tree.addEventListener('removeleaf', function(e) {
+    console.log('remove leaf', e.detail);
+  });
+  tree.addEventListener('changetext', function(e) {
+    console.log('change text', e.detail);
+  });
+    </code></pre>
+    <p>Feel free to play with the following simple tree</p>
     <ul id="demo-tree" class="mdl-list mdl-tree3"></ul>
     <template for="demo-tree">
       <li class="mdl-menu__item
@@ -66,6 +117,7 @@
         Insert expanded button
       </li>
     </template>
-    <script src="demo3.js"></script>
+    <script src="/demo/simpleTree.js"></script>
+    <script src="/demo/simpleTree_helper.js"></script>
   </body>
 </html>
