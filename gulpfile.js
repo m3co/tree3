@@ -22,12 +22,15 @@ const paths = {
   jssrc: ['src/*.js',    'src/**/*.js']
 };
 
+gulp.task('reload', function () {
+  return gulp.src(paths.js, { read: false })
+    .pipe(connect.reload());
+});
 
 gulp.task('doc', function () {
   var config = require('./.jsdoc.json');
   return gulp.src(['./README.md'].concat(paths.jssrc), { read: false })
-    .pipe(jsdoc(config))
-    .pipe(connect.reload());
+    .pipe(jsdoc(config));
 });
 
 gulp.task('css-lint', function() {
@@ -62,9 +65,10 @@ gulp.task('css-copy', _ => {
 });
 
 gulp.task('watch', _ => {
-  gulp.watch(paths.html, ['html-hint', 'doc']);
-  gulp.watch(paths.jssrc, ['js-lint', 'js-copy', 'doc']);
-  gulp.watch(paths.csssrc, ['css-lint', 'css-copy']);
+  gulp.watch(paths.js, ['reload']);
+  gulp.watch(paths.html, ['html-hint', 'doc', 'reload']);
+  gulp.watch(paths.jssrc, ['js-lint', 'js-copy', 'doc', 'reload']);
+  gulp.watch(paths.csssrc, ['css-lint', 'css-copy', 'reload']);
 });
 
 gulp.task('connect', function() {
