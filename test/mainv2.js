@@ -82,6 +82,20 @@ onload_test(function(e) {
 onload_test(function(e) {
   // [setup]
   var { tree, tree3 } = setupTest();
+  var listener = this.step_func((e) => {
+    var inputContainer = e.detail.leaf.querySelector('.mdl-tree3__leaf-input');
+    var textContainer = e.detail.leaf.querySelector('.mdl-tree3__leaf-text');
+
+    // [verify]
+    assert_equals(textContainer.textContent, "This is a label");
+    assert_true(inputContainer.hidden);
+    assert_false(textContainer.hidden);
+
+    // [teardown]
+    tree.remove();
+    this.done();
+  });
+  tree.addEventListener('addleaf', listener);
 
   // [run]
   var createdLeaf = tree3.createLeaf();
@@ -95,15 +109,7 @@ onload_test(function(e) {
   // [run]
   textContainer.textContent = "This is a label";
   var appendedLeaf = tree3.appendLeaf(createdLeaf);
-  var inputContainer = appendedLeaf.querySelector('.mdl-tree3__leaf-input');
 
-  // [verify]
-  assert_true(inputContainer.hidden);
-  assert_false(textContainer.hidden);
-
-  // [teardown]
-  tree.remove();
-  this.done();
 }, "Test createLeaf() case when appendLeaf(createdLeaf) with a label");
 
 /**
