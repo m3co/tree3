@@ -197,10 +197,16 @@
           input.setSelectionRange(input.value.length, input.value.length);
         }, 0);
       });
-      window.setTimeout(() => {
-        input.focus();
-        input.setSelectionRange(input.value.length, input.value.length);
-      }, 0);
+      if (leaf.querySelector(this.CssSelectors_.TEXT)
+              .textContent.toString().trim()) {
+        leaf.querySelector(this.CssSelectors_.TEXT).hidden = false;
+        leaf.querySelector(this.CssSelectors_.INPUT).hidden = true;
+      } else {
+        window.setTimeout(() => {
+          input.focus();
+          input.setSelectionRange(input.value.length, input.value.length);
+        }, 0);
+      }
     }
 
     /**
