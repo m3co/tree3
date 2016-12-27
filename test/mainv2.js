@@ -76,6 +76,33 @@ onload_test(function(e) {
 //  - isolate
 
 /**
+ * Test the createLeaf - just create an empty leaf, i.e. without label,
+ * then, append it and see if it exposes an input
+ */
+onload_test(function(e) {
+  // [setup]
+  var { tree, tree3 } = setupTest();
+
+  // [run]
+  var createdLeaf = tree3.createLeaf();
+
+  // [verify]
+  assert_true(createdLeaf instanceof HTMLElement);
+  assert_true(createdLeaf.Tree3 instanceof Tree3);
+
+  // [run]
+  var appendedLeaf = tree3.appendLeaf(createdLeaf);
+  var inputContainer = appendedLeaf.querySelector('.mdl-tree3__leaf-input');
+
+  // [verify]
+  assert_false(inputContainer.hidden);
+
+  // [teardown]
+  tree.remove();
+  this.done();
+}, "Test createLeaf() case when appendLeaf(createdLeaf) without label");
+
+/**
  * Test the event - onchangetextleaf that is dispatched from setupInput_
  */
 onload_test(function(e) {
