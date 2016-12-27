@@ -27,47 +27,6 @@
   class Tree3 {
 
     /**
-     * On add leaf
-     *
-     * @event Tree3#addleaf
-     * @type {CustomEvent}
-     * @property {HTMLElement} leaf - The added leaf
-     */
-
-    /**
-     * On remove leaf
-     *
-     * @event Tree3#removeleaf
-     * @type {CustomEvent}
-     * @property {HTMLElement} leaf - The removed leaf
-     */
-
-    /**
-     * On collapse leaf
-     *
-     * @event Tree3#collapse
-     * @type {CustomEvent}
-     * @property {HTMLElement} leaf - The collapsed leaf
-     */
-
-    /**
-     * On expand leaf
-     *
-     * @event Tree3#expand
-     * @type {CustomEvent}
-     * @property {HTMLElement} leaf - The expanded leaf
-     */
-
-    /**
-     * On change the leaf's text
-     *
-     * @event Tree3#changetext
-     * @type {CustomEvent}
-     * @property {HTMLElement} leaf - The leaf that holds the input
-     * @property {String} text - The new text assigned to the leaf
-     */
-
-    /**
      * Class constructor for dropdown MDL component.
      * Implements {@link https://github.com/jasonmayes/mdl-component-design-pattern|MDL component design pattern}
      *
@@ -193,6 +152,15 @@
       input.addEventListener('change', (e) => {
         leaf.querySelector(this.CssSelectors_.TEXT)
             .textContent = e.target.value.toString();
+
+        /**
+         * On change the leaf's text
+         *
+         * @event Tree3#changetext
+         * @type {CustomEvent}
+         * @property {HTMLElement} leaf - The leaf that holds the input
+         * @property {String} text - The new text assigned to the leaf
+         */
         leaf.dispatchEvent(new CustomEvent('changetext', {
           detail: {
             leaf: leaf,
@@ -302,6 +270,13 @@
       btn.querySelector('.material-icons').innerHTML = 'keyboard_arrow_down';
       this.element_.hidden = false;
 
+      /**
+       * On expand leaf
+       *
+       * @event Tree3#expand
+       * @type {CustomEvent}
+       * @property {HTMLElement} leaf - The expanded leaf
+       */
       parent.dispatchEvent(new CustomEvent('expand', {
         detail: {
           leaf: parent
@@ -325,6 +300,13 @@
       btn.querySelector('.material-icons').innerHTML = 'keyboard_arrow_up';
       this.element_.hidden = true;
 
+      /**
+       * On collapse leaf
+       *
+       * @event Tree3#collapse
+       * @type {CustomEvent}
+       * @property {HTMLElement} leaf - The collapsed leaf
+       */
       parent.dispatchEvent(new CustomEvent('collapse', {
         detail: {
           leaf: parent
@@ -367,6 +349,14 @@
           leaf_.Tree3.expandLeaf();
         }
       }
+
+      /**
+       * On add leaf
+       *
+       * @event Tree3#addleaf
+       * @type {CustomEvent}
+       * @property {HTMLElement} leaf - The added leaf
+       */
       leaf.dispatchEvent(new CustomEvent('addleaf', {
         detail: {
           leaf: leaf
@@ -389,6 +379,13 @@
         btn = parentLeaf.querySelector(this.CssSelectors_.EXPAND_COLLAPSE);
       }
 
+      /**
+       * On remove leaf
+       *
+       * @event Tree3#removeleaf
+       * @type {CustomEvent}
+       * @property {HTMLElement} leaf - The removed leaf
+       */
       this.leaf_.dispatchEvent(new CustomEvent('removeleaf', {
         detail: {
           leaf: this.leaf_
