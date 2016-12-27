@@ -58,11 +58,12 @@ onload_test(function(e) {
 
   assert_true(tree3.leafs instanceof Array);
   assert_true(tree3.leaf instanceof Array);
-  assert_true(tree3.appendLeaf instanceof Function);
 
   assert_true(tree3.expandLeaf instanceof Function);
   assert_true(tree3.collapseLeaf instanceof Function);
 
+  assert_true(tree3.createLeaf instanceof Function);
+  assert_true(tree3.appendLeaf instanceof Function);
   assert_true(tree3.removeLeaf instanceof Function);
 
   document.querySelector(selTree).remove();

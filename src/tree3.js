@@ -318,18 +318,16 @@
     }
 
     /**
-     * Append a leaf to the tree
+     * Create an empty leaf
      *
-     * @returns {HTMLElement} - The new element
+     * @returns {HTMLElement} - The created element
      */
-    appendLeaf() {
-      this.element_.hidden = false;
-      this.removeSplash_();
+    createLeaf() {
       var clone = document.importNode(this.Templates_.LEAF, true);
       var leaf_ = clone.querySelector(this.CssSelectors_.LEAF);
       var leaf;
       if (leaf_) {
-        leaf = this.element_.appendChild(leaf_);
+        leaf = this.element_.appendChild(leaf_); // I've to do something with this
         this.setupInput_(leaf);
         this.setupContextmenu_(leaf);
       } else {
@@ -338,10 +336,23 @@
       var tree = document.createElement('ul');
       tree.classList.add(cssClass);
       var tree3 = new Tree3(tree, this);
-      componentHandler.upgradeElement(leaf.appendChild(tree));
       leaf.Tree3 = tree3;
       leaf.Tree3.leaf_ = leaf; // this is for removeLeaf()
       leaf.Tree3.root_ = this.root_; // this is for removeLeaf()
+      componentHandler.upgradeElement(leaf.appendChild(tree));
+      return leaf;
+    }
+
+    /**
+     * Append a leaf to the tree
+     *
+     * @returns {HTMLElement} - The appended element
+     */
+    appendLeaf(leaf = this.createLeaf()) {
+      this.element_.hidden = false;
+      this.removeSplash_();
+
+      var leaf_;
       if (this.parent_) {
         if (this.parent_.leafs.length > 0) {
           leaf_ = this.element_.closest(this.CssSelectors_.LEAF);
