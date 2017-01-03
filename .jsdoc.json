@@ -2,7 +2,6 @@
   "opts": {
     "destination": "./docs",
     "recurse": true,
-    "tutorials": "./demo",
-    "template": "./node_modules/minami"
+    "tutorials": "./demo"
   }
 }
