@@ -12,7 +12,7 @@ function setupTest() {
   componentHandler.upgradeElement(tree);
   return {
     tree: tree,
-    tree3: tree.Tree3
+    tree3: tree.MaterialTree3
   };
 }
 
@@ -39,7 +39,7 @@ function setupTemplateTest() {
   componentHandler.upgradeElement(tree);
   return {
     tree: tree,
-    tree3: tree.Tree3,
+    tree3: tree.MaterialTree3,
     actions: [
       {
         css: 'mdl-tree3__contextmenu--action1',

@@ -26,26 +26,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   var EXPANDED = LEAF + '--expanded';
   var COLLAPSED = LEAF + '--collapsed';
 
-  var classAsString = 'Tree3';
+  var classAsString = 'MaterialTree3';
   var cssClass = 'mdl-tree3';
 
   var lastIdContextmenu = 0;
 
   /**
-   * Class Tree3 that organizes a tree based on ul, li
+   * Class MaterialTree3 that organizes a tree based on ul, li
    */
 
-  var Tree3 = function () {
+  var MaterialTree3 = function () {
 
     /**
      * Class constructor for dropdown MDL component.
      * Implements {@link https://github.com/jasonmayes/mdl-component-design-pattern|MDL component design pattern}
      *
      * @param {HTMLElement} element - The element that will be upgraded.
-     * @param {Tree3} parent - The parent of the created element
+     * @param {MaterialTree3} parent - The parent of the created element
      */
-    function Tree3(element, parent) {
-      _classCallCheck(this, Tree3);
+    function MaterialTree3(element, parent) {
+      _classCallCheck(this, MaterialTree3);
 
       if (parent) {
         this.parent_ = parent;
@@ -60,7 +60,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
      */
 
 
-    _createClass(Tree3, [{
+    _createClass(MaterialTree3, [{
       key: 'init',
       value: function init() {
         if (this.element_) {
@@ -106,13 +106,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         var btnAdd = menu.querySelector(this.CssSelectors_.CONTEXTMENU_ADD);
         btnAdd.addEventListener('click', function (e) {
           var leaf = e.target.closest(_this.CssSelectors_.LEAF);
-          leaf.Tree3.appendLeaf();
+          leaf[classAsString].appendLeaf();
         });
 
         var btnRemove = menu.querySelector(this.CssSelectors_.CONTEXTMENU_REMOVE);
         btnRemove.addEventListener('click', function (e) {
           var leaf = e.target.closest(_this.CssSelectors_.LEAF);
-          leaf.Tree3.removeLeaf();
+          leaf[classAsString].removeLeaf();
         });
 
         var id = this.root_.element_.id;
@@ -181,7 +181,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           /**
            * On change the leaf's text
            *
-           * @event Tree3#changetext
+           * @event MaterialTree3#changetext
            * @type {CustomEvent}
            * @property {HTMLElement} leaf - The leaf that holds the input
            * @property {String} text - The new text assigned to the leaf
@@ -201,7 +201,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         });
         input.addEventListener('blur', function (e) {
           if (!e.target.value.toString()) {
-            leaf.Tree3.removeLeaf();
+            leaf[classAsString].removeLeaf();
             return;
           }
           var inputContainer = leaf.querySelector(_this2.CssSelectors_.INPUT);
@@ -311,7 +311,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         /**
          * On expand leaf
          *
-         * @event Tree3#expand
+         * @event MaterialTree3#expand
          * @type {CustomEvent}
          * @property {HTMLElement} leaf - The expanded leaf
          */
@@ -344,7 +344,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         /**
          * On collapse leaf
          *
-         * @event Tree3#collapse
+         * @event MaterialTree3#collapse
          * @type {CustomEvent}
          * @property {HTMLElement} leaf - The collapsed leaf
          */
@@ -374,10 +374,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
         var tree = document.createElement('ul');
         tree.classList.add(cssClass);
-        var tree3 = new Tree3(tree, this);
-        leaf.Tree3 = tree3;
-        leaf.Tree3.leaf_ = leaf; // this is for removeLeaf()
-        leaf.Tree3.root_ = this.root_; // this is for removeLeaf()
+        var tree3 = new MaterialTree3(tree, this);
+        leaf[classAsString] = tree3;
+        leaf[classAsString].leaf_ = leaf; // this is for removeLeaf()
+        leaf[classAsString].root_ = this.root_; // this is for removeLeaf()
         componentHandler.upgradeElement(leaf.appendChild(tree));
         return leaf;
       }
@@ -405,14 +405,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (this.parent_.leafs.length > 0) {
             leaf_ = this.element_.closest(this.CssSelectors_.LEAF);
             this.appendExpandCollapse_(leaf_, 'expanded');
-            leaf_.Tree3.expandLeaf();
+            leaf_[classAsString].expandLeaf();
           }
         }
 
         /**
          * On add leaf
          *
-         * @event Tree3#addleaf
+         * @event MaterialTree3#addleaf
          * @type {CustomEvent}
          * @property {HTMLElement} leaf - The added leaf
          */
@@ -444,7 +444,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         /**
          * On remove leaf
          *
-         * @event Tree3#removeleaf
+         * @event MaterialTree3#removeleaf
          * @type {CustomEvent}
          * @property {HTMLElement} leaf - The removed leaf
          */
@@ -631,13 +631,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
     }]);
 
-    return Tree3;
+    return MaterialTree3;
   }();
 
-  window[classAsString] = Tree3;
+  window[classAsString] = MaterialTree3;
 
   componentHandler.register({
-    constructor: Tree3,
+    constructor: MaterialTree3,
     classAsString: classAsString,
     cssClass: cssClass,
     widget: true

@@ -1,6 +1,6 @@
 'use strict';
 
-const clsTree = 'Tree3';
+const classAsString = 'MaterialTree3';
 
 const cssTree = 'mdl-tree3';
 const selTree = `.${cssTree}`;
@@ -44,7 +44,7 @@ const selContextmenuRemove = `.${cssContextmenuRemove}`;
 onload_test(function(e) {
   var tree = document.querySelector(selTree);
 
-  assert_true(tree.dataset.upgraded.includes(clsTree));
+  assert_true(tree.dataset.upgraded.includes(classAsString));
   this.done();
 }, "MDL upgrades the component from the Body");
 
@@ -54,7 +54,7 @@ onload_test(function(e) {
  * from the index.html
  */
 onload_test(function(e) {
-  var tree3 = document.querySelector(selTree).Tree3;
+  var tree3 = document.querySelector(selTree)[classAsString];
 
   assert_true(tree3.leafs instanceof Array);
   assert_true(tree3.leaf instanceof Array);
@@ -104,7 +104,7 @@ onload_test(function(e) {
   // [verify]
   assert_true(createdLeaf instanceof HTMLElement);
   assert_true(textContainer instanceof HTMLElement);
-  assert_true(createdLeaf.Tree3 instanceof Tree3);
+  assert_true(createdLeaf[classAsString] instanceof MaterialTree3);
 
   // [run]
   textContainer.textContent = "This is a label";
@@ -125,7 +125,7 @@ onload_test(function(e) {
 
   // [verify]
   assert_true(createdLeaf instanceof HTMLElement);
-  assert_true(createdLeaf.Tree3 instanceof Tree3);
+  assert_true(createdLeaf[classAsString] instanceof MaterialTree3);
 
   // [run]
   var appendedLeaf = tree3.appendLeaf(createdLeaf);
@@ -190,8 +190,8 @@ onload_test(function(e) {
   // [run]
   tree.addEventListener('collapse', listener);
   leaf = tree3.appendLeaf();
-  leaf.Tree3.appendLeaf();
-  leaf.Tree3.collapseLeaf();
+  leaf[classAsString].appendLeaf();
+  leaf[classAsString].collapseLeaf();
 }, "Test the event - oncollapse");
 
 /**
@@ -216,7 +216,7 @@ onload_test(function(e) {
   // [run]
   tree.addEventListener('expand', listener);
   leaf = tree3.appendLeaf();
-  leaf.Tree3.appendLeaf();
+  leaf[classAsString].appendLeaf();
 }, "Test the event - onexpand");
 
 /**
@@ -241,7 +241,7 @@ onload_test(function(e) {
   // [run]
   tree.addEventListener('removeleaf', listener);
   leaf = tree3.appendLeaf();
-  leaf.Tree3.removeLeaf();
+  leaf[classAsString].removeLeaf();
 }, "Test the event - onaremoveleaf");
 
 /**
@@ -326,7 +326,7 @@ onload_test(function(e) {
 
   // [run]
   var leaf = tree3.appendLeaf();
-  var subleaf = leaf.Tree3.appendLeaf();
+  var subleaf = leaf[classAsString].appendLeaf();
 
   // [setup]
   var actionAdd = subleaf.querySelector(selContextmenuAdd);
@@ -380,13 +380,13 @@ onload_test(function(e) {
   // [setup]
   var { tree, tree3 } = setupTest();
   var leaf = tree3.appendLeaf();
-  var subleaf = leaf.Tree3.appendLeaf();
+  var subleaf = leaf[classAsString].appendLeaf();
 
   // [run]
-  subleaf.Tree3.removeLeaf();
+  subleaf[classAsString].removeLeaf();
 
   // [verify]
-  assert_equals(leaf.Tree3.leafs.length, 0);
+  assert_equals(leaf[classAsString].leafs.length, 0);
   assert_true(leaf.querySelector(selTree).hidden);
 
   var expandCollapseBtn = leaf.querySelector(selExpandCollapse);
@@ -441,7 +441,7 @@ onload_test(function(e) {
 
   var checkAddBtn = this.step_func((e) => {
     // [verify]
-    assert_equals(leaf.Tree3.leafs.length, 1);
+    assert_equals(leaf[classAsString].leafs.length, 1);
 
     // [teardown]
     tree.remove();
@@ -485,16 +485,16 @@ onload_test(function(e) {
   var leaf = tree3.appendLeaf();
 
   // [run]
-  var subleaf = leaf.Tree3.appendLeaf(); // This leaf is an HTMLElement and
+  var subleaf = leaf[classAsString].appendLeaf(); // This leaf is an HTMLElement and
   // this leaf has mutated because it has a property called Tree3 that
   // allows to behave like a tree
 
-  subleaf = subleaf.Tree3.appendLeaf();
+  subleaf = subleaf[classAsString].appendLeaf();
 
   // [verify]
-  assert_true(subleaf.Tree3.element_.hidden);
-  assert_equals(tree3.leaf[0].Tree3.leaf[0].Tree3.leaf[0], subleaf);
-  assert_equals(tree3.leaf[0].Tree3.leafs.length, 1);
+  assert_true(subleaf[classAsString].element_.hidden);
+  assert_equals(tree3.leaf[0][classAsString].leaf[0][classAsString].leaf[0], subleaf);
+  assert_equals(tree3.leaf[0][classAsString].leafs.length, 1);
 
   // [teardown]
   tree.remove();
@@ -544,7 +544,7 @@ onload_test(function(e) {
   });
 
   // [run]
-  var subleaf = leaf.Tree3.appendLeaf(); // This leaf is an HTMLElement and
+  var subleaf = leaf[classAsString].appendLeaf(); // This leaf is an HTMLElement and
   // this leaf has mutated because it has a property called Tree3 that
   // allows to behave like a tree
 
@@ -566,7 +566,7 @@ onload_test(function(e) {
   var leaf = tree3.appendLeaf();
 
   // [run]
-  var subleaf = leaf.Tree3.appendLeaf(); // This leaf is an HTMLElement and
+  var subleaf = leaf[classAsString].appendLeaf(); // This leaf is an HTMLElement and
   // this leaf has mutated because it has a property called Tree3 that
   // allows to behave like a tree
 
@@ -593,13 +593,13 @@ onload_test(function(e) {
   var leaf = tree3.appendLeaf();
 
   // [run]
-  var subleaf = leaf.Tree3.appendLeaf(); // This leaf is an HTMLElement and
+  var subleaf = leaf[classAsString].appendLeaf(); // This leaf is an HTMLElement and
   // this leaf has mutated because it has a property called Tree3 that
   // allows to behave like a tree
 
   // [verify]
-  assert_true(subleaf.Tree3.element_.hidden);
-  assert_equals(tree3.leaf[0].Tree3.leaf[0], subleaf);
+  assert_true(subleaf[classAsString].element_.hidden);
+  assert_equals(tree3.leaf[0][classAsString].leaf[0], subleaf);
   assert_equals(tree3.leafs.length, 1);
 
   // [teardown]
@@ -657,7 +657,7 @@ onload_test(function(e) {
   assert_true(leaf.querySelector(selText) instanceof HTMLElement);
   assert_true(leaf.querySelector(selText).hidden);
 
-  assert_true(leaf.Tree3 instanceof Tree3);
+  assert_true(leaf[classAsString] instanceof MaterialTree3);
 
   // [teardown]
   tree.remove();
@@ -690,7 +690,7 @@ onload_test(function(e) {
   var { tree, tree3 } = setupTest();
 
   // [setup]
-  var tree3 = tree.Tree3;
+  var tree3 = tree[classAsString];
   var splashBtn = tree.querySelector(tree3.CssSelectors_.SPLASH_BUTTON);
 
   var listener = this.step_func((e) => {

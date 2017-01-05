@@ -19,22 +19,22 @@
   const EXPANDED = `${LEAF}--expanded`;
   const COLLAPSED = `${LEAF}--collapsed`;
 
-  const classAsString = 'Tree3';
+  const classAsString = 'MaterialTree3';
   const cssClass = 'mdl-tree3';
 
   var lastIdContextmenu = 0;
 
   /**
-   * Class Tree3 that organizes a tree based on ul, li
+   * Class MaterialTree3 that organizes a tree based on ul, li
    */
-  class Tree3 {
+  class MaterialTree3 {
 
     /**
      * Class constructor for dropdown MDL component.
      * Implements {@link https://github.com/jasonmayes/mdl-component-design-pattern|MDL component design pattern}
      *
      * @param {HTMLElement} element - The element that will be upgraded.
-     * @param {Tree3} parent - The parent of the created element
+     * @param {MaterialTree3} parent - The parent of the created element
      */
     constructor(element, parent) {
       if (parent) {
@@ -87,13 +87,13 @@
       var btnAdd = menu.querySelector(this.CssSelectors_.CONTEXTMENU_ADD);
       btnAdd.addEventListener('click', (e) => {
         var leaf = e.target.closest(this.CssSelectors_.LEAF);
-        leaf.Tree3.appendLeaf();
+        leaf[classAsString].appendLeaf();
       });
 
       var btnRemove = menu.querySelector(this.CssSelectors_.CONTEXTMENU_REMOVE);
       btnRemove.addEventListener('click', (e) => {
         var leaf = e.target.closest(this.CssSelectors_.LEAF);
-        leaf.Tree3.removeLeaf();
+        leaf[classAsString].removeLeaf();
       });
 
       var id = this.root_.element_.id;
@@ -159,7 +159,7 @@
         /**
          * On change the leaf's text
          *
-         * @event Tree3#changetext
+         * @event MaterialTree3#changetext
          * @type {CustomEvent}
          * @property {HTMLElement} leaf - The leaf that holds the input
          * @property {String} text - The new text assigned to the leaf
@@ -179,7 +179,7 @@
       });
       input.addEventListener('blur', (e) => {
         if (!e.target.value.toString()) {
-          leaf.Tree3.removeLeaf();
+          leaf[classAsString].removeLeaf();
           return;
         }
         var inputContainer = leaf.querySelector(this.CssSelectors_.INPUT);
@@ -282,7 +282,7 @@
       /**
        * On expand leaf
        *
-       * @event Tree3#expand
+       * @event MaterialTree3#expand
        * @type {CustomEvent}
        * @property {HTMLElement} leaf - The expanded leaf
        */
@@ -312,7 +312,7 @@
       /**
        * On collapse leaf
        *
-       * @event Tree3#collapse
+       * @event MaterialTree3#collapse
        * @type {CustomEvent}
        * @property {HTMLElement} leaf - The collapsed leaf
        */
@@ -339,10 +339,10 @@
       }
       var tree = document.createElement('ul');
       tree.classList.add(cssClass);
-      var tree3 = new Tree3(tree, this);
-      leaf.Tree3 = tree3;
-      leaf.Tree3.leaf_ = leaf; // this is for removeLeaf()
-      leaf.Tree3.root_ = this.root_; // this is for removeLeaf()
+      var tree3 = new MaterialTree3(tree, this);
+      leaf[classAsString] = tree3;
+      leaf[classAsString].leaf_ = leaf; // this is for removeLeaf()
+      leaf[classAsString].root_ = this.root_; // this is for removeLeaf()
       componentHandler.upgradeElement(leaf.appendChild(tree));
       return leaf;
     }
@@ -365,14 +365,14 @@
         if (this.parent_.leafs.length > 0) {
           leaf_ = this.element_.closest(this.CssSelectors_.LEAF);
           this.appendExpandCollapse_(leaf_, 'expanded');
-          leaf_.Tree3.expandLeaf();
+          leaf_[classAsString].expandLeaf();
         }
       }
 
       /**
        * On add leaf
        *
-       * @event Tree3#addleaf
+       * @event MaterialTree3#addleaf
        * @type {CustomEvent}
        * @property {HTMLElement} leaf - The added leaf
        */
@@ -401,7 +401,7 @@
       /**
        * On remove leaf
        *
-       * @event Tree3#removeleaf
+       * @event MaterialTree3#removeleaf
        * @type {CustomEvent}
        * @property {HTMLElement} leaf - The removed leaf
        */
@@ -608,10 +608,10 @@
     }
   }
 
-  window[classAsString] = Tree3;
+  window[classAsString] = MaterialTree3;
 
   componentHandler.register({
-    constructor: Tree3,
+    constructor: MaterialTree3,
     classAsString: classAsString,
     cssClass: cssClass,
     widget: true
