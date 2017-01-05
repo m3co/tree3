@@ -2,6 +2,9 @@
   'use strict';
   var range = new Range();
   var createHTML = range.createContextualFragment.bind(range);
+  var clean = (str) => {
+    return str.replace(/\n{1,} {0,}/g, ' ').replace(/> </g, '><').trim();
+  };
 
   const TREE = 'mdl-tree3';
   const LEAF = `${TREE}__leaf`;
@@ -548,15 +551,15 @@
      */
     get Templates_() {
       return {
-        SPLASH: createHTML(`
+        SPLASH: createHTML(clean(`
 <li class="mdl-list__item ${SPLASH}">
   <div class="mdl-list__item-primary-content">
     <button class="mdl-button mdl-js-button mdl-button--icon ${SPLASH_BUTTON}">
       <i class="material-icons">add</i>
     </button>
   </div>
-</li>`),
-        LEAF: createHTML(`
+</li>`)),
+        LEAF: createHTML(clean(`
 <li class="mdl-list__item ${LEAF}">
   <div class="mdl-list__item-primary-content">
     &nbsp;
@@ -567,10 +570,10 @@
     </div>
     &nbsp;
   </div>
-</li>`),
-        TREE: createHTML(`
-<ul class="mdl-list ${TREE}"></ul>`),
-        CONTEXTMENU: createHTML(`
+</li>`)),
+        TREE: createHTML(clean(`
+<ul class="mdl-list ${TREE}"></ul>`)),
+        CONTEXTMENU: createHTML(clean(`
 <button id="${CONTEXTMENU}-"
   class="mdl-button mdl-js-button mdl-button--icon">
   <i class="material-icons">more_vert</i>
@@ -586,21 +589,21 @@
              ${CONTEXTMENU_REMOVE}">
     Remove
   </li>
-</ul>`),
-        EXPANDED_BTN: createHTML(`
+</ul>`)),
+        EXPANDED_BTN: createHTML(clean(`
 <button class="mdl-list__item-secondary-action
                mdl-button mdl-js-button mdl-button--icon
                ${EXPAND_COLLAPSE}
                ${EXPANDED}">
   <i class="material-icons">keyboard_arrow_down</i>
-</button>`),
-        COLLAPSED_BTN: createHTML(`
+</button>`)),
+        COLLAPSED_BTN: createHTML(clean(`
 <button class="mdl-list__item-secondary-action
                mdl-button mdl-js-button mdl-button--icon
                ${EXPAND_COLLAPSE}
                ${COLLAPSED}">
   <i class="material-icons">keyboard_arrow_up</i>
-</button>`)
+</button>`))
       };
     }
   }
