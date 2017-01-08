@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  var range = new Range();
+  var range = document.createRange();
   var createHTML = range.createContextualFragment.bind(range);
   var clean = (str) => {
     return str.replace(/\n{1,} {0,}/g, ' ').replace(/> </g, '><').trim();

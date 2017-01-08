@@ -7,7 +7,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 (function () {
   'use strict';
 
-  var range = new Range();
+  var range = document.createRange();
   var createHTML = range.createContextualFragment.bind(range);
   var clean = function clean(str) {
     return str.replace(/\n{1,} {0,}/g, ' ').replace(/> </g, '><').trim();
