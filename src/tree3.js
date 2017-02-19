@@ -25,6 +25,86 @@
   var lastIdContextmenu = 0;
 
   /**
+   * Setup the leaf's input
+   * This function adds side-effects to the param leaf
+   *
+   * @private
+   * @param {HTMLElement} leaf - the leaf to be upgraded
+   */
+  function setupInput_(leaf) {
+    var input = leaf.querySelector(
+        `${MaterialTree3.prototype.CssSelectors_.INPUT} input`);
+    input.addEventListener('change', (e) => {
+      leaf.querySelector(MaterialTree3.prototype.CssSelectors_.TEXT)
+          .textContent = e.target.value.toString();
+
+      /**
+       * On change the leaf's text
+       *
+       * @event MaterialTree3#changetext
+       * @type {CustomEvent}
+       * @property {HTMLElement} leaf - The leaf that holds the input
+       * @property {String} text - The new text assigned to the leaf
+       */
+      leaf.dispatchEvent(new CustomEvent('changetext', {
+        detail: {
+          leaf: leaf,
+          text: e.target.value.toString()
+        },
+        bubbles: true
+      }));
+    });
+    input.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') {
+        e.target.blur();
+      }
+    });
+    input.addEventListener('blur', (e) => {
+      if (!e.target.value.toString()) {
+        leaf[classAsString].removeLeaf();
+        return;
+      }
+      var inputContainer = leaf.querySelector(
+        MaterialTree3.prototype.CssSelectors_.INPUT);
+      leaf.querySelector(
+        MaterialTree3.prototype.CssSelectors_.TEXT)
+          .textContent = e.target.value.toString();
+      leaf.querySelector(
+        MaterialTree3.prototype.CssSelectors_.TEXT).hidden = false;
+      inputContainer.hidden = true;
+    });
+    leaf.querySelector(
+        MaterialTree3.prototype.CssSelectors_.TEXT)
+        .addEventListener('dblclick', () => {
+      var inputContainer = leaf.querySelector(
+        MaterialTree3.prototype.CssSelectors_.INPUT);
+      var input = inputContainer.querySelector('input');
+      input.value = leaf.querySelector(
+        MaterialTree3.prototype.CssSelectors_.TEXT).textContent;
+      inputContainer.hidden = false;
+      leaf.querySelector(
+        MaterialTree3.prototype.CssSelectors_.TEXT).hidden = true;
+      window.setTimeout(() => {
+        input.focus();
+        input.setSelectionRange(input.value.length, input.value.length);
+      }, 0);
+    });
+    if (leaf.querySelector(
+          MaterialTree3.prototype.CssSelectors_.TEXT)
+            .textContent.toString().trim()) {
+      leaf.querySelector(
+          MaterialTree3.prototype.CssSelectors_.TEXT).hidden = false;
+      leaf.querySelector(
+          MaterialTree3.prototype.CssSelectors_.INPUT).hidden = true;
+    } else {
+      window.setTimeout(() => {
+        input.focus();
+        input.setSelectionRange(input.value.length, input.value.length);
+      }, 0);
+    }
+  }
+
+  /**
    * Dispatch a custom action fired from the context menu
    *
    * @private
@@ -140,75 +220,6 @@
       var primaryContent = leaf.querySelector('.mdl-list__item-primary-content');
       leaf.insertBefore(contextmenu, primaryContent);
       componentHandler.upgradeElement(menu);
-    }
-
-    /**
-     * Setup the leaf's input
-     * This function adds side-effects to the param leaf
-     *
-     * @private
-     * @param {HTMLElement} leaf - the leaf to be upgraded
-     */
-    setupInput_(leaf) {
-      var input = leaf.querySelector(`${this.CssSelectors_.INPUT} input`);
-      input.addEventListener('change', (e) => {
-        leaf.querySelector(this.CssSelectors_.TEXT)
-            .textContent = e.target.value.toString();
-
-        /**
-         * On change the leaf's text
-         *
-         * @event MaterialTree3#changetext
-         * @type {CustomEvent}
-         * @property {HTMLElement} leaf - The leaf that holds the input
-         * @property {String} text - The new text assigned to the leaf
-         */
-        leaf.dispatchEvent(new CustomEvent('changetext', {
-          detail: {
-            leaf: leaf,
-            text: e.target.value.toString()
-          },
-          bubbles: true
-        }));
-      });
-      input.addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') {
-          e.target.blur();
-        }
-      });
-      input.addEventListener('blur', (e) => {
-        if (!e.target.value.toString()) {
-          leaf[classAsString].removeLeaf();
-          return;
-        }
-        var inputContainer = leaf.querySelector(this.CssSelectors_.INPUT);
-        leaf.querySelector(this.CssSelectors_.TEXT)
-            .textContent = e.target.value.toString();
-        leaf.querySelector(this.CssSelectors_.TEXT).hidden = false;
-        inputContainer.hidden = true;
-      });
-      leaf.querySelector(this.CssSelectors_.TEXT)
-          .addEventListener('dblclick', () => {
-        var inputContainer = leaf.querySelector(this.CssSelectors_.INPUT);
-        var input = inputContainer.querySelector('input');
-        input.value = leaf.querySelector(this.CssSelectors_.TEXT).textContent;
-        inputContainer.hidden = false;
-        leaf.querySelector(this.CssSelectors_.TEXT).hidden = true;
-        window.setTimeout(() => {
-          input.focus();
-          input.setSelectionRange(input.value.length, input.value.length);
-        }, 0);
-      });
-      if (leaf.querySelector(this.CssSelectors_.TEXT)
-              .textContent.toString().trim()) {
-        leaf.querySelector(this.CssSelectors_.TEXT).hidden = false;
-        leaf.querySelector(this.CssSelectors_.INPUT).hidden = true;
-      } else {
-        window.setTimeout(() => {
-          input.focus();
-          input.setSelectionRange(input.value.length, input.value.length);
-        }, 0);
-      }
     }
 
     /**
@@ -356,7 +367,7 @@
       this.removeSplash_();
 
       this.element_.appendChild(leaf);
-      this.setupInput_(leaf);
+      setupInput_(leaf);
       this.setupContextmenu_(leaf);
 
       var leaf_;

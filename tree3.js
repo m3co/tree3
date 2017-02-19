@@ -32,6 +32,71 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   var lastIdContextmenu = 0;
 
   /**
+   * Setup the leaf's input
+   * This function adds side-effects to the param leaf
+   *
+   * @private
+   * @param {HTMLElement} leaf - the leaf to be upgraded
+   */
+  function setupInput_(leaf) {
+    var input = leaf.querySelector(MaterialTree3.prototype.CssSelectors_.INPUT + ' input');
+    input.addEventListener('change', function (e) {
+      leaf.querySelector(MaterialTree3.prototype.CssSelectors_.TEXT).textContent = e.target.value.toString();
+
+      /**
+       * On change the leaf's text
+       *
+       * @event MaterialTree3#changetext
+       * @type {CustomEvent}
+       * @property {HTMLElement} leaf - The leaf that holds the input
+       * @property {String} text - The new text assigned to the leaf
+       */
+      leaf.dispatchEvent(new CustomEvent('changetext', {
+        detail: {
+          leaf: leaf,
+          text: e.target.value.toString()
+        },
+        bubbles: true
+      }));
+    });
+    input.addEventListener('keyup', function (e) {
+      if (e.key === 'Enter') {
+        e.target.blur();
+      }
+    });
+    input.addEventListener('blur', function (e) {
+      if (!e.target.value.toString()) {
+        leaf[classAsString].removeLeaf();
+        return;
+      }
+      var inputContainer = leaf.querySelector(MaterialTree3.prototype.CssSelectors_.INPUT);
+      leaf.querySelector(MaterialTree3.prototype.CssSelectors_.TEXT).textContent = e.target.value.toString();
+      leaf.querySelector(MaterialTree3.prototype.CssSelectors_.TEXT).hidden = false;
+      inputContainer.hidden = true;
+    });
+    leaf.querySelector(MaterialTree3.prototype.CssSelectors_.TEXT).addEventListener('dblclick', function () {
+      var inputContainer = leaf.querySelector(MaterialTree3.prototype.CssSelectors_.INPUT);
+      var input = inputContainer.querySelector('input');
+      input.value = leaf.querySelector(MaterialTree3.prototype.CssSelectors_.TEXT).textContent;
+      inputContainer.hidden = false;
+      leaf.querySelector(MaterialTree3.prototype.CssSelectors_.TEXT).hidden = true;
+      window.setTimeout(function () {
+        input.focus();
+        input.setSelectionRange(input.value.length, input.value.length);
+      }, 0);
+    });
+    if (leaf.querySelector(MaterialTree3.prototype.CssSelectors_.TEXT).textContent.toString().trim()) {
+      leaf.querySelector(MaterialTree3.prototype.CssSelectors_.TEXT).hidden = false;
+      leaf.querySelector(MaterialTree3.prototype.CssSelectors_.INPUT).hidden = true;
+    } else {
+      window.setTimeout(function () {
+        input.focus();
+        input.setSelectionRange(input.value.length, input.value.length);
+      }, 0);
+    }
+  }
+
+  /**
    * Dispatch a custom action fired from the context menu
    *
    * @private
@@ -155,76 +220,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
 
       /**
-       * Setup the leaf's input
-       * This function adds side-effects to the param leaf
-       *
-       * @private
-       * @param {HTMLElement} leaf - the leaf to be upgraded
-       */
-
-    }, {
-      key: 'setupInput_',
-      value: function setupInput_(leaf) {
-        var _this2 = this;
-
-        var input = leaf.querySelector(this.CssSelectors_.INPUT + ' input');
-        input.addEventListener('change', function (e) {
-          leaf.querySelector(_this2.CssSelectors_.TEXT).textContent = e.target.value.toString();
-
-          /**
-           * On change the leaf's text
-           *
-           * @event MaterialTree3#changetext
-           * @type {CustomEvent}
-           * @property {HTMLElement} leaf - The leaf that holds the input
-           * @property {String} text - The new text assigned to the leaf
-           */
-          leaf.dispatchEvent(new CustomEvent('changetext', {
-            detail: {
-              leaf: leaf,
-              text: e.target.value.toString()
-            },
-            bubbles: true
-          }));
-        });
-        input.addEventListener('keyup', function (e) {
-          if (e.key === 'Enter') {
-            e.target.blur();
-          }
-        });
-        input.addEventListener('blur', function (e) {
-          if (!e.target.value.toString()) {
-            leaf[classAsString].removeLeaf();
-            return;
-          }
-          var inputContainer = leaf.querySelector(_this2.CssSelectors_.INPUT);
-          leaf.querySelector(_this2.CssSelectors_.TEXT).textContent = e.target.value.toString();
-          leaf.querySelector(_this2.CssSelectors_.TEXT).hidden = false;
-          inputContainer.hidden = true;
-        });
-        leaf.querySelector(this.CssSelectors_.TEXT).addEventListener('dblclick', function () {
-          var inputContainer = leaf.querySelector(_this2.CssSelectors_.INPUT);
-          var input = inputContainer.querySelector('input');
-          input.value = leaf.querySelector(_this2.CssSelectors_.TEXT).textContent;
-          inputContainer.hidden = false;
-          leaf.querySelector(_this2.CssSelectors_.TEXT).hidden = true;
-          window.setTimeout(function () {
-            input.focus();
-            input.setSelectionRange(input.value.length, input.value.length);
-          }, 0);
-        });
-        if (leaf.querySelector(this.CssSelectors_.TEXT).textContent.toString().trim()) {
-          leaf.querySelector(this.CssSelectors_.TEXT).hidden = false;
-          leaf.querySelector(this.CssSelectors_.INPUT).hidden = true;
-        } else {
-          window.setTimeout(function () {
-            input.focus();
-            input.setSelectionRange(input.value.length, input.value.length);
-          }, 0);
-        }
-      }
-
-      /**
        * Append the button expand/collapse to the leaf
        *
        * @param {String} type - "expanded" | "collapsed"
@@ -247,7 +242,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'appendExpandCollapse_',
       value: function appendExpandCollapse_(leaf, type) {
-        var _this3 = this;
+        var _this2 = this;
 
         var type_ = type || 'collapsed';
         var tree = leaf.querySelector(this.CssSelectors_.TREE);
@@ -271,11 +266,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         // by default, the expand/collapse button is expanded
         // and click will switch expanded to collapsed and so on
         btn.addEventListener('click', function (e) {
-          var btn = e.target.closest(_this3.CssSelectors_.EXPAND_COLLAPSE);
-          if (btn.classList.contains(_this3.CssClasses_.EXPANDED)) {
-            _this3.collapseLeaf();
-          } else if (btn.classList.contains(_this3.CssClasses_.COLLAPSED)) {
-            _this3.expandLeaf();
+          var btn = e.target.closest(_this2.CssSelectors_.EXPAND_COLLAPSE);
+          if (btn.classList.contains(_this2.CssClasses_.EXPANDED)) {
+            _this2.collapseLeaf();
+          } else if (btn.classList.contains(_this2.CssClasses_.COLLAPSED)) {
+            _this2.expandLeaf();
           } else {
             throw new Error('Check the expand/collapse TEMPLATE');
           }
@@ -390,7 +385,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.removeSplash_();
 
         this.element_.appendChild(leaf);
-        this.setupInput_(leaf);
+        setupInput_(leaf);
         this.setupContextmenu_(leaf);
 
         var leaf_;
@@ -473,7 +468,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'appendSplash_',
       value: function appendSplash_() {
-        var _this4 = this;
+        var _this3 = this;
 
         if (this.root_.leafs.length == 0) {
           /* jshint ignore:line */
@@ -481,8 +476,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           var btn = splash.querySelector('button');
           btn.addEventListener('click', function () {
-            _this4.root_.removeSplash_();
-            _this4.root_.appendLeaf();
+            _this3.root_.removeSplash_();
+            _this3.root_.appendLeaf();
           });
           this.root_.element_.appendChild(splash);
         }
@@ -515,10 +510,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'leaf',
       get: function get() {
-        var _this5 = this;
+        var _this4 = this;
 
         return Array.prototype.slice.call(this.element_.children).filter(function (item) {
-          return item.classList.contains(_this5.CssClasses_.LEAF);
+          return item.classList.contains(_this4.CssClasses_.LEAF);
         });
       },
       set: function set(_) {
