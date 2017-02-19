@@ -32,6 +32,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   var lastIdContextmenu = 0;
 
   /**
+   * Dispatch a custom action fired from the context menu
+   *
+   * @private
+   */
+  function dispatchCustomEvent_(leaf, item, value) {
+    item.addEventListener('click', function (e) {
+      e.target.dispatchEvent(new CustomEvent(value, {
+        detail: {
+          leaf: leaf
+        },
+        bubbles: true
+      }));
+    });
+  }
+
+  /**
    * Class MaterialTree3 that organizes a tree based on ul, li
    */
 
@@ -126,7 +142,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               if (match) {
                 var value = match[1];
                 if (['add', 'remove'].includes(value)) {} else {
-                  _this.dispatchCustomAction_(leaf, item, value);
+                  dispatchCustomEvent_(leaf, item, value);
                 }
               }
             });
@@ -136,27 +152,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         var primaryContent = leaf.querySelector('.mdl-list__item-primary-content');
         leaf.insertBefore(contextmenu, primaryContent);
         componentHandler.upgradeElement(menu);
-      }
-
-      /**
-       * Dispatch a custom action fired from the context menu
-       * This function MUST be refactored. It doesn't use __this__ and
-       * looks like an strange patch... maybe static?
-       *
-       * @private
-       */
-
-    }, {
-      key: 'dispatchCustomAction_',
-      value: function dispatchCustomAction_(leaf, item, value) {
-        item.addEventListener('click', function (e) {
-          e.target.dispatchEvent(new CustomEvent(value, {
-            detail: {
-              leaf: leaf
-            },
-            bubbles: true
-          }));
-        });
       }
 
       /**
