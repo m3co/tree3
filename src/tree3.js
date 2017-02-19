@@ -103,20 +103,21 @@
           contextmenu.querySelector('.mdl-menu')
                      .appendChild(document.importNode(template.content, true));
           // You're doing here a very strange assumption! why .mdl-menu__item?
-          var items = contextmenu.querySelectorAll('.mdl-menu__item');
-          for (var i = 0; i < items.length; i++) {
-            var item = items[i];
-            var match = item.classList
-                            .toString()
-                            .match(/mdl-tree3__contextmenu--([\d\w]+)/);
-            if (match) {
-              var value = match[1];
-              if (['add', 'remove'].includes(value)) {
-              } else {
-                this.dispatchCustomAction_(leaf, item, value);
+          Array.prototype
+            .slice
+            .call(contextmenu.querySelectorAll('.mdl-menu__item'))
+            .forEach(item => {
+              var match = item.classList
+                              .toString()
+                              .match(/mdl-tree3__contextmenu--([\d\w]+)/);
+              if (match) {
+                var value = match[1];
+                if (['add', 'remove'].includes(value)) {
+                } else {
+                  this.dispatchCustomAction_(leaf, item, value);
+                }
               }
-            }
-          }
+            });
         }
       }
 
@@ -465,14 +466,10 @@
      * @throws - Do not allow to modify directly this value
      */
     get leaf() {
-      var leafs = [];
-      for (var i = 0; i < this.element_.children.length; i++) {
-        var item = this.element_.children[i];
-        if (item.classList.contains(this.CssClasses_.LEAF)) {
-          leafs.push(item);
-        }
-      }
-      return leafs;
+      return Array.prototype
+        .slice
+        .call(this.element_.children).filter(item =>
+          item.classList.contains(this.CssClasses_.LEAF));
     }
     set leaf(_) { /*jshint unused:false*/
       throw new Error('Do not allow to modify directly this value');
