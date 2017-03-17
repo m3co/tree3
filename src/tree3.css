@@ -51,7 +51,7 @@
   border-bottom: none;
 }
 
-.mdl-tree3__leaf-text .mdl-textfield,.mdl-js-textfield {
+.mdl-tree3__leaf-text .mdl-textfield,.mdl-tree3__leaf-input.mdl-textfield {
   padding: 0;
   width: 100%;
 }
