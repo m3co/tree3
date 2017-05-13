@@ -397,6 +397,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       /**
        * Append a leaf to the tree
        *
+       * @param {HTMLElement} leaf - The leaf to upgrade with expand/collapse button
+       * @param {HTMLElement} bool - Expand the leaf
+       *
        * @returns {HTMLElement} - The appended element
        */
 
@@ -404,6 +407,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       key: 'appendLeaf',
       value: function appendLeaf() {
         var leaf = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.createLeaf();
+        var expandExpand = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
         this.element_.hidden = false;
         this.removeSplash_();
@@ -425,7 +429,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (this.parent_.leafs.length > 0) {
             leaf_ = this.element_.closest(this.CssSelectors_.LEAF);
             this.appendExpandCollapse_(leaf_, 'expanded');
-            leaf_[classAsString].expandLeaf();
+            if (expandExpand) {
+              leaf_[classAsString].expandLeaf();
+            }
           }
         }
 

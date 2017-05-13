@@ -382,9 +382,12 @@
     /**
      * Append a leaf to the tree
      *
+     * @param {HTMLElement} leaf - The leaf to upgrade with expand/collapse button
+     * @param {HTMLElement} bool - Expand the leaf
+     *
      * @returns {HTMLElement} - The appended element
      */
-    appendLeaf(leaf = this.createLeaf()) {
+    appendLeaf(leaf = this.createLeaf(), expandExpand = true) {
       this.element_.hidden = false;
       this.removeSplash_();
 
@@ -405,7 +408,9 @@
         if (this.parent_.leafs.length > 0) {
           leaf_ = this.element_.closest(this.CssSelectors_.LEAF);
           this.appendExpandCollapse_(leaf_, 'expanded');
-          leaf_[classAsString].expandLeaf();
+          if (expandExpand) {
+            leaf_[classAsString].expandLeaf();
+          }
         }
       }
 
