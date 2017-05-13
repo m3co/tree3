@@ -722,7 +722,7 @@ onload_test(function(e) {
   assert_false(leaf.querySelector(tree3.CssSelectors_.INPUT).hidden);
 
   // [teardown]
-  //tree.remove();
+  tree.remove();
 
   this.done();
 }, "The leaf has the property 'textContent'");
