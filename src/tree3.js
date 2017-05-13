@@ -348,11 +348,18 @@
         throw new Error('Incorrect Template');
       }
       var tree = document.createElement('ul');
+      var text = '';
       tree.classList.add(cssClass);
       var tree3 = new MaterialTree3(tree, this);
       leaf[classAsString] = tree3;
       leaf[classAsString].leaf_ = leaf; // this is for removeLeaf()
       leaf[classAsString].root_ = this.root_; // this is for removeLeaf()
+      Object.defineProperty(leaf[classAsString], 'text', {
+        get: () => text,
+        set: (value) => {
+          text = value;
+        }
+      });
       componentHandler.upgradeElement(leaf.appendChild(tree));
       return leaf;
     }
@@ -370,6 +377,16 @@
       setupInput_(leaf);
       this.setupContextmenu_(leaf);
 
+      var text = leaf.MaterialTree3.text;
+      if (text) {
+        var span = this.element_.querySelector(this.CssSelectors_.TEXT);
+        span.textContent = text;
+        var input = this.element_.querySelector(this.CssSelectors_.INPUT);
+        input.querySelector('input').value = text;
+
+        input.hidden = true;
+        span.hidden = false;
+      }
       var leaf_;
       if (this.parent_) {
         if (this.parent_.leafs.length > 0) {
