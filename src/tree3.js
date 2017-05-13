@@ -358,6 +358,18 @@
         get: () => text,
         set: (value) => {
           text = value;
+          var span = this.element_.querySelector(this.CssSelectors_.TEXT);
+          if (span) {
+            span.textContent = text;
+          }
+          var input = this.element_.querySelector(this.CssSelectors_.INPUT);
+          if (input) {
+            input.querySelector('input').value = text;
+            if (!text) {
+              span.hidden = true;
+              input.hidden = false;
+            }
+          }
         }
       });
       componentHandler.upgradeElement(leaf.appendChild(tree));

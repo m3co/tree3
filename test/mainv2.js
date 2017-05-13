@@ -702,8 +702,27 @@ onload_test(function(e) {
   assert_equals(leaf.querySelector(tree3.CssSelectors_.TEXT).textContent,
     leaf.MaterialTree3.text);
 
+  // [setup]
+  // Let's change the value of this property and check if textContent changes too
+  leaf.MaterialTree3.text = 'New text';
+
+  // [verify]
+  assert_equals(leaf.querySelector(tree3.CssSelectors_.TEXT).textContent,
+    leaf.MaterialTree3.text);
+
+  // [setup]
+  // Let's change the value of this property to an empty string
+  // and check if it switches back to the input
+  leaf.MaterialTree3.text = '';
+
+  // [verify]
+  assert_equals(leaf.querySelector(tree3.CssSelectors_.TEXT).textContent,
+    leaf.MaterialTree3.text);
+  assert_true(leaf.querySelector(tree3.CssSelectors_.TEXT).hidden);
+  assert_false(leaf.querySelector(tree3.CssSelectors_.INPUT).hidden);
+
   // [teardown]
-  tree.remove();
+  //tree.remove();
 
   this.done();
 }, "The leaf has the property 'textContent'");
