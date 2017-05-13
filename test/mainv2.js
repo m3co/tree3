@@ -683,6 +683,51 @@ onload_test(function(e) {
 }, "Show the splash screen");
 
 /**
+ * The leaf has the property "textContent"
+ */
+onload_test(function(e) {
+  // [setup]
+  var { tree, tree3 } = setupTest();
+  var leaf = tree3.createLeaf();
+
+  // [verify]
+  // The MaterialTree3 here in fact is MaterialLeaf3 but I will not split them
+  assert_true(leaf.MaterialTree3.hasOwnProperty('text'));
+
+  // [setup]
+  leaf.MaterialTree3.text = 'Something';
+  tree3.appendLeaf(leaf);
+
+  // [verify]
+  assert_equals(leaf.querySelector(tree3.CssSelectors_.TEXT).textContent,
+    leaf.MaterialTree3.text);
+
+  // [setup]
+  // Let's change the value of this property and check if textContent changes too
+  leaf.MaterialTree3.text = 'New text';
+
+  // [verify]
+  assert_equals(leaf.querySelector(tree3.CssSelectors_.TEXT).textContent,
+    leaf.MaterialTree3.text);
+
+  // [setup]
+  // Let's change the value of this property to an empty string
+  // and check if it switches back to the input
+  leaf.MaterialTree3.text = '';
+
+  // [verify]
+  assert_equals(leaf.querySelector(tree3.CssSelectors_.TEXT).textContent,
+    leaf.MaterialTree3.text);
+  assert_true(leaf.querySelector(tree3.CssSelectors_.TEXT).hidden);
+  assert_false(leaf.querySelector(tree3.CssSelectors_.INPUT).hidden);
+
+  // [teardown]
+  //tree.remove();
+
+  this.done();
+}, "The leaf has the property 'textContent'");
+
+/**
  * Click over the splash screen and see if a new leaf was added
  */
 onload_test(function(e) {

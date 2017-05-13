@@ -355,17 +355,40 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'createLeaf',
       value: function createLeaf() {
+        var _this3 = this;
+
         var clone = document.importNode(this.Templates_.LEAF, true);
         var leaf = clone.querySelector(this.CssSelectors_.LEAF);
         if (!leaf) {
           throw new Error('Incorrect Template');
         }
         var tree = document.createElement('ul');
+        var text = '';
         tree.classList.add(cssClass);
         var tree3 = new MaterialTree3(tree, this);
         leaf[classAsString] = tree3;
         leaf[classAsString].leaf_ = leaf; // this is for removeLeaf()
         leaf[classAsString].root_ = this.root_; // this is for removeLeaf()
+        Object.defineProperty(leaf[classAsString], 'text', {
+          get: function get() {
+            return text;
+          },
+          set: function set(value) {
+            text = value;
+            var span = _this3.element_.querySelector(_this3.CssSelectors_.TEXT);
+            if (span) {
+              span.textContent = text;
+            }
+            var input = _this3.element_.querySelector(_this3.CssSelectors_.INPUT);
+            if (input) {
+              input.querySelector('input').value = text;
+              if (!text) {
+                span.hidden = true;
+                input.hidden = false;
+              }
+            }
+          }
+        });
         componentHandler.upgradeElement(leaf.appendChild(tree));
         return leaf;
       }
@@ -388,6 +411,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         setupInput_(leaf);
         this.setupContextmenu_(leaf);
 
+        var text = leaf.MaterialTree3.text;
+        if (text) {
+          var span = this.element_.querySelector(this.CssSelectors_.TEXT);
+          span.textContent = text;
+          var input = this.element_.querySelector(this.CssSelectors_.INPUT);
+          input.querySelector('input').value = text;
+
+          input.hidden = true;
+          span.hidden = false;
+        }
         var leaf_;
         if (this.parent_) {
           if (this.parent_.leafs.length > 0) {
@@ -468,7 +501,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'appendSplash_',
       value: function appendSplash_() {
-        var _this3 = this;
+        var _this4 = this;
 
         if (this.root_.leafs.length == 0) {
           /* jshint ignore:line */
@@ -476,8 +509,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           var btn = splash.querySelector('button');
           btn.addEventListener('click', function () {
-            _this3.root_.removeSplash_();
-            _this3.root_.appendLeaf();
+            _this4.root_.removeSplash_();
+            _this4.root_.appendLeaf();
           });
           this.root_.element_.appendChild(splash);
         }
@@ -510,10 +543,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'leaf',
       get: function get() {
-        var _this4 = this;
+        var _this5 = this;
 
         return Array.prototype.slice.call(this.element_.children).filter(function (item) {
-          return item.classList.contains(_this4.CssClasses_.LEAF);
+          return item.classList.contains(_this5.CssClasses_.LEAF);
         });
       },
       set: function set(_) {
