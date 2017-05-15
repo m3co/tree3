@@ -68,3 +68,7 @@
 .mdl-tree3__contextmenu--item .mdl-button:hover {
   background-color: transparent;
 }
+
+.mdl-list__item__group {
+  display: flex;
+}

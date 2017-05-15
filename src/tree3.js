@@ -18,6 +18,7 @@
   const EXPAND_COLLAPSE = `${LEAF}-expand-collapse`;
   const EXPANDED = `${LEAF}--expanded`;
   const COLLAPSED = `${LEAF}--collapsed`;
+  const LISTGROUP = `mdl-list__item__group`;
 
   const classAsString = 'MaterialTree3';
   const cssClass = 'mdl-tree3';
@@ -218,7 +219,7 @@
       }
 
       var primaryContent = leaf.querySelector('.mdl-list__item-primary-content');
-      leaf.insertBefore(contextmenu, primaryContent);
+      leaf.querySelector(this.CssSelectors_.LISTGROUP).insertBefore(contextmenu, primaryContent);
       componentHandler.upgradeElement(menu);
     }
 
@@ -556,6 +557,7 @@
         EXPAND_COLLAPSE: `${LEAF}-expand-collapse`,
         EXPANDED: `${LEAF}--expanded`,
         COLLAPSED: `${LEAF}--collapsed`,
+        LISTGROUP: `${LISTGROUP}`
       };
     }
 
@@ -581,6 +583,7 @@
         EXPAND_COLLAPSE: `.${LEAF}-expand-collapse`,
         EXPANDED: `.${LEAF}--expanded`,
         COLLAPSED: `.${LEAF}--collapsed`,
+        LISTGROUP: `.${LISTGROUP}`
       };
     }
 
@@ -602,14 +605,16 @@
 </li>`)),
         LEAF: createHTML(clean(`
 <li class="mdl-list__item ${LEAF}">
-  <div class="mdl-list__item-primary-content">
-    &nbsp;
-    <span class="${TEXT}" hidden>
-    </span>
-    <div class="${INPUT} mdl-textfield mdl-js-textfield">
-      <input class="mdl-textfield__input" type="text" placeholder="Label...">
+  <div class="${LISTGROUP}">
+    <div class="mdl-list__item-primary-content">
+      &nbsp;
+      <span class="${TEXT}" hidden>
+      </span>
+      <div class="${INPUT} mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" placeholder="Label...">
+      </div>
+      &nbsp;
     </div>
-    &nbsp;
   </div>
 </li>`)),
         TREE: createHTML(clean(`
