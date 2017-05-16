@@ -25,7 +25,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   var EXPAND_COLLAPSE = LEAF + '-expand-collapse';
   var EXPANDED = LEAF + '--expanded';
   var COLLAPSED = LEAF + '--collapsed';
-  var LISTGROUP = 'mdl-list__item__group';
 
   var classAsString = 'MaterialTree3';
   var cssClass = 'mdl-tree3';
@@ -216,7 +215,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
 
         var primaryContent = leaf.querySelector('.mdl-list__item-primary-content');
-        leaf.querySelector(this.CssSelectors_.LISTGROUP).insertBefore(contextmenu, primaryContent);
+        leaf.insertBefore(contextmenu, primaryContent);
         componentHandler.upgradeElement(menu);
       }
 
@@ -602,8 +601,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           TEXT: LEAF + '-text',
           EXPAND_COLLAPSE: LEAF + '-expand-collapse',
           EXPANDED: LEAF + '--expanded',
-          COLLAPSED: LEAF + '--collapsed',
-          LISTGROUP: '' + LISTGROUP
+          COLLAPSED: LEAF + '--collapsed'
         };
       }
 
@@ -631,8 +629,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           TEXT: '.' + LEAF + '-text',
           EXPAND_COLLAPSE: '.' + LEAF + '-expand-collapse',
           EXPANDED: '.' + LEAF + '--expanded',
-          COLLAPSED: '.' + LEAF + '--collapsed',
-          LISTGROUP: '.' + LISTGROUP
+          COLLAPSED: '.' + LEAF + '--collapsed'
         };
       }
 
@@ -648,7 +645,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       get: function get() {
         return {
           SPLASH: createHTML(clean('\n<li class="mdl-list__item ' + SPLASH + '">\n  <div class="mdl-list__item-primary-content">\n    <button class="mdl-button mdl-js-button mdl-button--icon ' + SPLASH_BUTTON + '">\n      <i class="material-icons">add</i>\n    </button>\n  </div>\n</li>')),
-          LEAF: createHTML(clean('\n<li class="mdl-list__item ' + LEAF + '">\n  <div class="' + LISTGROUP + '">\n    <div class="mdl-list__item-primary-content">\n      &nbsp;\n      <span class="' + TEXT + '" hidden>\n      </span>\n      <div class="' + INPUT + ' mdl-textfield mdl-js-textfield">\n        <input class="mdl-textfield__input" type="text" placeholder="Label...">\n      </div>\n      &nbsp;\n    </div>\n  </div>\n</li>')),
+          LEAF: createHTML(clean('\n<li class="mdl-list__item ' + LEAF + '">\n  <div class="mdl-list__item-primary-content">\n    &nbsp;\n    <span class="' + TEXT + '" hidden>\n    </span>\n    <div class="' + INPUT + ' mdl-textfield mdl-js-textfield">\n      <input class="mdl-textfield__input" type="text" placeholder="Label...">\n    </div>\n    &nbsp;\n  </div>\n</li>')),
           TREE: createHTML(clean('\n<ul class="mdl-list ' + TREE + '"></ul>')),
           CONTEXTMENU: createHTML(clean('\n<button id="' + CONTEXTMENU + '-"\n  class="mdl-button mdl-js-button mdl-button--icon">\n  <i class="material-icons">more_vert</i>\n</button>\n<ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect ' + CONTEXTMENU + '"\n  for="' + CONTEXTMENU + '-">\n  <li class="mdl-menu__item\n             ' + CONTEXTMENU_ADD + '">\n    Add\n  </li>\n  <li class="mdl-menu__item\n             mdl-menu__item--full-bleed-divider\n             ' + CONTEXTMENU_REMOVE + '">\n    Remove\n  </li>\n</ul>')),
           EXPANDED_BTN: createHTML(clean('\n<button class="mdl-list__item-secondary-action\n               mdl-button mdl-js-button mdl-button--icon\n               ' + EXPAND_COLLAPSE + '\n               ' + EXPANDED + '">\n  <i class="material-icons">keyboard_arrow_down</i>\n</button>')),
