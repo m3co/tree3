@@ -68,3 +68,11 @@
 .mdl-tree3__contextmenu--item .mdl-button:hover {
   background-color: transparent;
 }
+
+.mdl-list__item-primary-content {
+    max-width: calc(100% - 64px);
+}
+  
+.mdl-tree3__leaf-text {
+    padding: 0 5px; 
+}
